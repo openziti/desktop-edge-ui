@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
 const electron = require('electron');
+const os = require('os');
 const dialog = require('electron').dialog;
 const moment = require('moment');
 const storage = require('electron-json-storage');
@@ -69,10 +70,26 @@ var Application = {
         mainWindow.webContents.on('did-finish-load', function() {
             setTimeout(() => {
                 mainWindow.show();
-              
+
+                var ipcpaths = {
+                    events: "ziti-edge-tunnel-event.sock",
+                    tunnel: "ziti-edge-tunnel.sock",
+                    monitorEvents: ".\\OpenZiti\\ziti-monitor\\events",
+                    monitor: ".\\OpenZiti\\ziti-monitor\\ipc"
+                };
+
+                if (os.platform() === "linux") {
+                    ipcpaths.events = "/tmp/"+ipcpaths.events;
+                    ipcpaths.tunnel = "/tmp/"+ipcpaths.tunnel;
+                    ipcpaths.monitorEvents = null;
+                    ipcpaths.monitor = null;
+                } else if (os.platform() === "darwin") {
+                    
+                }
+
                 ipc.connectTo(
                     'ziti',
-                    'ziti-edge-tunnel-event.sock',
+                    ipcpaths.events,
                     function() {
                         ipc.of.ziti.on(
                             'data',
@@ -85,7 +102,7 @@ var Application = {
               
                 ipc.connectTo(
                     'ZitiSend',
-                    'ziti-edge-tunnel.sock',
+                    ipcpaths.tunnel,
                     function() {
                         ipc.of.ZitiSend.on(
                             'data',
@@ -96,31 +113,35 @@ var Application = {
                     }
                 );
               
-                ipc.connectTo(
-                    'Monitor',
-                    '.\\OpenZiti\\ziti-monitor\\events',
-                    function() {
-                        ipc.of.Monitor.on(
-                            'data',
-                            function(data) {
-                                Application.onData(".\\OpenZiti\\ziti-monitor\\events", data);
-                            }
-                        )
-                    }
-                );
+                if (ipcpaths.monitorEvents) {
+                    ipc.connectTo(
+                        'Monitor',
+                        ipcpaths.monitorEvents,
+                        function() {
+                            ipc.of.Monitor.on(
+                                'data',
+                                function(data) {
+                                    Application.onData(".\\OpenZiti\\ziti-monitor\\events", data);
+                                }
+                            )
+                        }
+                    );
+                }
               
-                ipc.connectTo(
-                    'MonitorSend',
-                    '.\\OpenZiti\\ziti-monitor\\ipc',
-                    function() {
-                        ipc.of.MonitorSend.on(
-                            'data',
-                            function(data) {
-                                Application.onData(".\\OpenZiti\\ziti-monitor\\ipc", data);
-                            }
-                        )
-                    }
-                );
+                if (ipcpaths.monitor) {
+                    ipc.connectTo(
+                        'MonitorSend',
+                        ipcpaths.monitor,
+                        function() {
+                            ipc.of.MonitorSend.on(
+                                'data',
+                                function(data) {
+                                    Application.onData(".\\OpenZiti\\ziti-monitor\\ipc", data);
+                                }
+                            )
+                        }
+                    );
+                }
             }, 40);
         });  
     },
