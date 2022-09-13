@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' ; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, height=device-height, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="assets/styles/ziti.css">
+        <link rel="stylesheet" href="assets/styles/grids.css">
+        <link rel="stylesheet" href="assets/styles/growler.css">
+        <title id="AppTitle" data-i18n>Ziti Desktop Edge</title>
+        <script src="assets/scripts/log.js"></script>
+        <script src="assets/scripts/moment.js"></script>
+        <script src="assets/scripts/qrcode.min.js"></script>
+        <script src="assets/scripts/growler.js"></script>
+        <script src="assets/scripts/menu.js"></script>
+        <script src="assets/scripts/modal.js"></script>
+        <script src="assets/scripts/mfa.js"></script>
+        <script src="assets/scripts/ui.js"></script>
+        <script src="assets/scripts/settings.js"></script>
+        <script src="assets/scripts/service.js"></script>
+        <script src="assets/scripts/identity.js"></script>
+        <script src="app-renderer.js"></script>
+    </head>
+    <body>
+        <main class="missionBg">
+            <div id="ActionsArea">
+                <div id="CloseButton" class="screenActions close"></div>
+                <div id="MinButton" class="screenActions minimize"></div>
+                <div id="MaxButton" class="screenActions maximize"></div>
+            </div>
+
+            <div id="HeaderArea" class="container">
+                <div class="gridrow">
+                    <div class="col-sm-3">
+                        <div id="AddButton" data-action="add" data-i18n></div>
+                        <div id="BackButton" data-i18n></div>
+                    </div>
+                    <div id="SearchArea" class="col-sm-offset-5 col-sm-4">
+                        <input id="Search" placeholder="Search" class="search" />
+                        <div id="GlobalResults"></div>
+                        <div id="ClearSearch" class="clear"></div>
+                    </div>
+                </div>
+                <div class="dragger"></div>
+            </div>
+
+            <div id="MissionControl" class="area gridrow open">
+                <div class="col-sm-8">
+                    <div class="globetitle">Mission Control</div>
+                    <div id="Globe"></div>
+                    <div id="WelcomeBadge" class="staticmodal inline">
+                        <div class="icon close"></div>
+                        <div id="WelcomeTitle" class="title" data-i18n></div>
+                        <div class="hello"></div>
+                        <div id="GetStarted" class="subTitle" data-i18n></div>
+                        <div id="WelcomeAddId" class="button" data-action="add" data-i18n></div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="pod">
+                        <div class="header">
+                            <div class="title download">Download Activity</div>
+                        </div>
+                        <div id="DownloadSpeed" class="count">0</div>
+                        <div id="DownloadMeasure" class="note">mbps</div>
+                        <div id="DownloadGraph" class="graph"></div>
+                    </div>
+                    <div class="pod">
+                        <div class="header">
+                            <div class="title upload">Upload Activity</div>
+                        </div>
+                        <div id="UploadSpeed" class="count">0</div>
+                        <div id="UploadMeasure" class="note">mbps</div>
+                        <div id="UploadGraph" class="graph"></div>
+                    </div>
+                    <div class="pod">
+                        <div class="title">Identities</div>
+                        <div id="IdentityCount" class="count">0</div>
+                        <div class="button" data-screen="IdentityScreen">View All</div>
+                    </div>
+                    <div class="pod">
+                        <div class="title">Services</div>
+                        <div id="ServiceCount" class="count">0</div>
+                        <div class="button" data-screen="ServiceScreen">View All</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="IdentityScreen" class="area gridrow ids">
+                <div class="col-sm-4">
+                    <div class="sortLine">
+                        <div></div>
+                        <div class="sort">
+                            Sort by <span id="IdSort">Name</span>
+                            <span class="options">
+                                <div class="option" data-sort="Name" data-what="identity">Name</div>
+                                <div class="option" data-sort="Status" data-what="identity">Status</div>
+                                <div class="option" data-sort="Total Services" data-what="identity">Total Services</div>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="IdentityList"></div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="nameValues mb16">
+                        <div class="nameValue">
+                            <label>Name</label>
+                            <div id="IdName" class="value"></div>
+                        </div>
+                        <div class="nameValue">
+                            <label>Network</label>
+                            <div id="IdNetwork" class="value"></div>
+                        </div>
+                        <div class="nameValue">
+                            <label>Controller Version</label>
+                            <div id="IdControllerVersion" class="value"></div>
+                        </div>
+                    </div>
+                    <div class="filtering">
+                        <div>
+                            <input id="FilterId" class="filter" placeholder="Filter" />
+                        </div>
+                        <div class="right">
+                            <div class="sort sortHow">Descending</div>
+                            <div class="sort">Sort by Name</div>
+                        </div>
+                    </div>
+                    <div id="ServiceList"></div>
+                    <div class="controls">
+                        <div>
+                            <div id="MfaStatus" class="blurArea">
+                                <div class="icon connected"></div>
+                                <div class="label">Connected</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div id="MfaTimeout" class="blurArea reversed">
+                                <div class="icon timer"></div>
+                                <div class="label">-/-</div>
+                            </div>
+                        </div>
+                        <div>MFA</div>
+                        <div id="MfaToggle" class="toggle" data-call="mfa">
+                            <div class="handle"></div>
+                            <div class="onLabel">On</div>
+                            <div class="offLabel">Off</div>
+                        </div>
+                        <div class="right">
+                            <div id="ForgetButton" class="button red" data-i18n></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ServiceScreen" class="area gridrow">
+                <div class="col-sm-4">
+                    <div class="gridrow">
+                        <div class="input col-sm-8">
+                            <input id="FilterServices" class="filter" placeholder="Filter" />
+                        </div>
+                        <div class="sort col-sm-4">
+                            Sort by <span id="ServiceSort">Name</span>
+
+                            <span class="options">
+                                <div class="option" data-sort="Name" data-what="service">Name</div>
+                                <div class="option" data-sort="Address" data-what="service">Address</div>
+                                <div class="option" data-sort="Port" data-what="service">Port</div>
+                                <div class="option" data-sort="Protocol" data-what="service">Protocol</div>
+                                <div class="option" data-sort="Total Posture Checks" data-what="service">Posture Checks</div>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="FullServiceList"></div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="nameValues mb16">
+                        <div class="nameValue">
+                            <label>Name</label>
+                            <div id="ServiceName" class="value"></div>
+                        </div>
+                        <div class="nameValue">
+                            <label>Url</label>
+                            <div id="ServiceUrl" class="value"></div>
+                        </div>
+                    </div>
+                    <div class="gridrow">
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="header">
+                                    <div class="title download">Download Speed</div>
+                                </div>
+                                <div id="DownloadServiceSpeed" class="count">0</div>
+                                <div id="DownloadServiceMeasure" class="note">mbps</div>
+                                <div id="DownloadServiceGraph" class="graph"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="header">
+                                    <div class="title upload">Upload Speed</div>
+                                </div>
+                                <div id="UploadServiceSpeed" class="count">0</div>
+                                <div id="UploadServiceMeasure" class="note">mbps</div>
+                                <div id="UploadServiceGraph" class="graph"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="nameValue">
+                                    <label>Ports</label>
+                                    <div id="ServicePorts" class="value"></div>
+                                </div>
+                                <div class="nameValue mt20">
+                                    <label>Protocols</label>
+                                    <div id="ServiceProtocols" class="value"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="nameValue">
+                                    <label>Addresses</label>
+                                    <div id="ServiceAddresses" class="value"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="nameValue">
+                                    <label>Posture Checks</label>
+                                    <div id="PostureChecks" class="value"></div>
+                                </div>
+                                <div id="PassFail"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="pod">
+                                <div class="nameValue">
+                                    <label>Identity</label>
+                                    <div id="ServiceIdentity" class="value"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="AdvancedScreen" class="area gridrow">
+                <div class="col-sm-4">
+                    <div class="fullNav advancedNav selected" data-sub="ConfigInfo">
+                        <div class="icon train"></div>
+                        Tunnel Configuration
+                    </div>
+                    <div class="fullNav advancedNav" data-sub="ServiceLogs">
+                        <div class="icon serviceLog"></div>
+                        Service Logs
+                    </div>
+                    <div class="fullNav advancedNav" data-sub="AppLogs">
+                        <div class="icon appLog"></div>
+                        Application Logs
+                    </div>
+                    <div class="fullNav advancedNav" data-sub="LogLevel">
+                        <div class="icon level"></div>
+                        Set Logging Level
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div id="ConfigInfo" class="sub open">
+                        <div class="title">Tunnel Configuration</div>
+                        <div>Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.</div>
+                        <div class="iconNameValue">
+                            <div class="icon ip"></div>
+                            <div class="name">IPv4 Address</div>
+                            <div id="SettingIp" class="value">-</div>
+                        </div>
+                        <div class="iconNameValue">
+                            <div class="icon subnet"></div>
+                            <div class="name">Subnet Mask</div>
+                            <div id="SettingSubnet" class="value">-</div>
+                        </div>
+                        <div class="iconNameValue">
+                            <div class="icon mtu"></div>
+                            <div class="name">MTU</div>
+                            <div id="SettingMTU" class="value">-</div>
+                        </div>
+                        <div class="iconNameValue">
+                            <div class="icon dns"></div>
+                            <div class="name">DNS Servers</div>
+                            <div id="SettingDNS" class="value">-</div>
+                        </div>
+                        <div class="iconNameValue">
+                            <div class="icon api"></div>
+                            <div class="name">API Page Size</div>
+                            <div id="SettingAPI" class="value">-</div>
+                        </div>
+                        <div class="controls">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div class="right">
+                                <div id="EditButton" class="button edit">Edit Configuration</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ServiceLogs" class="sub">
+                        <div class="title">Service Logs</div>
+                        <div>Click to open the Service logs in your preferred log reader.</div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">View The<br/>Service Logs</div>
+                                    <div class="icon serviceLog"></div>
+                                </div>
+                                <div class="button">Open Logs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="AppLogs" class="sub">
+                        <div class="title">Application Logs</div>
+                        <div>Click to open the application logs in your preferred log reader.</div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">View The<br/>App Logs</div>
+                                    <div class="icon appLog"></div>
+                                </div>
+                                <div id="AppLogButton" class="button">Open Logs</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="LogLevel" class="sub">
+                        <div class="title">Set Logging Level</div>
+                        <div>Use the following selection to set the level at which the Ziti Tunnel should log events.</div>
+                        <div id="LevelError" class="levelSelect" data-level="error">
+                            <div class="icon error"></div>
+                            <div class="name">Error</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="LevelWarn" class="levelSelect" data-level="warn">
+                            <div class="icon warn"></div>
+                            <div class="name">Warn</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="LevelInfo" class="levelSelect" data-level="info">
+                            <div class="icon info"></div>
+                            <div class="name">Info</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="LevelDebug" class="levelSelect" data-level="debug">
+                            <div class="icon debug"></div>
+                            <div class="name">Debug</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="LevelVerbose" class="levelSelect" data-level="verbose">
+                            <div class="icon verbose"></div>
+                            <div class="name">Verbose</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="LevelTrace" class="levelSelect" data-level="trace">
+                            <div class="icon trace"></div>
+                            <div class="name">Trace</div>
+                            <div>
+                                <div class="radio">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="EditForm" class="form popover">
+                    <div class="title">Edit Tunnel Configuration</div>
+                    <div id="CloseForm" class="close">Close</div>
+                    <label for="EditIP">IP Address</label>
+                    <input id="EditIP" type="text" placeholder="0.0.0.0" />
+                    <label for="EditSubnet">Subnet Mask</label>
+                    <select id="EditSubnet">
+                        <option value="128.0.0.0" selected>/1 - 128.0.0.0</option>
+                        <option value="192.0.0.0">/2 - 192.0.0.0</option>
+                        <option value="224.0.0.0">/3 - 224.0.0.0</option>
+                        <option value="240.0.0.0">/4 - 240.0.0.0</option>
+                        <option value="248.0.0.0">/5 - 248.0.0.0</option>
+                        <option value="252.0.0.0">/6 - 252.0.0.0</option>
+                        <option value="254.0.0.0">/7 - 254.0.0.0</option>
+                        <option value="255.0.0.0">/8 - 255.0.0.0</option>
+                        <option value="255.128.0.0">/9 - 255.128.0.0</option>
+                        <option value="255.192.0.0">/10 - 255.192.0.0</option>
+                        <option value="255.224.0.0">/11 - 255.224.0.0</option>
+                        <option value="255.240.0.0">/12 - 255.240.0.0</option>
+                        <option value="255.248.0.0">/13 - 255.248.0.0</option>
+                        <option value="255.252.0.0">/14 - 255.252.0.0</option>
+                        <option value="255.254.0.0">/15 - 255.254.0.0</option>
+                        <option value="255.255.0.0">/16 - 255.255.0.0</option>
+                        <option value="255.255.128.0">/17 - 255.255.128.0</option>
+                        <option value="255.255.192.0">/18 - 255.255.192.0</option>
+                        <option value="255.255.224.0">/19 - 255.255.224.0</option>
+                        <option value="55.255.240.0">/20 - 255.255.240.0</option>
+                        <option value="255.255.248.0">/21 - 255.255.248.0</option>
+                        <option value="255.255.252.0">/22 - 255.255.252.0</option>
+                        <option value="255.255.254.0">/23 - 255.255.254.0</option>
+                        <option value="255.255.255.0">/24 - 255.255.255.0</option>
+                        <option value="255.255.255.128">/25 - 255.255.255.128</option>
+                        <option value="255.255.255.192">/26 - 255.255.255.192</option>
+                        <option value="255.255.255.224">/27 - 255.255.255.224</option>
+                        <option value="255.255.255.240">/28 - 255.255.255.240</option>
+                        <option value="255.255.255.248">/29 - 255.255.255.248</option>
+                        <option value="255.255.255.252">/30 - 255.255.255.252</option>
+                        <option value="255.255.255.254">/31 - 255.255.255.254</option>
+                        <option value="255.255.255.255">/32 - 255.255.255.255</option>
+                    </select>
+                    <label>API Page Size (50-500)</label>
+                    <input id="EditAPI" type="text" placeholder="50-500" />
+                    <div class="toggleArea">
+                        <label>Add DNS</label>
+                        <div id="EditDNS" class="toggle">
+                            <div class="handle"></div>
+                            <div class="onLabel">On</div>
+                            <div class="offLabel">Off</div>
+                        </div>
+                    </div>
+                    <div class="buttonArea">
+                        <div class="button">Save</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="SupportScreen" class="area gridrow">
+                <div class="col-sm-4">
+                    <div class="supportNav selected" data-sub="GetSupport">
+                        <div class="icon support"></div>
+                        Get Support
+                    </div>
+                    <div class="supportNav" data-sub="ReadDocs">
+                        <div class="icon docs"></div>
+                        Read the Docs
+                    </div>
+                    <div class="supportNav" data-sub="GiveFeedback">
+                        <div class="icon feedback"></div>
+                        Give Feedback
+                    </div>
+                    <div class="supportNav" data-sub="Terms">
+                        <div class="icon privacy"></div>
+                        Privacy &amp; Terms
+                    </div>
+                </div>
+                <div class="col-sm-8">
+            
+                    <div id="GetSupport" class="sub open">
+                        <div class="title">Join the Conversation</div>
+                        <div>If you’re stuck and need some help, join the community to connect with NetFoundry engineers and other
+                            developers. Find solutions, share ideas, and follow discussions.</div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Connect with<br />us on Discourse</div>
+                                    <div class="icon discourse"></div>
+                                </div>
+                                <div class="button" data-url="https://openziti.discourse.group">Ask Questions</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div id="ReadDocs" class="sub">
+                        <div class="title">Read the Docs</div>
+                        <div>The OpenZiti project is an open source initiative focused on bringing Zero Trust to any application.
+                            The project provides all the pieces required to implement or integrate Zero Trust into your solutions.
+                        </div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Read up on<br />openziti.org</div>
+                                    <div class="icon ziticon"></div>
+                                </div>
+                                <div class="button" data-url="https://openziti.org">Ask Questions</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div id="GiveFeedback" class="sub">
+                        <div class="title">Give Feedback</div>
+                        <div>Having issues? We'll gather the logs for you and attach them to your bug report so we can help.</div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Report an<br />Issue</div>
+                                    <div class="icon feedback"></div>
+                                </div>
+                                <div id="FeedbackButton" class="button">Contact Us</div>
+                            </div>
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Package<br />Debug Info</div>
+                                    <div class="icon package"></div>
+                                </div>
+                                <div id="GenerateButton" class="button actionPending">Generate</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div id="Terms" class="sub">
+                        <div class="title">Privacy Policy &amp; Terms of Service</div>
+                        <div>Creative validation advisor. Angel investor lean startup market beta. Interaction design crowdsource
+                            founders growth hacking focus first mover advantage twitter ecosystem.</div>
+                        <div class="grid boxes">
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Privacy<br />Policy</div>
+                                </div>
+                                <div class="button" data-url="https://netfoundry.io/privacy">Open</div>
+                            </div>
+                            <div class="pod">
+                                <div class="iconHeader">
+                                    <div class="title">Terms of<br />Service</div>
+                                </div>
+                                <div class="button" data-url="https://netfoundry.io/terms">Open</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+
+
+        </main>
+
+        <nav class="missionBg">
+            <div class="navItem selected" data-screen="MissionControl">
+                <div class="icon control"></div>
+                <div class="label">Mission Control</div>
+            </div>
+            <div class="title">Identities & Services</div>
+            <div class="navItem" data-screen="IdentityScreen">
+                <div class="icon identitiy"></div>
+                <div class="label">Identities</div>
+                <div id="NavIdentityCount" class="count">0</div>
+            </div>
+            <div class="navItem" data-screen="ServiceScreen">
+                <div class="icon service"></div>
+                <div class="label">Services</div>
+                <div id="NavServiceCount" class="count">0</div>
+            </div>
+            <div class="title">Others</div>
+            <div class="navItem" data-screen="AdvancedScreen">
+                <div class="icon advanced"></div>
+                <div class="label">Advanced Settings</div>
+            </div>
+            <div class="navItem" data-screen="SupportScreen">
+                <div class="icon support"></div>
+                <div class="label">Support</div>
+            </div>
+            <div class="nav-z"></div>
+        </nav>
+
+        <div id="OnOffButton">
+            <div class="ring"></div>
+            <div id="Timer">00:00:00</div>
+            <div class="power"></div>
+            <div id="Stop">Stop</div>
+        </div>
+
+        <!-- Repeater Templates -->
+        <div id="IdentityItem" class="identities template">
+            <div class="status {{status}}"></div>
+            <div class="name">{{Name}}</div>
+            <div class="count">{{count}}</div>
+            <div class="toggle {{toggled}}">
+                <div class="handle"></div>
+                <div class="onLabel">On</div>
+                <div class="offLabel">Off</div>
+            </div>
+        </div>
+
+        <div id="ServiceItem" class="services template">
+            <div class="icon"></div>
+            <div >{{Name}}</div>
+            <div >{{address}}</div>
+            <div class="right">{{ports}}</div>
+            <div class="right">{{protocols}}</div>
+        </div>
+
+        <div id="FullServiceItem" class="fullservices template">
+            <div class="icon"></div>
+            <div >{{address}} {{ports}}</div>
+            <div class="right"><span class="rounded {{postureStyle}}">{{postureStatus}}</span></div>
+            <div class="chart"></div>
+        </div>
+
+        <!-- Modals -->
+        <div id="MfaSetupModal" class="modal">
+            <div data-action="mfasetup" class="close"></div>
+            <div class="title">Setup MFA</div>
+            <div id="MfaSetupId" class="subTitle"></div>
+            <div id="MfaSecret" class="secret" style="display: none !important;"></div>
+            <div id="QrCode"></div>
+            <div class="links">
+                <span id="MfaLinkButton" class="link">Go to Link</span> or 
+                <span id="MfaSecretButton" class="link">Show Secret</span>
+                <span id="MfaQrButton" class="link" style="display: none !important;">Show QR Code</span>
+            </div>
+            <div>Enter Authorization Code</div>
+            <div class="row">
+                <div id="SetupAuthCode" class="code">
+                    <input id="MfaSetupCode" type="text" maxlength="8" placeholder="######" data-enter="AuthenticateButton"/>
+                </div>
+            </div>
+            <div id="AuthenticateButton" class="button">Authenticate</div>
+        </div>
+
+        <div id="MfaAuthModal" class="modal">
+            <div class="close"></div>
+            <div class="title">Reauthenticate</div>
+            <div>Enter Authorization Code</div>
+            <div class="row">
+                <div id="AuthCodeArea" class="code">
+                    <input id="AuthCode" type="text" maxlength="8" placeholder="######" data-enter="ReAuthenticateButton"/>
+                </div>
+            </div>
+            <div id="ReAuthenticateButton" class="button">Authenticate</div>
+        </div>
+
+        <div id="MfaRemoveModal" class="modal">
+            <div class="close" data-action="mfaremove"></div>
+            <div class="title">Remove MFA</div>
+            <div>Enter Authorization Code</div>
+            <div class="row">
+                <div id="RemoveCodeArea" class="code">
+                    <input id="RemoveCode" type="text" maxlength="8" placeholder="######" data-enter="RemoveMfaButton"/>
+                </div>
+            </div>
+            <div id="RemoveMfaButton" class="button">Remove</div>
+        </div>
+
+        <div id="MfaRecoveryAuthModal" class="modal">
+            <div class="close" data-action="mfaremove"></div>
+            <div class="title">Authenticate</div>
+            <div>Enter Authorization Code</div>
+            <div class="row">
+                <div id="RecoveryCodeArea" class="code">
+                    <input id="RecoveryCode" type="text" maxlength="8" placeholder="######" data-enter="RecoveryMfaButton"/>
+                </div>
+            </div>
+            <div id="RecoveryMfaButton" class="button">Authenticate</div>
+        </div>
+
+        <div id="MfaRecoveryModal" class="modal">
+            <div class="close"></div>
+            <div class="title">MFA Recovery Codes</div>
+            <div id="RecoveryCodeList"></div>
+            <div class="buttons">
+                <div class="left">
+                    <div id="RegenerateButton" class="button red">Regenerate</div>
+                </div>
+                <div id="SaveCodesButton" class="button">Save</div>
+            </div>
+        </div>
+
+        <div id="ConfirmModal" class="modal">
+            <div id="ConfirmTitle" class="title"></div>
+            <div id="ConfirmMessage"></div>
+            <div class="buttons">
+                <div class="left">
+                    <div id="NoButton" class="button secondary"></div>
+                </div>
+                <div id="YesButton" class="button"></div>
+            </div>
+        </div>
+
+        <!-- overlays -->
+        <span class="loader"></span>
+
+    </body>
+</html>

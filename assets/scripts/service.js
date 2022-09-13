@@ -1,0 +1,289 @@
+var ZitiService = {
+    data: [],
+    sort: "Name",
+    sortHow: "ASC",
+    init: function() {
+        this.data = [];
+    },
+    events: function() {
+
+    },
+    setSort: function(sort) {
+        this.sort = sort;
+        $("#ServiceSort").html(sort);
+        this.refresh();
+    },
+    setHow: function(how) {
+        this.sortHow = how;
+        this.refresh();
+    },
+    GetFirstHostName: function(addresses) {
+        var host = "";
+        var foundHost = false;
+        for (var i=0; i<addresses.length; i++) {
+            if (addresses[i].HostName!=null) {
+                host = addresses[i].HostName;
+                foundHost = true;
+                break;
+            }
+        }
+        if (!foundHost && addresses.length>0) {
+            host = addresses[0].IP;
+        }
+        return host;
+    },
+    set: function(id, services) {
+        for (var i=0; i<services.length; i++) {
+            if (!ZitiService.isDefined(id, services[i].Id)) {
+
+                services[i].FingerPrint = id;
+                services[i].TotalPostureChecks = ((services[i].PostureChecks)?services[i].PostureChecks.length:0);
+                services[i].Launch = "";
+                var ports = "";
+
+                var address = "";
+                if (services[i].Addresses.length>0) address = ZitiService.GetFirstHostName(services[i].Addresses);
+                services[i].Address = address;
+                
+                if (services[i].Ports.length>0) {
+                    for (var j=0; j<services[i].Ports.length; j++) {
+                        var port = services[i].Ports[j];
+                        ports += ((j>0)?", ":"");
+                        if (port.High==port.Low) {
+                            ports += port.High;
+                            if (port.High==80) services[i].Launch = "URL|http://"+address;
+                            if (port.High==443) services[i].Launch = "URL|https://"+address;
+                            if (port.High==3389) services[i].Launch = "RDP|"+address;
+                            if (port.High==445) services[i].Launch = "FILE|"+address;
+                        } else ports += port.Low+"-"+port.High;
+                    }
+                }
+                services[i].Port = ports;
+
+                var protocol = "";
+                if (services[i].Protocols.length>0) {
+                    for (var j=0; j<services[i].Protocols.length; j++) {
+                        protocol += ((j>0)?", ":"")+services[i].Protocols[j];
+                    }
+                }
+                services[i].Protocol = protocol;
+                ZitiService.data.push(services[i]);
+            }
+        }
+    },
+    search: function(filter) {
+        var results = [];
+        for (var i=0; i<ZitiService.data.length; i++) {
+            if (ZitiService.isMatch(ZitiService.data[i], filter)) results.push(ZitiService.data[i]);
+        }
+        return results;
+    },
+    isMatch: function(item, search) {
+        search = search.trim().toLowerCase();
+        if (search.length==0) return true;
+        var terms = search.split(' ');
+        for (var i=0; i<terms.length; i++) {
+            var term = terms[i];
+            if (item.Name.toLowerCase().indexOf(term)>=0) return true;
+            for (var j=0; j<item.Addresses.length; j++) {
+                if (item.Addresses[0].HostName) {
+                    if (item.Addresses[0].HostName.toLowerCase().indexOf(term)>=0) return true;
+                }
+            }
+            for (var j=0; j<item.Protocols.length; j++) {
+                if (item.Protocols[0].toLowerCase().indexOf(term)>=0) return true;
+            }
+            var termNum = Number(term);
+            if (!isNaN(Number(termNum))) {
+                for (var j=0; j<item.Ports.length; j++) {
+                    if (item.Ports[0].High==termNum || item.Ports[0].Low==termNum) return true;
+                }
+            }
+        }
+        return false;
+    },
+    refresh: function() {
+        $("#ServiceCount").html(ZitiService.data.length);
+        $("#NavServiceCount").html(ZitiService.data.length);
+
+        $("#ServiceList").html("");
+        $("#FullServiceList").html("");
+
+        if (this.sortHow=="ASC") {
+            ZitiService.data = ZitiService.data.sort((a, b) => {
+                var prop = ZitiIdentity.sort.split(' ').join('');
+                if (a[prop] < b[prop]) return -1;
+                if (a[prop] > b[prop]) return 1;
+                return 0;
+            });
+        } else {
+            ZitiService.data = ZitiService.data.sort((a, b) => {
+                var prop = ZitiIdentity.sort.split(' ').join('');
+                if (a[prop] > b[prop]) return -1;
+                if (a[prop] < b[prop]) return 1;
+                return 0;
+            });
+        }
+
+        var opened = $(".identities.selected").data("id");
+        for (var i=0; i<ZitiService.data.length; i++) {
+            var item = ZitiService.data[i];
+
+            var element = $("#ServiceItem").clone();
+            element.removeClass("template");
+            element.attr("id", "ServiceRow" + i);
+            element.data("id", item.Id);
+            var filter = $("#FilterId").val();
+            var filterList = $("#FilterServices").val();
+
+            if (item.FingerPrint==opened) {
+                if (ZitiService.isMatch(item, filter)) element.addClass("open");
+            }
+            
+            var fullElement = $("#FullServiceItem").clone();
+            fullElement.removeClass("template");
+            fullElement.attr("id", "FullServiceRow" + i);
+            fullElement.attr("data-id", item.Id);
+
+            if (ZitiService.isMatch(item, filterList)) {
+                fullElement.addClass("open");
+            }
+
+            var postureStatus = "pass";
+            var postureStyle = "green";
+
+            if (item.PostureChecks!=null && Array.isArray(item.PostureChecks) && item.PostureChecks.length>0) {
+                postureStatus = "pass";
+                postureStyle = "green";
+                for (var j=0; j<item.PostureChecks.length; j++) {
+                    var check = item.PostureChecks[j];
+                    if (!check.IsPassing) {
+                        postureStatus = "fail";
+                        postureStyle = "red";
+                        break;
+                    }
+                }
+            }
+
+            if (item.Launch.length>0) {
+                element.find(".icon").addClass("clickable");
+                element.find(".icon").attr("data-launch", item.Launch);
+            }
+            element.html(element.html().split("{{address}}").join(item.Address));
+            element.html(element.html().split("{{ports}}").join(item.Port));
+            element.html(element.html().split("{{protocols}}").join(item.Protocol));
+
+            fullElement.html(fullElement.html().split("{{address}}").join(item.Address));
+            fullElement.html(fullElement.html().split("{{ports}}").join(item.Port));
+            fullElement.html(fullElement.html().split("{{protocols}}").join(item.Protocol));
+            fullElement.html(fullElement.html().split("{{postureStatus}}").join(postureStatus));
+            fullElement.html(fullElement.html().split("{{postureStyle}}").join(postureStyle));
+            if (i==0) fullElement.addClass("selected");
+
+            for (var prop in item) {
+                element.html(element.html().split("{{"+prop+"}}").join(ZitiService.getValue(item[prop])));
+                fullElement.html(fullElement.html().split("{{"+prop+"}}").join(ZitiService.getValue(item[prop])));
+            }
+            $("#ServiceList").append(element);
+            $("#FullServiceList").append(fullElement);
+
+        }
+        $(".clickable").click((e) => {
+            var launcher = $(e.currentTarget).data("launch");
+            var items = launcher.split('|');
+            if (items.length==2) {
+                if (items[0]=="URL") app.openUrl(items[1]);
+                else if (items[0]=="FILE") app.openPath("\\\\"+items[1]+"\\");
+                else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
+            }
+        });
+        ZitiService.showDetails();
+        $(".fullservices").click((e) => {
+            $(".fullservices").removeClass("selected");
+            $(e.currentTarget).addClass("selected");
+            ZitiService.showDetails();
+        });
+    },
+    showDetails: function() {
+        if ($(".fullservices.selected").length>0) {
+            var id = $(".fullservices.selected").data("id");
+            var item = ZitiService.getById(id);
+            console.log(id, item);
+            var address = "";
+            if (item.Protocols && item.Protocols.length>0) {
+                var protocols = "";
+                for (var j=0; j<item.Protocols.length; j++) {
+                    address += ((j>0)?", ":"")+item.Protocols[j];
+                    protocols += ((j>0)?", ":"")+item.Protocols[j];
+                }
+                address += "://";
+                $("#ServiceProtocols").html(protocols);
+            }
+            if (item.Addresses && item.Addresses.length>0) {
+                var addreses = "";
+                for (var j=0; j<item.Addresses.length; j++) {
+                    address += item.Addresses[j].HostName;
+                    addreses += ((j>0)?'<br/>':'')+item.Addresses[j].HostName
+                }
+                address += ":";
+                $("#ServiceAddresses").html(addreses);
+            }
+            if (item.Ports && item.Ports.length>0) {
+                var ports = "";
+                for (var j=0; j<item.Ports.length; j++) {
+                    var port = item.Ports[j];
+                    ports += ((j>0)?", ":"");
+                    if (port.High==port.Low) ports += port.High;
+                    else ports += port.Low+"-"+port.High;
+                    address += ports;
+                }
+                $("#ServicePorts").html(ports);
+            }
+            $("#PostureChecks").html("");
+            if (item.PostureChecks!=null && Array.isArray(item.PosutureChecks) && item.PosutureChecks.length>0) {
+                postureStatus = "pass";
+                postureStyle = "green";
+                $("#PassFail").removeClass("fail");
+                $("#PassFail").html("pass");
+                for (var j=0; j<item.PostureChecks.length; j++) {
+                    var check = item.PostureChecks[j];
+                    if (j>0)  $("#PostureChecks").append('<br/>');
+                    if (!check.IsPassing) {
+                        $("#PostureChecks").append('<span class="strike">'+check.QueryType+'</span>');
+                        $("#PassFail").addClass("fail");
+                        $("#PassFail").html("fail");
+                        postureStatus = "fail";
+                        postureStyle = "red";
+                        break;
+                    } else {
+                        $("#PostureChecks").append(check.QueryType);
+                    }
+                }
+                $("#PassFail").show();
+            } else {
+                $("#PostureChecks").html("None");
+                $("#PassFail").hide();
+            }
+    
+            $("#ServiceName").html(item.Name);
+            $("#ServiceUrl").html(address);
+        }
+    },
+    getValue: function (item) {
+        if (item!=null) return item;
+        else return "";
+    },
+    getById: function(id) {
+        for (var i=0; i<ZitiService.data.length; i++) {
+            var item = ZitiService.data[i];
+            if (item.Id==id) return item;
+        }
+        return null;
+    },
+    isDefined: function(fingerprint, id) {
+        for (var i=0; i<this.data.length; i++) {
+            if (this.data[i].FingerPrint==fingerprint && this.data[i].Id==id) return true;
+        }
+        return false;
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "AppTitle": "Ziti Desktop Edge",
+
+    "AddButton": "Add An Identity",
+    "BackButton": "Back",
+    "WelcomeTitle": "Welcome to Ziti Desktop Edge",
+    "GetStarted": "Add an Identity to Get Started",
+    "WelcomeAddId": "Add an Identity",
+
+    "ForgetButton": "Forget This Identity",
+
+    "InvalidMFACode": "Invalid Code"
+}

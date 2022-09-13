@@ -1,0 +1,271 @@
+
+var ZitiIdentity = {
+    data: [],
+    sort: "Name",
+    mfaInterval: null,
+    init: function() {
+        ZitiIdentity.data = [];
+        ZitiIdentity.events();
+    },
+    setSort: function(sort) {
+        ZitiIdentity.sort = sort;
+        $("#IdSort").html(sort); 
+        ZitiIdentity.refresh();
+    },
+    events: function() {
+        $("#ForgetButton").click(ZitiIdentity.forget);
+    },
+    timer: function() {
+        // Check each service for timeouts
+        var identity = ZitiIdentity.selected();
+        if (identity.MfaLastUpdatedTime!=null && identity.Timeout>=0) {
+            var passed = moment.utc().diff(moment.utc(identity.MfaLastUpdatedTime),"seconds");
+            var available = 0;
+            for (var i=0; i<identity.Services.length; i++) {
+                var service = identity.Services[i];
+                if (service.TimeoutRemaining==-1) available++;
+                else {
+                    if (service.TimeoutRemaining>passed) available++;
+                }
+            }
+            $("#MfaStatus").find(".label").html(available+"/"+identity.TotalServices);
+            $("#MfaTimeout").addClass("open");
+        }
+    },
+    isInIdentity: function(id, vals) {
+        for (var i=0; i<vals.length; i++) {
+            if (id.Name.toLowerCase().indexOf(vals[i])>=0) return true;
+            else {
+                for (var j=0; j<id.Services.length; j++) {
+                    var service = id.Services[j];
+                    if (service.Address!=null && service.Address.toLowerCase().indexOf(vals[i])>=0) return true;
+                    else if (service.Port.toLowerCase().indexOf(vals[i])>=0) return true;
+                    else if (service.Protocol.toLowerCase().indexOf(vals[i])>=0) return true;
+                }
+            }
+        }
+    },
+    forget: function(e) {
+        var identity = ZitiIdentity.selected();
+        modal.confirm(ZitiIdentity.doForget, null, "If you delete the identity "+identity.name+" you will no longer have access to the resources that it grants you.", "Confirm Forget");
+    },
+    doForget: function() {
+        $(".loader").show();
+        let identity = ZitiIdentity.selected();
+        let command = {
+            Command: "RemoveIdentity",
+            Data: {
+                Identifier: identity.Identifier
+            }
+        };
+        app.sendMessage(command);
+    },
+    forgotten: function(id) {
+        var data = [];
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            console.log(id+" "+ZitiIdentity.data[i].Identifier);
+            if (ZitiIdentity.data[i].Identifier!=id) data.push(ZitiIdentity.data[i]);
+        }
+        ZitiIdentity.data = data;
+        ZitiIdentity.refresh();
+    },
+    search: function(filter) {
+        var results = [];
+        var searchItems = filter.split(' ');
+        for (var i=0; i<searchItems.length; i++) searchItems[i] = searchItems[i].toLowerCase();
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            if (ZitiIdentity.isInIdentity(ZitiIdentity.data[i], searchItems)) results.push(ZitiIdentity.data[i]);
+        }
+        return results;
+    },
+    refresh: function() {
+        var idSelected = ZitiIdentity.selected();
+        // Do any ui updates needed
+        $("#IdentityCount").html(ZitiIdentity.data.length);
+        $("#NavIdentityCount").html(ZitiIdentity.data.length);
+        $("#IdentityList").html("");
+
+        ZitiIdentity.data = ZitiIdentity.data.sort((a, b) => {
+            var prop = ZitiIdentity.sort.split(' ').join('');
+            if (a[prop] < b[prop]) return -1;
+            if (a[prop] > b[prop]) return 1;
+            return 0;
+        });
+
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            var item = ZitiIdentity.data[i];
+            ZitiService.set(item.FingerPrint, item.Services);
+
+            var element = $("#IdentityItem").clone();
+            element.removeClass("template");
+            element.attr("id", "IdentityRow" + i);
+            element.attr("data-id", item.FingerPrint);
+
+            if (idSelected!=null) {
+                if (idSelected.Identifier==item.Identifier) {
+                    element.addClass("selected");
+                }
+            } else {
+                if (i==0) {
+                    element.addClass("selected");
+                }
+            }
+
+            var status = "";
+            // Check if timing out and set to warn or if timed out and set to error
+
+            element.html(element.html().split("{{count}}").join(item.Services.length));
+            element.html(element.html().split("{{toggled}}").join(item.Active?"on":""));
+            element.html(element.html().split("{{status}}").join(status));
+
+            for (var prop in item) {
+                element.html(element.html().split("{{"+prop+"}}").join(ZitiIdentity.getValue(item[prop])));
+            }
+            $("#IdentityList").append(element);
+        }
+        ZitiService.refresh();
+        $(".identities").find(".toggle").off("click");
+        $(".identities").find(".toggle").on("click", (e) => {
+            if ($(e.currentTarget).hasClass("on")) $(e.currentTarget).removeClass("on");
+            else $(e.currentTarget).addClass("on");
+            e.stopPropagation();
+            // Toggle State
+        });
+        $(".identities").click((e) => {
+            $(".identities").removeClass("selected");
+            $(e.currentTarget).addClass("selected");
+            let identity = ZitiIdentity.selected();
+            ZitiIdentity.select(identity.FingerPrint);
+        });
+        let identity = ZitiIdentity.selected();
+        ZitiIdentity.select(identity.FingerPrint);
+    },
+    select: function(id) {
+        var elem = $(".identities[data-id='"+id+"']");
+        var item = ZitiIdentity.getById(id);
+        $(".identities").removeClass("selected");
+        elem.addClass("selected");
+        $("#IdName").html(item.Name);
+        $("#IdNetwork").html(item.Config.ztAPI);
+        $("#IdControllerVersion").html(item.Config.ControllerVersion);
+        $("#MfaStatus").removeClass("open");
+        $("#MfaStatus").find(".icon").removeClass("connected");
+        $("#MfaStatus").find(".icon").removeClass("authorize");
+        $("#MfaTimeout").removeClass("open");
+        $("#MfaToggle").removeClass("disabled");
+        if (item.MfaEnabled) {
+            $("#MfaToggle").addClass("on");
+            if (item.MfaNeeded) {
+                $("#MfaStatus").find(".icon").addClass("authorize");
+                $("#MfaStatus").find(".label").html("Authorize");
+                $("#MfaToggle").addClass("disabled");
+            } else {
+                $("#MfaStatus").find(".icon").addClass("connected");
+                $("#MfaStatus").find(".label").html("Connected");
+            }
+            $("#MfaStatus").addClass("open");
+            if (item.MfaLastUpdatedTime!=null && item.Timeout>=0) {
+                if (ZitiIdentity.mfaInterval != null) clearInterval(ZitiIdentity.mfaInterval);
+                ZitiIdentity.mfaInterval = setInterval(ZitiIdentity.timer, 1000);
+            }
+        } else $("#MfaToggle").removeClass("on");
+        ZitiService.refresh();
+    },
+    selected: function() {
+        return ZitiIdentity.getById($(".identities.selected").data("id"));
+    },
+    add: function(identity) {
+        var id = identity.FingerPrint;
+        var found = false;
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            var item = ZitiIdentity.data[i];
+            if (item.FingerPrint==id) {
+                ZitiIdentity.data[i] = identity;
+                found = true;
+                break;
+            }
+        }
+        if (!found) ZitiIdentity.data.push(identity);
+        ZitiIdentity.refresh();
+    },
+    update: function(identity) {
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            if (ZitiIdentity.data[i].Identifier == identity.Identifier) {
+                ZitiIdentity.data[i] = identity;
+                break;
+            }
+        }
+        ZitiIdentity.refresh();
+    },
+    set: function(identities) {
+        ZitiIdentity.data = identities;
+        ZitiIdentity.refresh();
+    },
+    getById: function(id) {
+        if (id!=null) {
+            for (var i=0; i<ZitiIdentity.data.length; i++) {
+                var item = ZitiIdentity.data[i];
+                if (item.FingerPrint==id) return item;
+            }
+        }
+        return null;
+    },
+    getByIdentifier: function(id) {
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            var item = ZitiIdentity.data[i];
+            if (item.Identifier==id) return item;
+        }
+        return null;
+    },
+    getValue: function (item) {
+        if (item!=null) return item;
+        else return "";
+    },
+    metrics: function(fingerprint, up, down) {
+        var upscale = "kbps";
+        var downscale = "kbps";
+        var upsize = 0;
+        var downsize = 0;
+        for (var i=0; i<this.data.length; i++) {
+            if (this.data[i].FingerPrint==fingerprint) {
+                this.data[i].Metrics.Up = up;
+                this.data[i].Metrics.Down = down;
+
+                upsize += up;
+                downsize += down;
+
+                break;
+            }
+        }
+
+        if (upsize>1024) {
+            upsize = upsize/1024;
+            upscale = "mbps";
+        }
+        if (upsize>1024) {
+            upsize = upsize/1024;
+            upscale = "gbps";
+        }
+        if (upsize>1024) {
+            upsize = upsize/1024;
+            upscale = "tbps";
+        }
+        $("#UploadSpeed").html(upsize.toFixed(1));
+        $("#UploadMeasure").html(upscale);
+        
+        if (downsize>1024) {
+            downsize = downsize/1024;
+            downscale = "mbps";
+        }
+        if (downsize>1024) {
+            downsize = downsize/1024;
+            downscale = "gbps";
+        }
+        if (downsize>1024) {
+            downsize = downsize/1024;
+            downscale = "tbps";
+        }
+        $("#DownloadSpeed").html(downsize.toFixed(1));
+        $("#DownloadMeasure").html(downscale);
+    }
+}
