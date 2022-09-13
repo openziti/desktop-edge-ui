@@ -20,8 +20,8 @@ var Application = {
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
         mainWindow = new BrowserWindow({
-            width: dimensions.width-1080,
-            height: dimensions.height-640,
+            width: dimensions.width-380,
+            height: dimensions.height-264,
             //minWidth: dimensions.width-1080,
             //minHeight: dimensions.height-640,
             title: "Ziti Desktop Edge",
