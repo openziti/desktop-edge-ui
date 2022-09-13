@@ -1,7 +1,6 @@
 To Run In Developer Mode
 1. Install Node JS
 2. Install Npm
-3. Install Electron
 
 From Project Root
 Run> npm Install
