@@ -22,8 +22,8 @@ var Application = {
         mainWindow = new BrowserWindow({
             width: dimensions.width-1080,
             height: dimensions.height-640,
-            minWidth: dimensions.width-1080,
-            minHeight: dimensions.height-640,
+            //minWidth: dimensions.width-1080,
+            //minHeight: dimensions.height-640,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: false,
