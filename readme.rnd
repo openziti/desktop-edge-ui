@@ -3,5 +3,5 @@ To Run In Developer Mode
 2. Install Npm
 
 From Project Root
-Run> npm Install
+Run> npm install
 Run> npm start
