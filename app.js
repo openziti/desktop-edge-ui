@@ -10,6 +10,7 @@ const fs = require('fs');
 const md5 = require('md5');
 const external = require("request");
 const ipc = require("node-ipc").default;
+const child_process = require('child_process');
 
 var mainWindow;
 var logging = true;
@@ -304,7 +305,13 @@ ipcMain.handle("message", (event, data) => {
     return "";
 });
 ipcMain.handle("monitor-message", (event, data) => {
-    Application.SendMonitorMessage(data);
+    if (os.platform() === "linux") {
+        console.log("systemctl status ziti-edge-tunnel");
+        var val = child_process.execSync("systemctl status ziti-edge-tunnel");
+        console.log(val);
+    } else {
+        Application.SendMonitorMessage(data);
+    }
     return "";
 });
 ipcMain.handle("log", (event, data) => {

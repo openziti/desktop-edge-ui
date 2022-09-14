@@ -4,14 +4,21 @@ const child = require("child_process");
 const fs = require('fs');
 const ipcRenderer = require('electron').ipcRenderer;
 const path = require("path");
+const { threadId } = require('worker_threads');
 const rootPath = require('electron-root-path').rootPath;
 window.$ = window.jQuery = require("./assets/scripts/jquery.js"); 
+var Highcharts = require('highcharts');  
+require('highcharts/modules/exporting')(Highcharts);  
 
 var app = {
     screenId: "MissionControl",
     filterId: null,
     actionId: null,
     keys: null,
+    upMetricsArray: [],
+    downMetricsArray: [],
+    downChart: null,
+    upChart: null,
     init: function() {
         app.language();
 
@@ -319,8 +326,113 @@ var app = {
         }
     },
     metrics: function(identities) {
+        var totalUp = 0;
+        var totalDown = 0;
         for (var i=0; i<identities.length; i++) {
+            totalUp += identities[i].Metrics.Up;
+            totalDown += identities[i].Metrics.Down;
             ZitiIdentity.metrics(identities[i].FingerPrint, identities[i].Metrics.Up, identities[i].Metrics.Down);
+        }
+        if (app.upMetricsArray.length>20) app.upMetricsArray.shift();
+        if (app.downMetricsArray.length>20) app.downMetricsArray.shift();
+        app.upMetricsArray.push(totalUp);
+        app.downMetricsArray.push(totalDown);
+        console.log(app.upMetricsArray);
+        console.log(app.downMetricsArray);
+
+        if (!app.downChart) {
+            app.downChart = Highcharts.chart('DownloadServiceGraph', {
+                chart: { type: 'spline' },
+                credits: { enabled: false },
+                title: { text: ' '},
+                subtitle: { text: ' ' },
+                legend:{ enabled:false },
+                yAxis: {
+                    labels: { enabled: false },
+                    title: { text: ' ' },
+                    lineWidth: 0,
+                    min: 0,
+                    tickInterval: 100,
+                    gridLineWidth: 0,
+                },
+                xAxis: {
+                    labels: { enabled: false },
+                    title: { text: ' ' },
+                    lineWidth: 0,
+                    min: 0,
+                    tickInterval: 100,
+                    gridLineWidth: 0,
+                },
+                tooltip: { enabled: false },
+                plotOptions: {
+                    series: {
+                          lineColor: '#00DC5A',
+                        states: {
+                            hover: {
+                                enabled: false
+                            }
+                        }
+                    }
+                },
+                series: [ {
+                    marker: {
+                      enabled: false
+                  },
+                    name: '',
+                  data: app.downMetricsArray
+                }]
+            });
+        } else {
+            app.downChart.series[0].update({
+                data: app.downMetricsArray
+            }, true);
+        }
+        if (!app.upChart) {
+            app.upChart = Highcharts.chart('UploadServiceGraph', {
+                chart: { type: 'spline' },
+                credits: { enabled: false },
+                title: { text: ' '},
+                subtitle: { text: ' ' },
+                legend:{ enabled:false },
+                yAxis: {
+                    labels: { enabled: false },
+                    title: { text: ' ' },
+                    lineWidth: 0,
+                    min: 0,
+                    tickInterval: 100,
+                    gridLineWidth: 0,
+                },
+                xAxis: {
+                    labels: { enabled: false },
+                    title: { text: ' ' },
+                    lineWidth: 0,
+                    min: 0,
+                    tickInterval: 100,
+                    gridLineWidth: 0,
+                },
+                tooltip: { enabled: false },
+                plotOptions: {
+                    series: {
+                        lineColor: '#FFC400',
+                        states: {
+                            hover: {
+                                enabled: false
+                            }
+                        }
+                    }
+                },
+                series: [ {
+                    marker: {
+                    enabled: false
+                },
+                    name: '',
+                data: app.downMetricsArray
+                }]
+            });
+        } else {
+            app.upChart.series[0].update({
+                data: app.upMetricsArray
+            }, true);
         }
     },
     action: function(e) {
