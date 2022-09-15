@@ -43,7 +43,7 @@ var Application = {
         mainWindow.on("system-context-menu", (event, _point) => {
             event.preventDefault();
         });
-        //mainWindow.webContents.openDevTools();
+        mainWindow.webContents.openDevTools();
         var appIcon = new Tray(iconPath);
         var contextMenu = Menu.buildFromTemplate([
             { 

@@ -59,7 +59,7 @@
                         <div id="WelcomeAddId" class="button" data-action="add" data-i18n></div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 verticalscroll">
                     <div class="pod">
                         <div class="header">
                             <div class="title download">Download Activity</div>
@@ -90,7 +90,7 @@
             </div>
 
             <div id="IdentityScreen" class="area gridrow ids">
-                <div class="col-sm-4">
+                <div class="col-sm-4 verticalscroll">
                     <div class="sortLine">
                         <div></div>
                         <div class="sort">
@@ -104,7 +104,7 @@
                     </div>
                     <div id="IdentityList"></div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 verticalscroll">
                     <div class="nameValues mb16">
                         <div class="nameValue">
                             <label>Name</label>
@@ -115,7 +115,7 @@
                             <div id="IdNetwork" class="value"></div>
                         </div>
                         <div class="nameValue">
-                            <label>Controller Version</label>
+                            <label>Controller</label>
                             <div id="IdControllerVersion" class="value"></div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
             </div>
 
             <div id="ServiceScreen" class="area gridrow">
-                <div class="col-sm-4">
+                <div class="col-sm-4 verticalscroll">
                     <div class="gridrow">
                         <div class="input col-sm-8">
                             <input id="FilterServices" class="filter" placeholder="Filter" />
@@ -175,7 +175,7 @@
                     </div>
                     <div id="FullServiceList"></div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 verticalscroll">
                     <div class="nameValues mb16">
                         <div class="nameValue">
                             <label>Name</label>
@@ -267,7 +267,7 @@
                         Set Logging Level
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 verticalscroll">
                     <div id="ConfigInfo" class="sub open">
                         <div class="title">Tunnel Configuration</div>
                         <div>Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.</div>
@@ -452,7 +452,7 @@
             </div>
 
             <div id="SupportScreen" class="area gridrow">
-                <div class="col-sm-4">
+                <div class="col-sm-4 verticalscroll">
                     <div class="supportNav selected" data-sub="GetSupport">
                         <div class="icon support"></div>
                         Get Support
@@ -470,7 +470,7 @@
                         Privacy &amp; Terms
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 verticalscroll">
             
                     <div id="GetSupport" class="sub open">
                         <div class="title">Join the Conversation</div>
@@ -576,14 +576,13 @@
                 <div class="label">Support</div>
             </div>
             <div class="nav-z"></div>
+            <div id="OnOffButton">
+                <div class="ring"></div>
+                <div id="Timer">00:00:00</div>
+                <div class="power"></div>
+                <div id="Stop">Stop</div>
+            </div>
         </nav>
-
-        <div id="OnOffButton">
-            <div class="ring"></div>
-            <div id="Timer">00:00:00</div>
-            <div class="power"></div>
-            <div id="Stop">Stop</div>
-        </div>
 
         <!-- Repeater Templates -->
         <div id="IdentityItem" class="identities template">

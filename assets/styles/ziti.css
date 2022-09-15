@@ -100,14 +100,14 @@ body {
 main {
     position: absolute;
     left: 68px;  
-    border-radius: 15px;
-    border-top-right-radius: 40px;
+    border-radius: 25px;
     bottom: 25px;
     right: 25px;
     top: 25px;
     box-shadow: var(--shadow);
     min-width: 1080px;
     min-height: 608px;
+    overflow: hidden;
 }
 
 body.max main {
@@ -132,16 +132,17 @@ nav {
     top: 67px;
     bottom: 67px;
     width: 300px;
-    border-radius: 15px;
+    border-radius: 25px;
     box-shadow: var(--shadow);
     padding: 12px;
     text-align: left;
     transition: 0.2s;
+    z-index: 5000;
 }
 
 nav:hover {
     transform: scale3d(1.01, 1.01, 1);
-    box-shadow: 0px 7px 35px 4px rgb(0 0 0 / 25%);
+    box-shadow: 0px 5px 22px 3px rgb(0 0 0 / 25%);
     transition: 0.2s;
 }
 
@@ -221,14 +222,30 @@ nav:hover {
 
 #OnOffButton {
     cursor: pointer;
-    width: 120px;
-    height: 120px;
+    width: 285px;
+    height: 85px;
     background: linear-gradient(180deg, rgba(90,53,151,1) 0%, var(--secondary) 100%);
-    border-radius: 60px;
+    border-radius: 20px;
     box-shadow: var(--shadow);
-    bottom: 10px;
     position: absolute;
-    left: calc(50% - 60px);
+    left: 20px;
+    bottom: 20px;
+    transition: .3s;
+}
+
+body.max #OnOffButton {
+    width: 225px;
+}
+
+#OnOffButton:hover {
+    filter: brightness(75%);
+    transition: .3s;
+}
+
+#OnOffButton:active {
+    filter: brightness(55%);
+    transform: translateY(2px);
+    transition: .3s;
 }
 
 #OnOffButton.IdentityScreen {
@@ -254,18 +271,18 @@ nav:hover {
 #OnOffButton .power {
     background-image: url(../images/power.svg);
     background-size: contain;
-    width: 53px;
-    height: 53px;
+    width: 45px;
+    height: 45px;
     margin: auto;
-    position: absolute;
-    top: 34px;
-    left: 34px;
+    position: relative;
+    top: 18px;
+    transition: .3s;
 }
 
 #OnOffButton .ring {
-    width: 108px;
-    height: 108px;
-    border-radius: 64px;
+    width: 272px;
+    height: 71px;
+    border-radius: 15px;
     border-width: 4px;
     border-style: solid;
     border-color: var(--missionHighlight);
@@ -277,6 +294,10 @@ nav:hover {
     transition: 1.8s;
 }
 
+body.max #OnOffButton .ring {
+    width: 213px;
+}
+
 #OnOffButton #Timer {
     opacity: 0.0;
     position: absolute;
@@ -286,18 +307,20 @@ nav:hover {
     color: #ffffff;
     text-shadow: var(--fontshadow);
     font-weight: 800;
+    text-align: center;
 }
 
 #OnOffButton #Stop {
     opacity: 0.0;
     width: 100%;
     position: absolute;
-    top: 45px;
+    top: 29px;
     transition: 0.3s;
     font-size: 20px;
     font-weight: 600;
     text-shadow: var(--fontshadow);
     color: #ffffff;
+    text-align: center;
 }
 
 #OnOffButton.on #Timer, #OnOffButton.on #Stop {
@@ -312,6 +335,12 @@ nav:hover {
 #OnOffButton.on .power {
     opacity: 0;
 }
+
+@media (max-width: 1200px) {
+    .container {
+      width: 1170px;
+    }
+  }
 
 .fullNav, .supportNav {
     position: relative;
@@ -570,6 +599,7 @@ nav:hover {
     grid-template-columns: 45px auto 30px;
     padding-left: 2px;
     transition: .3s;
+    z-index: 8000;
 }
 
 .navItem:hover .icon.control {
@@ -663,22 +693,31 @@ nav .title {
     background-color: rgba(0,0,0,0.30);
 }
 
-
 .nav-z {
     position: absolute;
     width: 100%;
     height: 350px;
-    bottom: 40px;
+    bottom: calc(50% - 175px);
     right: 0px;
     background-size: contain;
     background-position: center center;
     background-image: url(../images/z.svg);
 }
 
+.verticalscroll {
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 0px;
+}
+
 #MissionControl {
     width: 100%;
     padding-left: 310px;
     padding-top: 30px;
+}
+
+#MissionControl.area.open {
+    height: calc(100% - 60px);
 }
 
 #IdentityScreen {
@@ -688,10 +727,18 @@ nav .title {
     padding-top: 30px;
 }
 
+#IdentityScreen.area.open {
+    height: calc(100% - 60px);
+}
+
 #ServiceScreen {
     width: 100%;
     padding-left: 310px;
     padding-top: 30px;
+}
+
+#ServiceScreen.area.open {
+    height: calc(100% - 60px);
 }
 
 #AdvancedScreen {
@@ -701,11 +748,19 @@ nav .title {
     padding-top: 30px;
 }
 
+#AdvancedScreen.area.open {
+    height: calc(100% - 60px);
+}
+
 #SupportScreen {
     width: 100%;
     padding-left: 310px;
     padding-right: 30px;
-    padding-top: 30px;
+    padding-top: 90px;
+}
+
+#SupportScreen.area.open {
+    height: calc(100% - 60px);
 }
  
 #HeaderArea {
@@ -1124,6 +1179,7 @@ nav .title {
 .button.edit {
     color: var(--highlight);
     background-color: rgba(0,0,0,.25);
+    margin-top: 20px;
 }
 
 .pod .button {
@@ -1156,15 +1212,9 @@ nav .title {
     overflow: visible;
 }
 
-#IdentityList, #ServiceList {
-    width: 100%;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
 
 #ServiceList {
-    height: 54vh;
+    height: 50vh;
 }
 
 .controls {
@@ -1291,7 +1341,7 @@ input, select {
     width: 520px;
     height: 0px;
     position: absolute;
-    bottom: 95px;
+    bottom: 35px;
     right: 20px;
     text-align: left;
     transition: 0.5s ease-in;
@@ -1343,10 +1393,10 @@ input, select {
 .nameValues .nameValue {
     color: rgba(255, 255, 255, 1.0);
     display: grid;
-    line-height: 35px;
+    line-height: 16px;
     width: 100%;
     font-size: 16px;
-    grid-template-columns: 150px auto;
+    grid-template-columns: 95px auto;
 }
 
 .nameValues .nameValue div {    
@@ -1451,11 +1501,6 @@ input, select {
     background-size: contain;
     background-position: center center;
     background-image: url(../images/services.svg);
-}
-
-#FullServiceList {
-    height: 34%;
-    overflow-y: auto;
 }
 
 .options {
