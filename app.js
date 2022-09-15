@@ -11,6 +11,7 @@ const md5 = require('md5');
 const external = require("request");
 const ipc = require("node-ipc").default;
 const child_process = require('child_process');
+var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
@@ -307,8 +308,15 @@ ipcMain.handle("message", (event, data) => {
 ipcMain.handle("monitor-message", (event, data) => {
     if (os.platform() === "linux") {
         console.log("systemctl status ziti-edge-tunnel");
-        var val = child_process.execSync("systemctl status ziti-edge-tunnel");
-        console.log(val);
+        var options = {
+          name: 'OpenZiti'
+        };
+        sudo.exec('systemctl status ziti-edge-tunnel', options,
+          function(error, stdout, stderr) {
+            if (error) console.log('Error: ' + error);
+            console.log('stdout: ' + stdout);
+          }
+        );
     } else {
         Application.SendMonitorMessage(data);
     }
