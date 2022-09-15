@@ -307,20 +307,33 @@ ipcMain.handle("message", (event, data) => {
 });
 ipcMain.handle("monitor-message", (event, data) => {
     if (os.platform() === "linux") {
-        console.log("systemctl status ziti-edge-tunnel");
+        var command = "systemctl stop ziti-edge-tunnel";
+        if (data.Op=="Start") command = "systemctl start ziti-edge-tunnel";
+        console.log("Command: "+command);
         var options = {
           name: 'OpenZiti'
         };
-        sudo.exec('systemctl status ziti-edge-tunnel', options,
+        sudo.exec(command, options,
           function(error, stdout, stderr) {
-            if (error) console.log('Error: ' + error);
+            if (error) {
+                console.log(JSON.stringify(error));
+                if (error.toString().indexOf("User did not grant permission.")>=0) {
+                    var command = {
+                        Type: "Status",
+                        Operation: "OnOff",
+                        Active: !data.Op=="Start"
+                    }
+                    mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
+                }
+            }
             console.log('stdout: ' + stdout);
+            return "";
           }
         );
     } else {
         Application.SendMonitorMessage(data);
+        return "";
     }
-    return "";
 });
 ipcMain.handle("log", (event, data) => {
     Log.write(data.level, data.from, data.message);

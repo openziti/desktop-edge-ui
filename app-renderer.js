@@ -279,7 +279,9 @@ var app = {
                 }
             } else {
                 if (message.Type=="Status") {
-
+                    if (message.Operation=="OnOff") {
+                        ui.state(message);
+                    }
                 } else {
                     if (message.Success != null) {
                         if (!message.Success) growler.error(message.Error);    
