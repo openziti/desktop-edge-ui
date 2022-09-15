@@ -314,7 +314,7 @@ body.max #OnOffButton .ring {
     opacity: 0.0;
     width: 100%;
     position: absolute;
-    top: 29px;
+    top: 26px;
     transition: 0.3s;
     font-size: 20px;
     font-weight: 600;
@@ -358,6 +358,7 @@ body.max #OnOffButton .ring {
     text-align: left;
     padding-left: 75px;
     transition: .3s;
+    z-index: 8000;
 }
 
 .supportNav:hover {
@@ -1952,34 +1953,44 @@ input, select {
 }
 
 .loader {
-    display: none;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    display: inline-block;
-    border-top: 4px solid #FFF;
-    border-right: 4px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    position: absolute;    
-    bottom: 7px;
-    margin-left: -52px;
-}
-
-.loader::after {
-    content: '';  
-    box-sizing: border-box;
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    border-left: 4px solid var(--main);
-    border-bottom: 4px solid transparent;
-    animation: rotation 0.5s linear infinite reverse;
-}
-
+    display: flex;
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    background: #ffff;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+  }
+  
+  .loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #fb0094
+    );
+    background-size: 500%;
+    animation: animate 10s linear infinite;
+  }
+  
+  @keyframes animate {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 500% 0;
+    }
+  }
+  
 #FullServiceList {
     position: relative;
     clear: both;
