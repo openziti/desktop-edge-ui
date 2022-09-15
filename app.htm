@@ -588,7 +588,7 @@
         <!-- Repeater Templates -->
         <div id="IdentityItem" class="identities template">
             <div class="status {{status}}"></div>
-            <div class="name">{{Name}}</div>
+            <div class="name nooverflow">{{Name}}</div>
             <div class="count">{{count}}</div>
             <div class="toggle {{toggled}}">
                 <div class="handle"></div>
@@ -599,15 +599,15 @@
 
         <div id="ServiceItem" class="services template">
             <div class="icon"></div>
-            <div >{{Name}}</div>
-            <div >{{address}}</div>
+            <div class="nooverflow">{{Name}}</div>
+            <div class="nooverflow">{{address}}</div>
             <div class="right">{{ports}}</div>
             <div class="right">{{protocols}}</div>
         </div>
 
         <div id="FullServiceItem" class="fullservices template">
             <div class="icon"></div>
-            <div >{{address}} {{ports}}</div>
+            <div class="nooverflow">{{address}} {{ports}}</div>
             <div class="right"><span class="rounded {{postureStyle}}">{{postureStatus}}</span></div>
             <div class="chart"></div>
         </div>

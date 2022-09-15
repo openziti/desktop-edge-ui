@@ -250,8 +250,8 @@ var ZitiIdentity = {
             upsize = upsize/1024;
             upscale = "tbps";
         }
-        $("#UploadSpeed").html(upsize.toFixed(1));
-        $("#UploadMeasure").html(upscale);
+        //$("#UploadSpeed").html(upsize.toFixed(1));
+        //$("#UploadMeasure").html(upscale);
         
         if (downsize>1024) {
             downsize = downsize/1024;
@@ -265,7 +265,7 @@ var ZitiIdentity = {
             downsize = downsize/1024;
             downscale = "tbps";
         }
-        $("#DownloadSpeed").html(downsize.toFixed(1));
-        $("#DownloadMeasure").html(downscale);
+        //$("#DownloadSpeed").html(downsize.toFixed(1));
+        //$("#DownloadMeasure").html(downscale);
     }
 }

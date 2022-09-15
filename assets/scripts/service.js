@@ -222,8 +222,11 @@ var ZitiService = {
             if (item.Addresses && item.Addresses.length>0) {
                 var addreses = "";
                 for (var j=0; j<item.Addresses.length; j++) {
-                    address += item.Addresses[j].HostName;
-                    addreses += ((j>0)?'<br/>':'')+item.Addresses[j].HostName
+                    var val = "";
+                    if (item.Addresses[j].HostName) val = item.Addresses[j].HostName;
+                    else if (item.Addresses[j].IP) val = item.Addresses[j].IP;
+                    address += val;
+                    addreses += ((j>0)?'<br/>':'')+val
                 }
                 address += ":";
                 $("#ServiceAddresses").html(addreses);
@@ -239,6 +242,8 @@ var ZitiService = {
                 }
                 $("#ServicePorts").html(ports);
             }
+            var identity = ZitiIdentity.getById(item.FingerPrint);
+            $("#ServiceIdentity").html(identity.Name);
             $("#PostureChecks").html("");
             if (item.PostureChecks!=null && Array.isArray(item.PosutureChecks) && item.PosutureChecks.length>0) {
                 postureStatus = "pass";
