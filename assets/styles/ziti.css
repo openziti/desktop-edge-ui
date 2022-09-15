@@ -1336,6 +1336,10 @@ input, select {
     clear: both;
 }
 
+.nameValue {
+    color: rgba(255, 255, 255, 1.0);
+}
+
 .nameValues .nameValue {
     color: rgba(255, 255, 255, 1.0);
     display: grid;
