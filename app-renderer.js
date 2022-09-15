@@ -330,6 +330,8 @@ var app = {
     metrics: function(identities) {
         var totalUp = 0;
         var totalDown = 0;
+        var upscale = "kbps";
+        var downscale = "kbps";
         for (var i=0; i<identities.length; i++) {
             totalUp += identities[i].Metrics.Up;
             totalDown += identities[i].Metrics.Down;
@@ -342,9 +344,50 @@ var app = {
         console.log(app.upMetricsArray);
         console.log(app.downMetricsArray);
 
+        if (totalUp>1024) {
+            totalUp = totalUp/1024;
+            upscale = "mbps";
+        }
+        if (totalUp>1024) {
+            totalUp = totalUp/1024;
+            upscale = "gbps";
+        }
+        if (totalUp>1024) {
+            totalUp = totalUp/1024;
+            upscale = "tbps";
+        }
+        $("#UploadSpeed").html(totalUp.toFixed(1));
+        $("#UploadMeasure").html(upscale);
+        
+        if (totalDown>1024) {
+            totalDown = totalDown/1024;
+            downscale = "mbps";
+        }
+        if (totalDown>1024) {
+            totalDown = totalDown/1024;
+            downscale = "gbps";
+        }
+        if (totalDown>1024) {
+            totalDown = totalDown/1024;
+            downscale = "tbps";
+        }
+        $("#DownloadSpeed").html(totalDown.toFixed(1));
+        $("#DownloadMeasure").html(downscale);
+
         if (!app.downChart) {
-            app.downChart = Highcharts.chart('DownloadServiceGraph', {
-                chart: { type: 'spline' },
+            app.downChart = Highcharts.chart('DownloadGraph', {
+                chart: { 
+                    type: 'spline', 
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    borderWidth: 0,
+                    plotBackgroundColor: 'transparent',
+                    plotShadow: false,
+                    plotBorderWidth: 0,
+                    margin: 0,
+                    padding: 0,
+                    spacing: [0, 0, 0, 0] 
+                },
+                exporting: { enabled: false },
                 credits: { enabled: false },
                 title: { text: ' '},
                 subtitle: { text: ' ' },
@@ -356,6 +399,7 @@ var app = {
                     min: 0,
                     tickInterval: 100,
                     gridLineWidth: 0,
+                    visible: false
                 },
                 xAxis: {
                     labels: { enabled: false },
@@ -364,6 +408,7 @@ var app = {
                     min: 0,
                     tickInterval: 100,
                     gridLineWidth: 0,
+                    visible: false
                 },
                 tooltip: { enabled: false },
                 plotOptions: {
@@ -390,8 +435,19 @@ var app = {
             }, true);
         }
         if (!app.upChart) {
-            app.upChart = Highcharts.chart('UploadServiceGraph', {
-                chart: { type: 'spline' },
+            app.upChart = Highcharts.chart('UploadGraph', {
+                chart: { 
+                    type: 'spline', 
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    borderWidth: 0,
+                    plotBackgroundColor: 'transparent',
+                    plotShadow: false,
+                    plotBorderWidth: 0,
+                    margin: 0,
+                    padding: 0,
+                    spacing: [0, 0, 0, 0] 
+                },
+                exporting: { enabled: false },
                 credits: { enabled: false },
                 title: { text: ' '},
                 subtitle: { text: ' ' },
@@ -403,6 +459,7 @@ var app = {
                     min: 0,
                     tickInterval: 100,
                     gridLineWidth: 0,
+                    visible: false
                 },
                 xAxis: {
                     labels: { enabled: false },
@@ -411,6 +468,7 @@ var app = {
                     min: 0,
                     tickInterval: 100,
                     gridLineWidth: 0,
+                    visible: false
                 },
                 tooltip: { enabled: false },
                 plotOptions: {
@@ -436,6 +494,8 @@ var app = {
                 data: app.upMetricsArray
             }, true);
         }
+
+
     },
     action: function(e) {
         var id = $(e.currentTarget).data("action");
