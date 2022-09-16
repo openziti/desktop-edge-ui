@@ -131,25 +131,26 @@
                     </div>
                     <div id="ServiceList"></div>
                     <div class="controls">
-                        <div>
+                        <div class="col-sm-6 col-md-3">
                             <div id="MfaStatus" class="blurArea">
                                 <div class="icon connected"></div>
                                 <div class="label">Connected</div>
                             </div>
                         </div>
-                        <div>
+                        <div class="col-sm-6 col-md-3">
                             <div id="MfaTimeout" class="blurArea reversed">
                                 <div class="icon timer"></div>
                                 <div class="label">-/-</div>
                             </div>
                         </div>
-                        <div>MFA</div>
+                        <div class="col-sm-6 col-md-2"><div class="mfatext"><span>MFA</span></div>
                         <div id="MfaToggle" class="toggle" data-call="mfa">
                             <div class="handle"></div>
                             <div class="onLabel">On</div>
                             <div class="offLabel">Off</div>
                         </div>
-                        <div class="right">
+                        </div>
+                        <div class="col-sm-6 col-md-4">
                             <div id="ForgetButton" class="button red" data-i18n></div>
                         </div>
                     </div>
@@ -268,7 +269,7 @@
                         Set Logging Level
                     </div>
                 </div>
-                <div class="col-sm-8 verticalscroll">
+                <div class="col-sm-8">
                     <div id="ConfigInfo" class="sub open">
                         <div class="title">Tunnel Configuration</div>
                         <div>Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.</div>
