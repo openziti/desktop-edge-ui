@@ -1463,7 +1463,7 @@ input, select {
     text-align: left;
     cursor: pointer;
     transition: .3s;
-    font-weight: 300;    
+    font-weight: 400;    
     height: 63px;
     line-height: 63px;
     text-overflow: ellipsis;
