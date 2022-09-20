@@ -132,10 +132,6 @@ var mfa = {
     showAuthenticate: function() {
         let identity = ZitiIdentity.selected();
         if (identity.MfaNeeded) {
-            var notify = new Notification("MFA Launched", { body: "Test Launcging MFA", tag: identity.FingerPrint, icon: "/assets/images/z.svg" });
-            notify.onclick = function(e) {
-                ZitiIdentity.select(e.target.tag);
-            }
             $("#AuthCode").val("");
             modal.show("MfaAuthModal");
         } else {

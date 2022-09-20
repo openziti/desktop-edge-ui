@@ -260,7 +260,6 @@ var app = {
                         ZitiIdentity.update(id);
                     }
                 } else if (message.Op=="mfa") {
-                    console.log(message);
                     if (message.Action=="enrollment_challenge") {
 
                         // An enrollment request was made to the controller
@@ -341,8 +340,6 @@ var app = {
         if (app.downMetricsArray.length>20) app.downMetricsArray.shift();
         app.upMetricsArray.push(totalUp);
         app.downMetricsArray.push(totalDown);
-        console.log(app.upMetricsArray);
-        console.log(app.downMetricsArray);
 
         if (totalUp>1024) {
             totalUp = totalUp/1024;

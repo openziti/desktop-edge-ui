@@ -1,6 +1,8 @@
 
 var ZitiIdentity = {
     data: [],
+    notified: [],
+    timerNotified: [],
     sort: "Name",
     mfaInterval: null,
     init: function() {
@@ -16,9 +18,39 @@ var ZitiIdentity = {
         $("#ForgetButton").click(ZitiIdentity.forget);
     },
     timer: function() {
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            var id = ZitiIdentity.data[i];
+            if (id.MfaEnabled) {
+                var passed = moment.utc().diff(moment.utc(id.MfaLastUpdatedTime), "seconds");
+                if ((id.MfaMaxTimeoutRem-passed) <= 0) {
+                    if (!ZitiIdentity.notified.includes(id.FingerPrint)) {
+                        var message = "Some or all of the services for "+id.Name+" have timed out";
+                        var notify = new Notification("Timed Out", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+                        notify.onclick = function(e) {
+                            ZitiIdentity.select(e.target.tag);
+                            app.showScreen("IdentityScreen");
+                        }
+                        ZitiIdentity.notified.push(id.FingerPrint);
+                    }
+                } else {
+                    if ((id.MfaMinTimeoutRem-passed) <= 1200) {
+                        if (!ZitiIdentity.timerNotified.includes(id.FingerPrint)) {
+                            var message = "The services for "+id.Name+" will start to timeout "+moment().add(passed, 'seconds').fromNow();
+                            var notify = new Notification("Timeout Warning", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+                            notify.onclick = function(e) {
+                                ZitiIdentity.select(e.target.tag);
+                                app.showScreen("IdentityScreen");
+                            }
+                            ZitiIdentity.timerNotified.push(id.FingerPrint);
+                        }
+                    }
+                }
+            }
+        }
+        console.log("TEst")
         // Check each service for timeouts
         var identity = ZitiIdentity.selected();
-        if (identity.MfaLastUpdatedTime!=null && identity.Timeout>=0) {
+        if (identity.MfaLastUpdatedTime!=null && identity.MfaMinTimeoutRem>=0) {
             var passed = moment.utc().diff(moment.utc(identity.MfaLastUpdatedTime),"seconds");
             var available = 0;
             for (var i=0; i<identity.Services.length; i++) {
@@ -28,7 +60,7 @@ var ZitiIdentity = {
                     if (service.TimeoutRemaining>passed) available++;
                 }
             }
-            $("#MfaStatus").find(".label").html(available+"/"+identity.TotalServices);
+            $("#MfaTimeout").find(".label").html(available+"/"+identity.TotalServices);
             $("#MfaTimeout").addClass("open");
         }
     },
@@ -63,7 +95,6 @@ var ZitiIdentity = {
     forgotten: function(id) {
         var data = [];
         for (var i=0; i<ZitiIdentity.data.length; i++) {
-            console.log(id+" "+ZitiIdentity.data[i].Identifier);
             if (ZitiIdentity.data[i].Identifier!=id) data.push(ZitiIdentity.data[i]);
         }
         ZitiIdentity.data = data;
@@ -109,6 +140,11 @@ var ZitiIdentity = {
                 if (i==0) {
                     element.addClass("selected");
                 }
+            }
+
+            if (item.MfaMinTimeoutRem>=0) {
+                if (ZitiIdentity.mfaInterval != null) clearInterval(ZitiIdentity.mfaInterval);
+                ZitiIdentity.mfaInterval = setInterval(ZitiIdentity.timer, 1000);
             }
 
             var status = "";
@@ -164,9 +200,9 @@ var ZitiIdentity = {
                 $("#MfaStatus").find(".label").html("Connected");
             }
             $("#MfaStatus").addClass("open");
-            if (item.MfaLastUpdatedTime!=null && item.Timeout>=0) {
-                if (ZitiIdentity.mfaInterval != null) clearInterval(ZitiIdentity.mfaInterval);
-                ZitiIdentity.mfaInterval = setInterval(ZitiIdentity.timer, 1000);
+            // Calc Time since
+            if (item.MfaLastUpdatedTime!=null && item.MfaMinTimeoutRem>=0) {
+                $("#MfaTimeout").addClass("open");
             }
         } else $("#MfaToggle").removeClass("on");
         ZitiService.refresh();
