@@ -19,6 +19,7 @@ var iconPath = "./assets/images/ziti-white.png";
 
 var Application = {
     CreateWindow: function() {
+        app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
         mainWindow = new BrowserWindow({
@@ -263,7 +264,6 @@ var Log = {
                     var fullPath = path.dirname(fileName);
         
                     if (!fs.existsSync(fullPath)){
-                        console.log("Creating: "+fullPath);
                         fs.mkdirSync(fullPath, { recursive: true });
                     }
         
@@ -275,7 +275,6 @@ var Log = {
                         if (files.length>Log.daysToMaintain) {
                             var toDelete = Log.daysToMaintain-files.length;
                             for (let i=0; i<toDelete; i++) {
-                                console.log("Deleting: "+files[i]);
                                 fs.unlink(files[i]);
                             }
                         }
@@ -309,7 +308,6 @@ ipcMain.handle("monitor-message", (event, data) => {
     if (os.platform() === "linux") {
         var command = "systemctl stop ziti-edge-tunnel";
         if (data.Op=="Start") command = "systemctl start ziti-edge-tunnel";
-        console.log("Command: "+command);
         var options = {
           name: 'OpenZiti'
         };
