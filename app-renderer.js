@@ -58,6 +58,7 @@ var app = {
         $("#FilterServices").keyup(app.filterServices);
 		$("input").on("keyup", app.enter);
 		$("select").on("keyup", app.enter);
+        $("#SaveConfigButton").click(app.save);
         $(".sort").click((e) => {
             var options = $(e.currentTarget).find(".options");
             if (options) {
@@ -300,6 +301,11 @@ var app = {
                                     //mfa.recoveryCodes();
                                 }
                             }
+                        } else {
+                            if (app.actionId=="SaveConfig") {
+                                growler.success("Config Saved, please restart Ziti to update.");
+                                $("#EditForm").removeClass("open");
+                            }
                         }
                     } else {
 
@@ -511,6 +517,19 @@ var app = {
         app.actionId = name;
         $(".actionPending").addClass("disabled");
         $(".loader").show();
+    },
+    save: function(e) {
+        app.actionId = "SaveConfig";
+        var command = {
+            Command: "UpdateTunIpv4", 
+            Data: {
+                TunIPv4: $("#EditIP").val(),
+                TunPrefixLength: Number($("#EditSubnet").val()),
+                AddDns: $("#EditDNS").hasClass("on"),
+                ApiPageSize: Number($("#EditAPI").val())
+            }
+        };
+        app.sendMessage(command);
     }
 }
 

@@ -164,6 +164,17 @@ var ZitiIdentity = {
         $(".identities").find(".toggle").on("click", (e) => {
             if ($(e.currentTarget).hasClass("on")) $(e.currentTarget).removeClass("on");
             else $(e.currentTarget).addClass("on");
+
+            var isOn = $(e.currentTarget).hasClass("on");
+            var command = {
+                Command: "IdentityOnOff", 
+                Data: {
+                    Identifier: $(e.currentTarget).data("id"),
+                    OnOff: isOn
+                }
+            };
+            app.sendMessage(command);
+
             e.stopPropagation();
             // Toggle State
         });

@@ -19,8 +19,10 @@ var ZitiSettings = {
         
         $("*[data-level='"+obj.LogLevel+"']").addClass("selected");
 
+        console.log("INFO!!!");
+        console.log(obj.IpInfo);
         $("#EditIP").val(ZitiSettings.Ip);
-        $("#EditSubnet").val(ZitiSettings.Subnet);
+        $('#EditSubnet option:contains("'+ZitiSettings.Subnet+'")').attr('selected', true);
         $("#EditAPI").val(ZitiSettings.ApiPageSize);
         $("#EditDNS").removeClass("on");
         if (ZitiSettings.AddDns) $("#EditDNS").addClass("on");
