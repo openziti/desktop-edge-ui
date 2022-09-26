@@ -338,6 +338,52 @@ body.max #OnOffButton .ring {
     opacity: 0;
 }
 
+.updateavailable {
+    cursor: pointer;
+    width: 285px;
+    height: 55px;
+    background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
+    backdrop-filter: saturate(180%) blur(30px);
+    box-shadow: var(--shadow);
+    position: absolute;
+    color: #252525;
+    font-weight: 600;
+    border-radius: 12px;
+    line-height: 55px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 40px;
+    left: 20px;
+    bottom: 135px;
+    transition: .3s;
+}
+
+body.max .updateavailable {
+    width: 225px;
+    padding-right: 13px;
+}
+
+.updateavailable:hover {
+    filter: brightness(75%);
+    transition: .3s;
+}
+
+.updateavailable:active {
+    filter: brightness(55%);
+    transform: translateY(2px);
+    transition: .3s;
+}
+
+.updateavailable .downloadupdate {
+    background-image: url(../images/downloadupdate.svg);
+    background-size: contain;
+    height: 55px;
+    width: 40px;
+    margin-top: 8px;
+    margin-left: 6px;
+    float: right;
+}
+
 @media (max-width: 1200px) {
     .container {
       width: 1170px;
