@@ -219,7 +219,7 @@ nav:hover {
 }
 
 .missionBg.IdentityScreen .option:hover {
-    color: rgb(0,171,138);
+    color: #ffffff;
 }
 
 #OnOffButton {
@@ -805,7 +805,7 @@ nav .title {
     width: 100%;
     padding-left: 310px;
     padding-right: 30px;
-    padding-top: 90px;
+    padding-top: 30px;
 }
 
 #SupportScreen.area.open {
@@ -939,6 +939,7 @@ nav .title {
     width: 100%;
     transition: var(--transition);
     height: 22px;
+    color: #ffffff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1660,7 +1661,7 @@ input, select {
     text-align: left;
     cursor: pointer;
     transition: .3s;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .identities.selected {
