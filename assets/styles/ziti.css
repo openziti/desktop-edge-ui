@@ -219,7 +219,7 @@ nav:hover {
 }
 
 .missionBg.IdentityScreen .option:hover {
-    color: rgb(0,171,138);
+    color: #ffffff;
 }
 
 #OnOffButton {
@@ -336,6 +336,52 @@ body.max #OnOffButton .ring {
 
 #OnOffButton.on .power {
     opacity: 0;
+}
+
+.updateavailable {
+    cursor: pointer;
+    width: 285px;
+    height: 55px;
+    background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
+    backdrop-filter: saturate(180%) blur(30px);
+    box-shadow: var(--shadow);
+    position: absolute;
+    color: #252525;
+    font-weight: 600;
+    border-radius: 12px;
+    line-height: 55px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 40px;
+    left: 20px;
+    bottom: 135px;
+    transition: .3s;
+}
+
+body.max .updateavailable {
+    width: 225px;
+    padding-right: 13px;
+}
+
+.updateavailable:hover {
+    filter: brightness(75%);
+    transition: .3s;
+}
+
+.updateavailable:active {
+    filter: brightness(55%);
+    transform: translateY(2px);
+    transition: .3s;
+}
+
+.updateavailable .downloadupdate {
+    background-image: url(../images/downloadupdate.svg);
+    background-size: contain;
+    height: 55px;
+    width: 40px;
+    margin-top: 8px;
+    margin-left: 6px;
+    float: right;
 }
 
 @media (max-width: 1200px) {
@@ -759,7 +805,7 @@ nav .title {
     width: 100%;
     padding-left: 310px;
     padding-right: 30px;
-    padding-top: 90px;
+    padding-top: 30px;
 }
 
 #SupportScreen.area.open {
@@ -893,6 +939,7 @@ nav .title {
     width: 100%;
     transition: var(--transition);
     height: 22px;
+    color: #ffffff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1614,7 +1661,7 @@ input, select {
     text-align: left;
     cursor: pointer;
     transition: .3s;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .identities.selected {

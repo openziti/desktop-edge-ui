@@ -34,13 +34,14 @@
 }
 
 .growler {
-	background-color: #f6f7fb;    
+	background: rgba(248, 251, 255, 0.45);
+    backdrop-filter: saturate(180%) blur(30px);  
 	min-height: 105px;
 	min-width: 334px;
 	font-size: 16px;
-	color: #000;
+	color: #ffffff;
 	text-align: left;
-	border-radius: 6px;
+	border-radius: 20px;
     -webkit-box-shadow: 0px 12px 23px 0px rgba(0,0,0,.2);
     -moz-box-shadow: 0px 12px 23px 0px rgba(0,0,0,.1);
     box-shadow: 0px 12px 23px 0px rgba(0,0,0,.1);
@@ -90,13 +91,13 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: 700;
 	color: #FFF;
 	line-height: 30px;
 	text-transform: uppercase;
 	background-color: #03db5c;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
     font-weight: 600;
     font-family: 'Open Sans';
     filter: brightness(100%);
