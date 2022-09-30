@@ -12,11 +12,11 @@ var sudo = require('sudo-prompt');
 var mainWindow;
 var logging = true;
 var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
+app.disableHardwareAcceleration();
 
 var Application = {
     CreateWindow: function() {
         app.setAppUserModelId("Ziti Desktop Edge");
-        app.disableHardwareAcceleration();
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
         mainWindow = new BrowserWindow({
