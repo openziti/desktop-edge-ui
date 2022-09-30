@@ -34,7 +34,8 @@ var app = {
         $(".loader").hide();
     },
     language: function() {
-        app.keys = JSON.parse(fs.readFileSync("assets/languages/en-us.json"));
+        var languageFile = path.join(__dirname, 'assets/languages/en-us.json');
+        app.keys = JSON.parse(fs.readFileSync(languageFile));
         $("[data-i18n]").each((i, e) => {
             var id = $(e).attr("id");
             $("#"+id).html(app.keys[id]);

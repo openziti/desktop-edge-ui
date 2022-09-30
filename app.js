@@ -4,22 +4,19 @@ const electron = require('electron');
 const os = require('os');
 const dialog = require('electron').dialog;
 const moment = require('moment');
-const storage = require('electron-json-storage');
 const path = require('path');
 const fs = require('fs');
-const md5 = require('md5');
-const external = require("request");
 const ipc = require("node-ipc").default;
-const child_process = require('child_process');
 var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var iconPath = "./assets/images/ziti-white.png";
+var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
 
 var Application = {
     CreateWindow: function() {
         app.setAppUserModelId("Ziti Desktop Edge");
+        app.disableHardwareAcceleration();
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
         mainWindow = new BrowserWindow({
@@ -29,22 +26,25 @@ var Application = {
             //minHeight: dimensions.height-640,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
-            show: false,
+            show: true,
             resizable: true,
             transparent: true,
             frame: false,
             webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
+              devTools: !app.isPackaged
             }
         });
-        //mainWindow.setMenu(null);
-        //mainWindow.maximize();
-        mainWindow.loadFile('app.htm');
+        mainWindow.setMenu(null);
+        
+        mainWindow.loadFile(path.join(__dirname, 'app.htm'));
+        
         mainWindow.on("system-context-menu", (event, _point) => {
             event.preventDefault();
         });
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
+
         var appIcon = new Tray(iconPath);
         var contextMenu = Menu.buildFromTemplate([
             { 
@@ -60,6 +60,7 @@ var Application = {
             }
         ]); 
         appIcon.setContextMenu(contextMenu);
+        
         //mainWindow.on('closed', function () {
           //mainWindow = null
           //})

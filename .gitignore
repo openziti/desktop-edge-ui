@@ -281,3 +281,6 @@ ziti-edge-tunnel/*.dll
 ziti-edge-tunnel/*.exe
 ziti-edge-tunnel/*.zip
 OPENZITI_P12.b64
+Jeremy-win32-x64/
+release/
+out/

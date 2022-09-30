@@ -1,11 +1,13 @@
 {
-  "name": "io.netfoundry.desktopedge",
-  "version": "1.0.0",
+  "name": "ZitiDesktopEdge",
+  "version": "3.0.0",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make --out=release"  
   },
   "keywords": [
     "Ziti",
@@ -17,19 +19,55 @@
   "author": "Jeremy Tellier",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^20.1.4"
+    "@electron-forge/cli": "^6.0.0-beta.66",
+    "@electron-forge/maker-deb": "^6.0.0-beta.66",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.66",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.66",
+    "@electron-forge/maker-zip": "^6.0.0-beta.66",
+    "electron": "^21.0.1",
+    "electron-packager": "^16.0.0"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
-    "electron-json-storage": "^4.5.0",
     "electron-root-path": "^1.0.16",
+    "electron-squirrel-startup": "^1.0.0",
     "fs": "0.0.1-security",
     "highcharts": "^10.2.1",
-    "md5": "^2.3.0",
     "moment": "^2.29.4",
     "node-ipc": "^10.1.0",
     "path": "^0.12.7",
-    "request": "^2.88.2",
     "sudo-prompt": "^9.2.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./icon.ico"
+      },
+      "electronPackagerConfig": {
+        "icon": "./icon.ico"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "zitidesktopedge",
+            "icon": "./icon.ico"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
