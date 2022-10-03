@@ -12,7 +12,6 @@ var sudo = require('sudo-prompt');
 var mainWindow;
 var logging = true;
 var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
-app.disableHardwareAcceleration();
 
 var Application = {
     CreateWindow: function() {
