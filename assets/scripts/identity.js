@@ -47,7 +47,7 @@ var ZitiIdentity = {
                 }
             }
         }
-        console.log("TEst")
+        
         // Check each service for timeouts
         var identity = ZitiIdentity.selected();
         if (identity.MfaLastUpdatedTime!=null && identity.MfaMinTimeoutRem>=0) {

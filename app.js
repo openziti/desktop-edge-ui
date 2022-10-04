@@ -19,10 +19,10 @@ var Application = {
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
         mainWindow = new BrowserWindow({
+            minWidth: 1200,
+            minHeight: 640,
             width: dimensions.width-380,
             height: dimensions.height-264,
-            //minWidth: dimensions.width-1080,
-            //minHeight: dimensions.height-640,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: true,
@@ -32,7 +32,7 @@ var Application = {
             webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
-              devTools: !app.isPackaged
+              //devTools: !app.isPackaged
             }
         });
         mainWindow.setMenu(null);
@@ -42,7 +42,7 @@ var Application = {
         mainWindow.on("system-context-menu", (event, _point) => {
             event.preventDefault();
         });
-        // mainWindow.webContents.openDevTools();
+        mainWindow.webContents.openDevTools();
 
         var appIcon = new Tray(iconPath);
         var contextMenu = Menu.buildFromTemplate([
