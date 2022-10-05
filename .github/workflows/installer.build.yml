@@ -16,7 +16,7 @@ jobs:
     name: Build the Ziti Desktop Edge for Windows Installer Package
     runs-on: windows-latest
     steps: 
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
@@ -27,7 +27,7 @@ jobs:
   linux-build: 
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
