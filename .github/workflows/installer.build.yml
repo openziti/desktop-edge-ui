@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
-      - run: npm audit fix --force
+      - run: npm audit fix
       - run: npm run make
       - name: Upload Window installer
         uses: actions/upload-artifact@v2
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
-      - run: npm audit fix --force
+      - run: npm audit fix
       - run: npm run make
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
