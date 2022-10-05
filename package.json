@@ -41,26 +41,25 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "icon.ico"
+        "icon": "./icon.ico"
       },
       "electronPackagerConfig": {
-        "icon": "icon.ico"
+        "icon": "./icon.ico"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "zitidesktopedge",
-            "icon": "icon.ico",                    
-            "iconUrl": "icon.ico",
-            "setupIcon": "icon.ico",
+            "icon": "./icon.ico",        
+            "setupIcon": "./icon.ico",
             "skipUpdateIcon": true
           }
         },
         {
           "name": "@electron-forge/maker-zip",
           "config": {
-            "icon": "icon.icns"
+            "icon": "./icon.icns"
           },
           "platforms": [
             "darwin"
@@ -69,13 +68,13 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "icon": "icon.icns"
+            "icon": "./icon.icns"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "icon": "icon.icns"
+            "icon": "./icon.icns"
           }
         }
       ]
