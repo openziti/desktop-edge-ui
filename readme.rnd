@@ -1,6 +1,5 @@
 To Run In Developer Mode
 1. Install Node JS
-2. Install Npm
 
 From Project Root
 Run> npm install
