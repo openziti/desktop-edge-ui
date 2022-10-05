@@ -52,8 +52,8 @@
           "config": {
             "name": "zitidesktopedge",
             "icon": "./icon.ico",                    
-            "iconUrl": "/icon.ico",
-            "setupIcon": "/icon.ico",
+            "iconUrl": "./icon.ico",
+            "setupIcon": "./icon.ico",
             "skipUpdateIcon": true
           }
         },
