@@ -24,6 +24,11 @@ jobs:
           run: |
             npm install
             npm make
+      - name: Upload Window installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: ZitiDesktopEdge-Win-${{ env.VERSION }}
+          path: "out/make/squirrel.windows/x64/ZitiDesktopEdge-*.exe"
   linux-build: 
     runs-on: ubuntu-latest
     steps: 
@@ -35,3 +40,13 @@ jobs:
           run: |
             npm install
             npm make
+      - name: Upload Linux Deb installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: ZitiDesktopEdge-Deb-${{ env.VERSION }}
+          path: "out/make/deb/x64/ZitiDesktopEdge-*.deb"
+      - name: Upload Linux Rpm installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: ZitiDesktopEdge-Rpm-${{ env.VERSION }}
+          path: "out/make/rpm/x64/ZitiDesktopEdge-*.rpm"

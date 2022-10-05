@@ -32,7 +32,7 @@ var Application = {
             webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
-              //devTools: !app.isPackaged
+              devTools: !app.isPackaged
             }
         });
         mainWindow.setMenu(null);
@@ -42,7 +42,7 @@ var Application = {
         mainWindow.on("system-context-menu", (event, _point) => {
             event.preventDefault();
         });
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
 
         var appIcon = new Tray(iconPath);
         var contextMenu = Menu.buildFromTemplate([
