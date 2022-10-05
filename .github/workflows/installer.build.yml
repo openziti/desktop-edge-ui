@@ -1,0 +1,25 @@
+name: Build Installer
+
+on:
+  push:
+    branches: 
+      - main
+      - 'release-*'
+      - 'beta-release-*'
+
+env:
+  BUILD_CONFIG: "Release"
+  BUILDNUMBER: ${{github.run_number}}
+
+jobs:
+  windows-build:
+    name: Build the Ziti Desktop Edge for Windows Installer Package
+    runs-on: windows-latest
+    steps: 
+      - run: npm install
+      - run: npm make
+  linux-build: 
+    runs-on: ubuntu-latest
+    steps: 
+      - run: npm install
+      - run: npm make
