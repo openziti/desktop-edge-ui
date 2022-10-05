@@ -21,9 +21,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-          run: |
-            npm install
-            npm run make
+      - run: npm install
+      - run: npm run make
       - name: Upload Window installer
         uses: actions/upload-artifact@v2
         with:
@@ -37,9 +36,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-          run: |
-            npm install 
-            npm run make
+      - run: npm install
+      - run: npm run make
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
         with:
