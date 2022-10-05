@@ -16,10 +16,22 @@ jobs:
     name: Build the Ziti Desktop Edge for Windows Installer Package
     runs-on: windows-latest
     steps: 
-      - run: npm install
-      - run: npm make
+      - uses: actions/checkout@master
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.15.0'
+          run: |
+            npm install
+            npm make
   linux-build: 
     runs-on: ubuntu-latest
     steps: 
-      - run: npm install
-      - run: npm make
+      - uses: actions/checkout@master
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.15.0'
+          run: |
+            npm install
+            npm make
