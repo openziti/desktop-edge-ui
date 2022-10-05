@@ -23,7 +23,7 @@ jobs:
           node-version: '16.15.0'
           run: |
             npm install
-            npm make
+            npm run make
       - name: Upload Window installer
         uses: actions/upload-artifact@v2
         with:
@@ -38,8 +38,8 @@ jobs:
         with:
           node-version: '16.15.0'
           run: |
-            npm install
-            npm make
+            npm install 
+            npm run make
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
         with:
