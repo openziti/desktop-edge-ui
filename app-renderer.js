@@ -294,6 +294,7 @@ var app = {
                         ZitiService.data = [];
                         $("#NavServiceCount").html("0");
                         $("#NavIdentityCount").html("0");
+                        ZitiIdentity.refresh();
                     } else {
                         if (message.Operation=="OnOff") {
                             ui.state(message);

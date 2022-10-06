@@ -20,7 +20,7 @@ var ZitiIdentity = {
     timer: function() {
         for (var i=0; i<ZitiIdentity.data.length; i++) {
             var id = ZitiIdentity.data[i];
-            if (id.MfaEnabled) {
+            if (id.MfaEnabled&&id.Status=="Active") {
                 var passed = moment.utc().diff(moment.utc(id.MfaLastUpdatedTime), "seconds");
                 if ((id.MfaMaxTimeoutRem-passed) <= 0) {
                     if (!ZitiIdentity.notified.includes(id.FingerPrint)) {
@@ -128,9 +128,11 @@ var ZitiIdentity = {
         if (ZitiIdentity.data.length==0) {
             $("#IdentityScreen").addClass("forceHide");
             $("#ServiceScreen").addClass("forceHide");
+            $("#NoDataScreen").show();
         } else {
             $("#IdentityScreen").removeClass("forceHide");
             $("#ServiceScreen").removeClass("forceHide");
+            $("#NoDataScreen").hide();
         }
 
         for (var i=0; i<ZitiIdentity.data.length; i++) {
@@ -194,8 +196,10 @@ var ZitiIdentity = {
             let identity = ZitiIdentity.selected();
             ZitiIdentity.select(identity.FingerPrint);
         });
-        let identity = ZitiIdentity.selected();
-        ZitiIdentity.select(identity.FingerPrint);
+        if (ZitiIdentity.data.length>0) {
+            let identity = ZitiIdentity.selected();
+            ZitiIdentity.select(identity.FingerPrint);
+        }
     },
     select: function(id) {
         var elem = $(".identities[data-id='"+id+"']");
