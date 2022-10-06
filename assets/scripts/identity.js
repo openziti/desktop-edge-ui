@@ -3,6 +3,7 @@ var ZitiIdentity = {
     data: [],
     notified: [],
     timerNotified: [],
+    notifiable: [],
     sort: "Name",
     mfaInterval: null,
     init: function() {
@@ -20,10 +21,11 @@ var ZitiIdentity = {
     timer: function() {
         for (var i=0; i<ZitiIdentity.data.length; i++) {
             var id = ZitiIdentity.data[i];
+            if (id.MfaMaxTimeoutRem>0 && !ZitiIdentity.notifiable.includes(id.FingerPrint)) ZitiIdentity.notifiable.push(id.FingerPrint);
             if (id.MfaEnabled&&id.Status=="Active") {
                 var passed = moment.utc().diff(moment.utc(id.MfaLastUpdatedTime), "seconds");
                 if ((id.MfaMaxTimeoutRem-passed) <= 0) {
-                    if (!ZitiIdentity.notified.includes(id.FingerPrint)) {
+                    if (!ZitiIdentity.notified.includes(id.FingerPrint) && ZitiIdentity.notifiable.includes(id.FingerPrint)) {
                         var message = "Some or all of the services for "+id.Name+" have timed out";
                         var notify = new Notification("Timed Out", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
                         notify.onclick = function(e) {
@@ -34,7 +36,7 @@ var ZitiIdentity = {
                     }
                 } else {
                     if ((id.MfaMinTimeoutRem-passed) <= 1200) {
-                        if (!ZitiIdentity.timerNotified.includes(id.FingerPrint)) {
+                        if (!ZitiIdentity.timerNotified.includes(id.FingerPrint) && ZitiIdentity.notifiable.includes(id.FingerPrint)) {
                             var message = "The services for "+id.Name+" will start to timeout "+moment().add(passed, 'seconds').fromNow();
                             var notify = new Notification("Timeout Warning", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
                             notify.onclick = function(e) {
