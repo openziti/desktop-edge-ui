@@ -28,7 +28,7 @@ jobs:
         with:
           name: ZitiDesktopEdge-Win-${{ env.VERSION }}
           path: "out/make/squirrel.windows/x64/ZitiDesktopEdge-*.exe"
-  linux-Deb-build: 
+  linux-build: 
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@main
@@ -42,17 +42,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ZitiDesktopEdge-Deb-${{ env.VERSION }}
-          path: "out/make/deb/x64/ZitiDesktopEdge-*.deb"
-  linux-Rpm-build: 
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@main
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.15.0'
-      - run: npm install
-      - run: npm run make
+          path: "out/make/deb/x64/zitidesktopedge-*.deb"
       - name: Upload Linux Rpm installer
         uses: actions/upload-artifact@v2
         with:
