@@ -37,6 +37,11 @@ var ui = {
             // Show Loader Turn off Service
             app.sendMonitorMessage({ Op:"Stop", Action:"Normal" });
             $("#OnOffButton").removeClass("on");
+            ui.state({Active: false});
+            ZitiIdentity.data = [];
+            ZitiService.data = [];
+            $("#NavServiceCount").html("0");
+            $("#NavIdentityCount").html("0");
         } else {
             // Show Loader Turn On Service
             app.sendMonitorMessage({ Op:"Start", Action:"Normal" });

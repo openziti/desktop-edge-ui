@@ -42,7 +42,7 @@ var Application = {
         mainWindow.on("system-context-menu", (event, _point) => {
             event.preventDefault();
         });
-        // mainWindow.webContents.openDevTools();
+        mainWindow.webContents.openDevTools();
 
         var appIcon = new Tray(iconPath);
         var contextMenu = Menu.buildFromTemplate([
@@ -80,6 +80,8 @@ var Application = {
                     monitorEvents: ".\\OpenZiti\\ziti-monitor\\events",
                     monitor: ".\\OpenZiti\\ziti-monitor\\ipc"
                 };
+
+                mainWindow.webContents.send("os", os.platform());
 
                 if (os.platform() === "linux") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;

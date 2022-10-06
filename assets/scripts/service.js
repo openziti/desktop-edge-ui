@@ -163,6 +163,8 @@ var ZitiService = {
                         break;
                     }
                 }
+            } else {
+                postureStyle = "forceHide";
             }
 
             if (item.Launch.length>0) {

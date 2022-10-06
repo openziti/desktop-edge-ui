@@ -19,6 +19,7 @@ var app = {
     downMetricsArray: [],
     downChart: null,
     upChart: null,
+    os: '',
     init: function() {
         app.language();
 
@@ -43,6 +44,7 @@ var app = {
     },
     events: function() {
         ipcRenderer.on('message-to-ui', app.onData);
+        ipcRenderer.on('os', app.setOS);
         ipcRenderer.on('app-status', app.onStatus);
         $("#CloseButton").click(app.close);
         $("[data-screen]").click(app.screen);
@@ -97,6 +99,12 @@ var app = {
         $("#MinButton").click((e) => {
             ipcRenderer.invoke("window", "minimize");
         });
+    },
+    setOS: function(e) {
+        app.os = e;
+        if (app.os=="win32") $(".windows").show();
+        else if (app.os=="linux") $(".linux").show();
+        else if (app.os=="darwin") $(".mac").show();
     },
     enter: function(e) {
 		if (e.keyCode == 13) {
@@ -280,8 +288,16 @@ var app = {
                 }
             } else {
                 if (message.Type=="Status") {
-                    if (message.Operation=="OnOff") {
-                        ui.state(message);
+                    if (message.Status!=null && message.Status=="Stopped") {
+                        ui.state({Active: false});
+                        ZitiIdentity.data = [];
+                        ZitiService.data = [];
+                        $("#NavServiceCount").html("0");
+                        $("#NavIdentityCount").html("0");
+                    } else {
+                        if (message.Operation=="OnOff") {
+                            ui.state(message);
+                        }
                     }
                 } else {
                     if (message.Success != null) {

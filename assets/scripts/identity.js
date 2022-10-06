@@ -50,18 +50,20 @@ var ZitiIdentity = {
         
         // Check each service for timeouts
         var identity = ZitiIdentity.selected();
-        if (identity.MfaLastUpdatedTime!=null && identity.MfaMinTimeoutRem>=0) {
-            var passed = moment.utc().diff(moment.utc(identity.MfaLastUpdatedTime),"seconds");
-            var available = 0;
-            for (var i=0; i<identity.Services.length; i++) {
-                var service = identity.Services[i];
-                if (service.TimeoutRemaining==-1) available++;
-                else {
-                    if (service.TimeoutRemaining>passed) available++;
+        if (identity) {
+            if (identity.MfaLastUpdatedTime!=null && identity.MfaMinTimeoutRem>=0) {
+                var passed = moment.utc().diff(moment.utc(identity.MfaLastUpdatedTime),"seconds");
+                var available = 0;
+                for (var i=0; i<identity.Services.length; i++) {
+                    var service = identity.Services[i];
+                    if (service.TimeoutRemaining==-1) available++;
+                    else {
+                        if (service.TimeoutRemaining>passed) available++;
+                    }
                 }
+                $("#MfaTimeout").find(".label").html(available+"/"+identity.TotalServices);
+                $("#MfaTimeout").addClass("open");
             }
-            $("#MfaTimeout").find(".label").html(available+"/"+identity.TotalServices);
-            $("#MfaTimeout").addClass("open");
         }
     },
     isInIdentity: function(id, vals) {
@@ -122,6 +124,14 @@ var ZitiIdentity = {
             if (a[prop] > b[prop]) return 1;
             return 0;
         });
+
+        if (ZitiIdentity.data.length==0) {
+            $("#IdentityScreen").addClass("forceHide");
+            $("#ServiceScreen").addClass("forceHide");
+        } else {
+            $("#IdentityScreen").removeClass("forceHide");
+            $("#ServiceScreen").removeClass("forceHide");
+        }
 
         for (var i=0; i<ZitiIdentity.data.length; i++) {
             var item = ZitiIdentity.data[i];
