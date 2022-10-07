@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest
     steps: 
       - name: Setting up version env var
-        run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
+        run: echo "VERSION=$(cat ./version)" >> $env:GITHUB_ENV
       - uses: actions/checkout@main
       - name: Set up Node.js version
         uses: actions/setup-node@v1
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Setting up version env var
-        run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
+        run: echo "VERSION=$(cat ./version)" >> $env:GITHUB_ENV
       - uses: actions/checkout@main
       - name: Set up Node.js version
         uses: actions/setup-node@v1
