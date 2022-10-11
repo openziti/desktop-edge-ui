@@ -175,7 +175,7 @@ var Application = {
                         // Log.debug("Application.onData", "Recieved Empty ICP Message");
                     }
                 }
-            } else console.log("Empty Event");
+            }
         } catch (e) {
             Log.error("Application.onData", "Error: "+e);
         }
@@ -329,7 +329,6 @@ ipcMain.handle("monitor-message", (event, data) => {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
-                console.log(JSON.stringify(error));
                 if (error.toString().indexOf("User did not grant permission.")>=0) {
                     var command = {
                         Type: "Status",

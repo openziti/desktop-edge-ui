@@ -210,7 +210,6 @@ var ZitiService = {
         if ($(".fullservices.selected").length>0) {
             var id = $(".fullservices.selected").data("id");
             var item = ZitiService.getById(id);
-            console.log(id, item);
             var address = "";
             if (item.Protocols && item.Protocols.length>0) {
                 var protocols = "";

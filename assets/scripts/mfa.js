@@ -78,7 +78,6 @@ var mfa = {
                         Code: code
                     }
                 }
-                console.log(command);
                 app.sendMessage(command);
             } else growler.error(app.keys.InvalidMFACode);
         }
