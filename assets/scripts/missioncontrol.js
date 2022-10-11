@@ -3,16 +3,16 @@ const ctx = el.getContext('2d');
 const dpr = window.devicePixelRatio || 1;
 const pi = Math.PI;
 const points = 12;
-const radius = 175 * dpr;
-const h = 250 * dpr;
-const w = 250 * dpr;
+const radius = 150 * dpr;
+const h = 300 * dpr;
+const w = 300 * dpr;
 const center = {
   x: w / 2 * dpr,
   y: h / 2 * dpr };
 
 const circles = [];
 const rangeMin = 1;
-const rangeMax = 30;
+const rangeMax = 15;
 const showPoints = true;
 
 let mouseY = 0;
@@ -36,11 +36,14 @@ gradient4.addColorStop(1, '#8740bf');
 
 const gradients = [gradient1, gradient2, gradient3, gradient4];
 
+
 window.addEventListener('mousemove', handleMove, true);
+var stress = 1;
 
 function handleMove(event) {
   mouseY = event.clientY;
 }
+
 
 ctx.scale(dpr, dpr);
 
@@ -76,7 +79,7 @@ for (var idx = 0; idx <= gradients.length - 1; idx++) {
 
 // --------------------------------------------------------------------------- //
 // swingCircle
-
+var iteration = 0;
 function swingCircle() {
   ctx.clearRect(0, 0, w * dpr, h * dpr);
 
@@ -92,8 +95,12 @@ function swingCircle() {
 
       let phase = 4 * Math.sin(tick / 65);
 
-      if (mouseY !== 0) {
-        phase = mouseY / 200 + 1;
+      stress = (app.totalTransfer/app.maxTransfer)*screen.height;
+
+      if (stress<=0) stress = 1;
+
+      if (stress > 0) {
+        phase = stress / 200 + 1;
       }
 
       var r = radius + swingpoints[i].range * phase * Math.sin(swingpoints[i].phase) - rangeMax;

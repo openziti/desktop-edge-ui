@@ -15,6 +15,8 @@ var app = {
     filterId: null,
     actionId: null,
     keys: null,
+    totalTransfer: 0,
+    maxTransfer: 10000,
     upMetricsArray: [],
     downMetricsArray: [],
     downChart: null,
@@ -48,6 +50,7 @@ var app = {
         });
     },
     events: function() {
+        ipcRenderer.on('service-logs', app.onServiceLogs);
         ipcRenderer.on('message-to-ui', app.onData);
         ipcRenderer.on('os', app.setOS);
         ipcRenderer.on('app-status', app.onStatus);
@@ -104,6 +107,9 @@ var app = {
         $("#MinButton").click((e) => {
             ipcRenderer.invoke("window", "minimize");
         });
+    },
+    onServiceLogs: function(e) {
+        $("#ServiceLogs").html(e);
     },
     setOS: function(e) {
         app.os = e;
@@ -365,6 +371,9 @@ var app = {
             totalDown += identities[i].Metrics.Down;
             ZitiIdentity.metrics(identities[i].FingerPrint, identities[i].Metrics.Up, identities[i].Metrics.Down);
         }
+        app.totalTransfer = totalDown+totalDown;
+        if (app.maxTransfer<app.totalTransfer) app.maxTransfer = app.totalTransfer;
+
         if (app.upMetricsArray.length>20) app.upMetricsArray.shift();
         if (app.downMetricsArray.length>20) app.downMetricsArray.shift();
         app.upMetricsArray.push(totalUp);

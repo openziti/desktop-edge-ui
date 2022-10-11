@@ -313,10 +313,8 @@ ipcMain.handle("logger-message", (event, data) => {
           name: 'OpenZitiLog'
         };
         sudo.exec(command, options, function(error, stdout, stderr) {
-            if (error) {
-                console.log('error: ' + error);
-            }
-            console.log('stdout: ' + stdout);
+            if (error) Log.error("Application.logger", error);
+            mainWindow.webContents.send("service-logs", stdout);
             return "";
         });
     }

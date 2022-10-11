@@ -54,12 +54,12 @@
             <div id="MissionControl" class="area gridrow open">
                 <div class="col-sm-8">
                     <div id="MainTitle" class="globetitle" data-i18n></div>
-                    <div class="row">
-                        <div class="col-sm-12 mt24">
-                            <canvas id="CircleCanvas" style="background-color: unset;"></canvas>
-                                <div class="copy">
-                                    <h1 data-key="Connected" data-i18n></h1>
-                                </div>
+                    <div id="CircleArea" class="row" style="display: none;">
+                        <div id="CanvasBox" class="col-sm-12 mt24">
+                            <canvas id="CircleCanvas" style="background-color: unset; opacity: 0.98;"></canvas>
+                            <div class="copy">
+                                <h1 data-key="Connected" data-i18n></h1>
+                            </div>
                         </div>
                     </div>
                     <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
@@ -353,6 +353,7 @@
                                 <div id="ServiceLogButton" class="button">Open Logs</div>
                             </div>
                         </div>
+                        <div id="ServiceLogs" class="logs"></div>
                     </div>
 
                     <div id="AppLogs" class="sub">
