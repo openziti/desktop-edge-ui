@@ -26,6 +26,7 @@
         <script src="assets/scripts/settings.js"></script>
         <script src="assets/scripts/service.js"></script>
         <script src="assets/scripts/identity.js"></script>
+        <script src="assets/scripts/missioncontrol.js"></script>
         <script src="app-renderer.js"></script>
     </head>
     <body>
@@ -54,8 +55,15 @@
             <div id="MissionControl" class="area gridrow open">
                 <div class="col-sm-8">
                     <div class="globetitle">Mission Control</div>
-                    <div id="Globe"></div>
-                    <div id="WelcomeBadge" class="staticmodal inline">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <canvas id="canvas"></canvas>
+                                <div class="copy">
+                                    <h1>Text</h1>
+                                </div>
+                        </div>
+                    </div>
+                    <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
                         <div class="icon close"></div>
                         <div id="WelcomeTitle" class="title" data-i18n></div>
                         <div class="row">
