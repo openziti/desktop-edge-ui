@@ -26,7 +26,7 @@ jobs:
       - name: Upload Window installer
         uses: actions/upload-artifact@v2
         with:
-          name: ZitiDesktopEdge-Win-3.0.0
+          name: ZitiDesktopEdge-Win-3.0.1
           path: "out/make/squirrel.windows/x64/ZitiDesktopEdge-*.exe"
   linux-build: 
     runs-on: ubuntu-latest
@@ -41,10 +41,10 @@ jobs:
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
         with:
-          name: ZitiDesktopEdge-Deb-3.0.0
+          name: ZitiDesktopEdge-Deb-3.0.1
           path: "out/make/deb/x64/zitidesktopedge*.deb"
       - name: Upload Linux Rpm installer
         uses: actions/upload-artifact@v2
         with:
-          name: ZitiDesktopEdge-Rpm-3.0.0
+          name: ZitiDesktopEdge-Rpm-3.0.1
           path: "out/make/rpm/x64/ZitiDesktopEdge*.rpm"

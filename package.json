@@ -1,6 +1,6 @@
 {
   "name": "ZitiDesktopEdge",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
   "scripts": {
