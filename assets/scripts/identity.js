@@ -128,13 +128,15 @@ var ZitiIdentity = {
         });
 
         if (ZitiIdentity.data.length==0) {
-            $("#IdentityScreen").addClass("forceHide");
-            $("#ServiceScreen").addClass("forceHide");
-            $("#NoDataScreen").show();
+            $("#IdentityScreenArea").addClass("forceHide");
+            $("#ServiceScreenArea").addClass("forceHide");
+            $("#NoDataIdentityScreen").removeClass("forceHide");
+            $("#NoDataServiceScreen").removeClass("forceHide");
         } else {
-            $("#IdentityScreen").removeClass("forceHide");
-            $("#ServiceScreen").removeClass("forceHide");
-            $("#NoDataScreen").hide();
+            $("#IdentityScreenArea").removeClass("forceHide");
+            $("#ServiceScreenArea").removeClass("forceHide");
+            $("#NoDataIdentityScreen").addClass("forceHide");
+            $("#NoDataServiceScreen").addClass("forceHide");
         }
 
         for (var i=0; i<ZitiIdentity.data.length; i++) {

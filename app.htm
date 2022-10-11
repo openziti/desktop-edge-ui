@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="assets/styles/growler.css">
         <title id="AppTitle" data-i18n>Ziti Desktop Edge</title>
         <script src="assets/scripts/log.js"></script>
+        <script src="assets/scripts/lottie.min.js"></script>
         <script src="assets/scripts/moment.js"></script>
         <script src="assets/scripts/qrcode.min.js"></script>
         <script src="assets/scripts/growler.js"></script>
@@ -56,7 +57,7 @@
                     <div id="WelcomeBadge" class="staticmodal inline">
                         <div class="icon close"></div>
                         <div id="WelcomeTitle" class="title" data-i18n></div>
-                        <div class="hello"></div>
+                        <div class="helloziggy"></div>
                         <div id="GetStarted" class="subTitle" data-i18n></div>
                         <div id="WelcomeAddId" class="button" data-action="add" data-i18n></div>
                     </div>
@@ -91,161 +92,165 @@
                 </div>
             </div>
 
-            <div id="NoDataScreen" style="display: none;">Dave, Replace Me</div>
-
-            <div id="IdentityScreen" class="area gridrow ids forceHide">
-                <div class="col-sm-4 verticalscroll">
-                    <div class="sortLine">
-                        <div></div>
-                        <div class="sort">
-                            Sort by <span id="IdSort">Name</span>
-                            <span class="options">
-                                <div class="option" data-sort="Name" data-what="identity">Name</div>
-                                <div class="option" data-sort="Status" data-what="identity">Status</div>
-                                <div class="option" data-sort="Total Services" data-what="identity">Total Services</div>
-                            </span>
-                        </div>
-                    </div>
-                    <div id="IdentityList"></div>
-                </div>
-                <div class="col-sm-8 verticalscroll">
-                    <div class="nameValues mb16">
-                        <div class="nameValue">
-                            <label>Name</label>
-                            <div id="IdName" class="value"></div>
-                        </div>
-                        <div class="nameValue">
-                            <label>Network</label>
-                            <div id="IdNetwork" class="value"></div>
-                        </div>
-                        <div class="nameValue">
-                            <label>Controller</label>
-                            <div id="IdControllerVersion" class="value"></div>
-                        </div>
-                    </div>
-                    <div class="filtering">
-                        <div>
-                            <input id="FilterId" class="filter" placeholder="Filter" />
-                        </div>
-                        <div class="right">
-                            <div class="sort sortHow">Descending</div>
-                            <div class="sort">Sort by Name</div>
-                        </div>
-                    </div>
-                    <div id="ServiceList"></div>
-                    <div class="controls">
-                        <div class="col-sm-6 col-md-3">
-                            <div id="MfaStatus" class="blurArea">
-                                <div class="icon connected"></div>
-                                <div class="label">Connected</div>
+            <div id="IdentityScreen" class="area">
+                <div id="NoDataIdentityScreen" class="forceHide">Dave, Replace Me (Identities)</div>
+                <div id="IdentityScreenArea" class="gridrow ids forceHide">
+                    <div class="col-sm-4 verticalscroll">
+                        <div class="sortLine">
+                            <div></div>
+                            <div class="sort">
+                                Sort by <span id="IdSort">Name</span>
+                                <span class="options">
+                                    <div class="option" data-sort="Name" data-what="identity">Name</div>
+                                    <div class="option" data-sort="Status" data-what="identity">Status</div>
+                                    <div class="option" data-sort="Total Services" data-what="identity">Total Services</div>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div id="MfaTimeout" class="blurArea reversed">
-                                <div class="icon timer"></div>
-                                <div class="label">-/-</div>
+                        <div id="IdentityList"></div>
+                    </div>
+                    <div class="col-sm-8 verticalscroll">
+                        <div class="nameValues mb16">
+                            <div class="nameValue">
+                                <label>Name</label>
+                                <div id="IdName" class="value"></div>
+                            </div>
+                            <div class="nameValue">
+                                <label>Network</label>
+                                <div id="IdNetwork" class="value"></div>
+                            </div>
+                            <div class="nameValue">
+                                <label>Controller</label>
+                                <div id="IdControllerVersion" class="value"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-2"><div class="mfatext"><span>MFA</span></div>
-                        <div id="MfaToggle" class="toggle" data-call="mfa">
-                            <div class="handle"></div>
-                            <div class="onLabel">On</div>
-                            <div class="offLabel">Off</div>
+                        <div class="filtering">
+                            <div>
+                                <input id="FilterId" class="filter" placeholder="Filter" />
+                            </div>
+                            <div class="right">
+                                <div class="sort sortHow">Descending</div>
+                                <div class="sort">Sort by Name</div>
+                            </div>
                         </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div id="ForgetButton" class="button red" data-i18n></div>
+                        <div id="ServiceList"></div>
+                        <div class="controls">
+                            <div class="col-sm-6 col-md-3">
+                                <div id="MfaStatus" class="blurArea">
+                                    <div class="icon connected"></div>
+                                    <div class="label">Connected</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div id="MfaTimeout" class="blurArea reversed">
+                                    <div class="icon timer"></div>
+                                    <div class="label">-/-</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-2"><div class="mfatext"><span>MFA</span></div>
+                            <div id="MfaToggle" class="toggle" data-call="mfa">
+                                <div class="handle"></div>
+                                <div class="onLabel">On</div>
+                                <div class="offLabel">Off</div>
+                            </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div id="ForgetButton" class="button red" data-i18n></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="ServiceScreen" class="area gridrow forceHide">
-                <div class="col-sm-4 verticalscroll">
-                    <div class="gridrow">
-                        <div class="input col-sm-8">
-                            <input id="FilterServices" class="filter" placeholder="Filter" />
-                        </div>
-                        <div class="sort col-sm-4">
-                            Sort by <span id="ServiceSort">Name</span>
+            <div id="ServiceScreen" class="area">
+                <div id="NoDataServiceScreen" class="forceHide">Dave, Replace Me (Services)</div>
+                <div id="ServiceScreenArea" class="gridrow forceHide">
+                    <div class="col-sm-4 verticalscroll">
+                        <div class="gridrow">
+                            <div class="input col-sm-8">
+                                <input id="FilterServices" class="filter" placeholder="Filter" />
+                            </div>
+                            <div class="sort col-sm-4">
+                                Sort by <span id="ServiceSort">Name</span>
 
-                            <span class="options">
-                                <div class="option" data-sort="Name" data-what="service">Name</div>
-                                <div class="option" data-sort="Address" data-what="service">Address</div>
-                                <div class="option" data-sort="Port" data-what="service">Port</div>
-                                <div class="option" data-sort="Protocol" data-what="service">Protocol</div>
-                                <div class="option" data-sort="Total Posture Checks" data-what="service">Posture Checks</div>
-                            </span>
+                                <span class="options">
+                                    <div class="option" data-sort="Name" data-what="service">Name</div>
+                                    <div class="option" data-sort="Address" data-what="service">Address</div>
+                                    <div class="option" data-sort="Port" data-what="service">Port</div>
+                                    <div class="option" data-sort="Protocol" data-what="service">Protocol</div>
+                                    <div class="option" data-sort="Total Posture Checks" data-what="service">Posture Checks</div>
+                                </span>
+                            </div>
                         </div>
+                        <div id="FullServiceList"></div>
                     </div>
-                    <div id="FullServiceList"></div>
-                </div>
-                <div class="col-sm-8 verticalscroll">
-                    <div class="nameValues mb16">
-                        <div class="nameValue">
-                            <label>Name</label>
-                            <div id="ServiceName" class="value"></div>
-                        </div>
-                        <div class="nameValue">
-                            <label>Url</label>
-                            <div id="ServiceUrl" class="value"></div>
-                        </div>
-                    </div>
-                    <div class="gridrow">
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="header">
-                                    <div class="title download">Download Speed</div>
-                                </div>
-                                <div id="DownloadServiceSpeed" class="count">0</div>
-                                <div id="DownloadServiceMeasure" class="note">mbps</div>
-                                <div id="DownloadServiceGraph" class="graph"></div>
+                    <div class="col-sm-8 verticalscroll">
+                        <div class="nameValues mb16">
+                            <div class="nameValue">
+                                <label>Name</label>
+                                <div id="ServiceName" class="value"></div>
+                            </div>
+                            <div class="nameValue">
+                                <label>Url</label>
+                                <div id="ServiceUrl" class="value"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="header">
-                                    <div class="title upload">Upload Speed</div>
-                                </div>
-                                <div id="UploadServiceSpeed" class="count">0</div>
-                                <div id="UploadServiceMeasure" class="note">mbps</div>
-                                <div id="UploadServiceGraph" class="graph"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="nameValue">
-                                    <label>Ports</label>
-                                    <div id="ServicePorts" class="value"></div>
-                                </div>
-                                <div class="nameValue mt20">
-                                    <label>Protocols</label>
-                                    <div id="ServiceProtocols" class="value"></div>
+                        <div class="gridrow">
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="header">
+                                        <div class="title download">Download Speed</div>
+                                    </div>
+                                    <div id="DownloadServiceSpeed" class="count">0</div>
+                                    <div id="DownloadServiceMeasure" class="note">mbps</div>
+                                    <div id="DownloadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="nameValue">
-                                    <label>Addresses</label>
-                                    <div id="ServiceAddresses" class="value"></div>
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="header">
+                                        <div class="title upload">Upload Speed</div>
+                                    </div>
+                                    <div id="UploadServiceSpeed" class="count">0</div>
+                                    <div id="UploadServiceMeasure" class="note">mbps</div>
+                                    <div id="UploadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="nameValue">
-                                    <label>Posture Checks</label>
-                                    <div id="PostureChecks" class="value"></div>
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label>Ports</label>
+                                        <div id="ServicePorts" class="value"></div>
+                                    </div>
+                                    <div class="nameValue mt20">
+                                        <label>Protocols</label>
+                                        <div id="ServiceProtocols" class="value"></div>
+                                    </div>
                                 </div>
-                                <div id="PassFail"></div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="pod">
-                                <div class="nameValue">
-                                    <label>Identity</label>
-                                    <div id="ServiceIdentity" class="value"></div>
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label>Addresses</label>
+                                        <div id="ServiceAddresses" class="value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label>Posture Checks</label>
+                                        <div id="PostureChecks" class="value"></div>
+                                    </div>
+                                    <div id="PassFail"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label>Identity</label>
+                                        <div id="ServiceIdentity" class="value"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

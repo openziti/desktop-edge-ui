@@ -1,11 +1,13 @@
 
 
 var ui = {
+    hello: null,
     timerInterval: null,
     seconds: 0,
     isOn: false,
     init: function() {
         ui.events();
+        ui.animate();
     },
     events: function() {
         $("#OnOffButton").click(ui.power);
@@ -74,5 +76,14 @@ var ui = {
         label += secondsout;
 
         $("#Timer").html(label);
+    },
+    animate: function() {
+        ui.hello = bodymovin.loadAnimation({
+            container: document.getElementById('helloziggy'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: './assets/animations/HelloZiggy.json'
+        });
     }
 }
