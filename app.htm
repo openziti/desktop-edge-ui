@@ -58,7 +58,7 @@
                         <div class="col-sm-12 mt24">
                             <canvas id="CircleCanvas" style="background-color: unset;"></canvas>
                                 <div class="copy">
-                                    <h1>Connected</h1>
+                                    <h1 data-key="Connected" data-i18n></h1>
                                 </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         <div class="image atvImg">
                             <div class="atvImg-layer" data-img="assets/images/Identities-Color-3D.svg"></div>
                         </div>
-                        <div class="nomessage">Oh Snap...<br>Looks like you are disconnected or you don't have any identites registered yet. :(</div>
+                        <div id="NoIdentitiesMessage" class="nomessage" data-i18n></div>
                     </div>
                 </div>
                 <div id="IdentityScreenArea" class="gridrow ids forceHide">
@@ -186,7 +186,7 @@
                         <div class="image atvImg">
                             <div class="atvImg-layer" data-img="assets/images/Services-Color-3D.svg"></div>
                         </div>
-                        <div class="nomessage">Ruh Roh...<br>Looks like you are disconnected or you don't have any services assigned yet. :(</div>
+                        <div id="NoServicesMessage" class="nomessage" data-i18n></div>
                     </div>
                 </div>
                 <div id="ServiceScreenArea" class="gridrow forceHide">

@@ -33,6 +33,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "fs": "0.0.1-security",
     "highcharts": "^10.2.1",
+    "md5": "^2.3.0",
     "moment": "^2.29.4",
     "node-ipc": "^10.1.0",
     "path": "^0.12.7",
@@ -51,7 +52,7 @@
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "zitidesktopedge",
-            "icon": "./icon.ico",        
+            "icon": "./icon.ico",
             "setupIcon": "./icon.ico",
             "skipUpdateIcon": true
           }
