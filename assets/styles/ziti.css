@@ -1016,6 +1016,10 @@ nav .title {
     clear: both;
 }
 
+.grid.split {
+    grid-template-columns: 50% auto;
+}
+
 .grid.boxes {
     width: 85%;
     grid-template-columns: 40% 40%;
@@ -1180,6 +1184,14 @@ nav .title {
     color: #ffffff;
 }
 
+.howdy {
+    font-family: 'Hand of Sean';
+    font-size: 64px;
+    text-align: right;
+    margin-right: 20px;
+    padding-top: 100px;
+}
+
 .hello {
     width: 100%;
     height: 200px;
@@ -1193,7 +1205,7 @@ nav .title {
 .helloziggy {
     width: 100%;
     height: 200px;
-    background-position: center center;
+    background-position: left center;
     background-size: contain;
     margin-top: 20px;
     margin-bottom: 20px;

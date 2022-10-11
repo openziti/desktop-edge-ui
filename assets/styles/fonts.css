@@ -54,3 +54,17 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Hand Of Sean';
+    src: url('../fonts/HandOfSeanDemo.eot');
+    src: url('../fonts/HandOfSeanDemo.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/HandOfSeanDemo.woff2') format('woff2'),
+        url('../fonts/HandOfSeanDemo.woff') format('woff'),
+        url('../fonts/HandOfSeanDemo.ttf') format('truetype'),
+        url('../fonts/HandOfSeanDemo.svg#HandOfSeanDemo') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+
