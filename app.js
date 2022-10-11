@@ -306,6 +306,21 @@ ipcMain.handle("message", (event, data) => {
     Application.SendMessage(data);
     return "";
 });
+ipcMain.handle("logger-message", (event, data) => {
+    if (os.platform() === "linux") {
+        var command = "journalctl -u ziti-edge-tunnel.service";
+        var options = {
+          name: 'OpenZitiLog'
+        };
+        sudo.exec(command, options, function(error, stdout, stderr) {
+            if (error) {
+                console.log('error: ' + error);
+            }
+            console.log('stdout: ' + stdout);
+            return "";
+        });
+    }
+});
 ipcMain.handle("monitor-message", (event, data) => {
     if (os.platform() === "linux") {
         var command = "systemctl stop ziti-edge-tunnel";
