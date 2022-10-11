@@ -1186,30 +1186,17 @@ nav .title {
 
 .howdy {
     font-family: 'Hand of Sean';
-    font-size: 64px;
+    font-size: 70px;
     text-align: right;
-    margin-right: 20px;
-    padding-top: 100px;
+    padding-top: 45px;
     color: #ffffff;
-}
-
-.hello {
-    width: 100%;
-    height: 200px;
-    background-image: url(../images/ziggy.svg);
-    background-position: center center;
-    background-size: contain;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .helloziggy {
     width: 100%;
     height: 200px;
-    background-position: left center;
+    background-position: center center;
     background-size: contain;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .button {
