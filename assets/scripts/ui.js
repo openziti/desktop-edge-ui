@@ -79,11 +79,11 @@ var ui = {
     },
     animate: function() {
         ui.hello = bodymovin.loadAnimation({
-            container: document.getElementById('helloziggy'),
+            container: document.getElementById('HelloZiggy'),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: './assets/animations/HelloZiggy.json'
+            path: './assets/animations/helloziggy.json'
         });
     }
 }
