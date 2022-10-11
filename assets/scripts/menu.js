@@ -7,6 +7,7 @@ var menu = {
         $("#FeedbackButton").click(menu.Feedback);
         $("#GenerateButton").click(menu.GetLogPackage);
         $("#AppLogButton").click(menu.OpenAppLogs);
+        $("#ServiceLogButton").click(menu.OpenServiceLogs);
     },
     Feedback: function() {
         shell.openExternal("mailto:support@openziti.org?subject=Desktop%20Edge%20Feedback");
@@ -19,6 +20,11 @@ var menu = {
         };
         app.startAction(app.action);
         app.sendMonitorMessage(action);
+    },
+    OpenServiceLogs: function(e) {
+        if (app.os=="win32") shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"Service"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
+        else if (app.os=="linux") ipcRenderer.invoke("logger-message", e);
+        else if (app.os=="darwin") shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"Service"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
     },
     OpenAppLogs: function(e) {
         shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"UI"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
