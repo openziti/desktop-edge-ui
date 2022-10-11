@@ -4,8 +4,8 @@ const dpr = window.devicePixelRatio || 1;
 const pi = Math.PI;
 const points = 12;
 const radius = 200 * dpr;
-const h = 600 * dpr;
-const w = 600 * dpr;
+const h = 250 * dpr;
+const w = 250 * dpr;
 const center = {
   x: w / 2 * dpr,
   y: h / 2 * dpr };
