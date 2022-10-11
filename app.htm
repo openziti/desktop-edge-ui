@@ -53,13 +53,13 @@
 
             <div id="MissionControl" class="area gridrow open">
                 <div class="col-sm-8">
-                    <div class="globetitle">Mission Control</div>
+                    <div id="MainTitle" class="globetitle" data-i18n></div>
                     <div id="Globe"></div>
                     <div id="WelcomeBadge" class="staticmodal inline">
                         <div class="icon close"></div>
                         <div id="WelcomeTitle" class="title" data-i18n></div>
                         <div class="grid split">
-                            <div class="howdy">Hello</div>
+                            <div id="Greetings" class="howdy" data-i18n></div>
                             <div id="HelloZiggy" class="helloziggy"></div>
                         </div>
                         <div id="GetStarted" class="subTitle" data-i18n></div>
@@ -69,7 +69,7 @@
                 <div class="col-sm-4 verticalscroll">
                     <div class="pod">
                         <div class="header">
-                            <div class="title download">Download Activity</div>
+                            <div id="DownloadActivity" class="title download"></div>
                         </div>
                         <div id="DownloadSpeed" class="count">0</div>
                         <div id="DownloadMeasure" class="note">mbps</div>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="pod">
                         <div class="header">
-                            <div class="title upload">Upload Activity</div>
+                            <div id="UploadActivity" class="title upload"></div>
                         </div>
                         <div id="UploadSpeed" class="count">0</div>
                         <div id="UploadMeasure" class="note">mbps</div>
@@ -86,12 +86,12 @@
                     <div class="pod">
                         <div class="title">Identities</div>
                         <div id="IdentityCount" class="count">0</div>
-                        <div class="button" data-screen="IdentityScreen">View All</div>
+                        <div class="button" data-screen="IdentityScreen" data-key="ViewAll" data-i18n></div>
                     </div>
                     <div class="pod">
                         <div class="title">Services</div>
                         <div id="ServiceCount" class="count">0</div>
-                        <div class="button" data-screen="ServiceScreen">View All</div>
+                        <div class="button" data-screen="ServiceScreen" data-key="ViewAll" data-i18n></div>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                         <div class="image atvImg">
                             <div class="atvImg-layer" data-img="assets/images/Identities-Color-3D.svg"></div>
                         </div>
-                        <div class="nomessage">Oh Snap...<br>Looks like you don't have any identites registered yet. :(</div>
+                        <div class="nomessage">Oh Snap...<br>Looks like you are disconnected or you don't have any identites registered yet. :(</div>
                     </div>
                 </div>
                 <div id="IdentityScreenArea" class="gridrow ids forceHide">
@@ -179,7 +179,7 @@
                         <div class="image atvImg">
                             <div class="atvImg-layer" data-img="assets/images/Services-Color-3D.svg"></div>
                         </div>
-                        <div class="nomessage">Ruh Roh...<br>Looks like you don't have any services assigned yet. :(</div>
+                        <div class="nomessage">Ruh Roh...<br>Looks like you are disconnected or you don't have any services assigned yet. :(</div>
                     </div>
                 </div>
                 <div id="ServiceScreenArea" class="gridrow forceHide">
@@ -343,7 +343,6 @@
                                 <div class="iconHeader">
                                     <div class="title">View The<br/>Service Logs</div>
                                     <div class="icon serviceLog"></div>
-                                </div>
                                 <div id="ServiceLogButton" class="button">Open Logs</div>
                             </div>
                         </div>

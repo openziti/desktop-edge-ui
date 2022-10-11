@@ -38,8 +38,13 @@ var app = {
         var languageFile = path.join(__dirname, 'assets/languages/en-us.json');
         app.keys = JSON.parse(fs.readFileSync(languageFile));
         $("[data-i18n]").each((i, e) => {
-            var id = $(e).attr("id");
-            $("#"+id).html(app.keys[id]);
+            var key = $(e).data("key");
+            if (!key) {
+                var id = $(e).attr("id");
+                $("#"+id).html(app.keys[id]);
+            } else {
+                $(e).html(app.keys[key]);
+            }
         });
     },
     events: function() {
