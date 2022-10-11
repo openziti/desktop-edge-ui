@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="assets/styles/fonts.css">
         <link rel="stylesheet" href="assets/styles/grids.css">
         <link rel="stylesheet" href="assets/styles/growler.css">
+        <link rel="stylesheet" href="assets/styles/3dmouseover.css">
         <title id="AppTitle" data-i18n>Ziti Desktop Edge</title>
         <script src="assets/scripts/log.js"></script>
         <script src="assets/scripts/lottie.min.js"></script>
@@ -163,7 +164,15 @@
             </div>
 
             <div id="ServiceScreen" class="area">
-                <div id="NoDataServiceScreen" class="forceHide">Dave, Replace Me (Services)</div>
+                <div id="NoDataServiceScreen" class="forceHide">
+
+                    <div class="col-sm-offset-3 col-sm-6 mt64 left">
+                        <div class="image atvImg">
+                            <div class="atvImg-layer" data-img="assets/images/Services-Color-3D.svg"></div>
+                        </div>
+                        <div style="font-size: 20px; font-weight: 600; color: #ffffff; margin-top: 10px;">Ruh Roh...<br>Looks like you don't have any services assigned yet. :(</div>
+                    </div>
+                </div>
                 <div id="ServiceScreenArea" class="gridrow forceHide">
                     <div class="col-sm-4 verticalscroll">
                         <div class="gridrow">
@@ -705,3 +714,5 @@
 
     </body>
 </html>
+
+<script src="assets/scripts/3dmouseover.js"></script>
