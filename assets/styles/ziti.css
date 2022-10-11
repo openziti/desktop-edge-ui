@@ -1153,6 +1153,7 @@ nav .title {
     border-radius: 28px;
     background-color: #F8FBFF;
     position: absolute;
+    top: 100px;
 }
 
 @supports ((-webkit-backdrop-filter: saturate(180%) blur(30px)) or (backdrop-filter: saturate(180%) blur(30px))) {
@@ -1168,7 +1169,7 @@ nav .title {
     text-shadow: var(--fontshadow);
     position: absolute;
     width: 80%;
-    top: 100%;
+    z-index: 1000;
     left: calc(50% - 40%);
 }
 

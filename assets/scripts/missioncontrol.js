@@ -1,4 +1,4 @@
-const el = document.getElementById('canvas');
+const el = document.getElementById('CircleCanvas');
 const ctx = el.getContext('2d');
 const dpr = window.devicePixelRatio || 1;
 const pi = Math.PI;
