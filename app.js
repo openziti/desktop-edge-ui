@@ -11,7 +11,7 @@ var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
+var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
 
 var Application = {
     CreateWindow: function() {
