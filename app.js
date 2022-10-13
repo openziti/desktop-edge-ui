@@ -271,10 +271,10 @@ var Log = {
                 if (this.toConsole) console.log(logString);
                 if (this.toFile) {
         
-                    let fileName = Log.file+moment().format("YYYYMMDD")+".log";
+                    let fileName = path.join(__dirname, Log.file+moment().format("YYYYMMDD")+".log");
                     var fullPath = path.dirname(fileName);
         
-                    if (!fs.existsSync(fullPath)){
+                    if (!fs.existsSync(fullPath)) {
                         fs.mkdirSync(fullPath, { recursive: true });
                     }
         
