@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, Notification, systemPreferences } = require('electron');
 const electron = require('electron');
 const os = require('os');
 const dialog = require('electron').dialog;
@@ -13,8 +13,31 @@ var mainWindow;
 var logging = true;
 var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
 
+app.whenReady().then(async () => {
+   console.log("Got Here");
+  systemPreferences.subscribeNotification(
+        "some-event-name",
+        (event, userInfo) => {
+            console.log("What 1");
+          console.log(userInfo);
+        },
+    );
+
+    systemPreferences.postNotification(
+        "some-event-name",
+        {
+         // some data
+          foo: "bar"
+        },
+        true,
+    );
+   
+  
+})
+
 var Application = {
     CreateWindow: function() {
+        console.log("Local: "+app.getLocale());
         app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
@@ -89,34 +112,42 @@ var Application = {
                     ipcpaths.monitorEvents = null;
                     ipcpaths.monitor = null;
                 } else if (os.platform() === "darwin") {
-                    
+                    ipcpaths.events = null;
+                    ipcpaths.tunnel = null;
+                    ipcpaths.monitorEvents = null;
+                    ipcpaths.monitor = null;
                 }
 
-                ipc.connectTo(
-                    'ziti',
-                    ipcpaths.events,
-                    function() {
-                        ipc.of.ziti.on(
-                            'data',
-                            function(data) {
-                                Application.onData("ziti-edge-tunnel-event", data);
-                            }
-                        );
-                    }
-                );
+                if (ipcpaths.events) {
+                    ipc.connectTo(
+                        'ziti',
+                        ipcpaths.events,
+                        function() {
+                            ipc.of.ziti.on(
+                                'data',
+                                function(data) {
+                                    Application.onData("ziti-edge-tunnel-event", data);
+                                }
+                            );
+                        }
+                    );
+                }
               
-                ipc.connectTo(
-                    'ZitiSend',
-                    ipcpaths.tunnel,
-                    function() {
-                        ipc.of.ZitiSend.on(
-                            'data',
-                            function(data) {
-                                Application.onData("ziti-edge-tunnel.sock", data);
-                            }
-                        )
-                    }
-                );
+              
+                if (ipcpaths.tunnel) {
+                    ipc.connectTo(
+                        'ZitiSend',
+                        ipcpaths.tunnel,
+                        function() {
+                            ipc.of.ZitiSend.on(
+                                'data',
+                                function(data) {
+                                    Application.onData("ziti-edge-tunnel.sock", data);
+                                }
+                            )
+                        }
+                    );
+                }
               
                 if (ipcpaths.monitorEvents) {
                     ipc.connectTo(
