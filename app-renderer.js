@@ -100,8 +100,8 @@ var app = {
             ipcRenderer.invoke("window", "minimize");
         });
     },
-    setOS: function(e) {
-        app.os = e;
+    setOS: function(e, data) {
+        app.os = data;
         if (app.os=="win32") $(".windows").show();
         else if (app.os=="linux") $(".linux").show();
         else if (app.os=="darwin") $(".mac").show();

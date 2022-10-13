@@ -23,7 +23,7 @@ var menu = {
     },
     OpenServiceLogs: function(e) {
         if (app.os=="win32") shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"Service"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
-        else if (app.os=="linux") ipcRenderer.invoke("logger-message", e);
+        else if (app.os=="linux") ipcRenderer.invoke("logger-message", {});
         else if (app.os=="darwin") shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"Service"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
     },
     OpenAppLogs: function(e) {

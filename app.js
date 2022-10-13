@@ -80,7 +80,7 @@ var Application = {
                     monitorEvents: ".\\OpenZiti\\ziti-monitor\\events",
                     monitor: ".\\OpenZiti\\ziti-monitor\\ipc"
                 };
-
+                
                 mainWindow.webContents.send("os", os.platform());
 
                 if (os.platform() === "linux") {
