@@ -205,12 +205,13 @@ var ZitiService = {
             $(e.currentTarget).addClass("selected");
             ZitiService.showDetails();
         });
+        $(".nooverflow").off("dblclick");
+        $(".nooverflow").dblclick(app.copy);
     },
     showDetails: function() {
         if ($(".fullservices.selected").length>0) {
             var id = $(".fullservices.selected").data("id");
             var item = ZitiService.getById(id);
-            console.log(id, item);
             var address = "";
             if (item.Protocols && item.Protocols.length>0) {
                 var protocols = "";
@@ -247,7 +248,7 @@ var ZitiService = {
             var identity = ZitiIdentity.getById(item.FingerPrint);
             $("#ServiceIdentity").html(identity.Name);
             $("#PostureChecks").html("");
-            if (item.PostureChecks!=null && Array.isArray(item.PosutureChecks) && item.PosutureChecks.length>0) {
+            if (item.PostureChecks!=null && Array.isArray(item.PostureChecks) && item.PostureChecks.length>0) {
                 postureStatus = "pass";
                 postureStyle = "green";
                 $("#PassFail").removeClass("fail");
@@ -256,12 +257,11 @@ var ZitiService = {
                     var check = item.PostureChecks[j];
                     if (j>0)  $("#PostureChecks").append('<br/>');
                     if (!check.IsPassing) {
-                        $("#PostureChecks").append('<span class="strike">'+check.QueryType+'</span>');
+                        $("#PostureChecks").append('<span class="striken">'+check.QueryType+'</span>');
                         $("#PassFail").addClass("fail");
                         $("#PassFail").html("fail");
                         postureStatus = "fail";
                         postureStyle = "red";
-                        break;
                     } else {
                         $("#PostureChecks").append(check.QueryType);
                     }

@@ -211,8 +211,10 @@ var ZitiIdentity = {
         $(".identities").removeClass("selected");
         elem.addClass("selected");
         $("#IdName").html(item.Name);
-        $("#IdNetwork").html(item.Config.ztAPI);
-        $("#IdControllerVersion").html(item.Config.ControllerVersion);
+        if (item.Config) {
+            $("#IdNetwork").html(item.Config.ztAPI);
+            $("#IdControllerVersion").html(item.Config.ControllerVersion);
+        }
         $("#MfaStatus").removeClass("open");
         $("#MfaStatus").find(".icon").removeClass("connected");
         $("#MfaStatus").find(".icon").removeClass("authorize");

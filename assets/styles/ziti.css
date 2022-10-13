@@ -15,6 +15,7 @@
     --power: #00DC5A;
     --buttontext: #232F3E;
     --highlight: #00deff;
+    --red: #F4044D;
 }
 
 
@@ -1152,6 +1153,12 @@ nav .title {
     border-radius: 28px;
     background-color: #F8FBFF;
     position: absolute;
+    top: 100px;
+}
+
+.scrollParent {
+    position: relative;
+    height: 100%;
 }
 
 @supports ((-webkit-backdrop-filter: saturate(180%) blur(30px)) or (backdrop-filter: saturate(180%) blur(30px))) {
@@ -1167,7 +1174,7 @@ nav .title {
     text-shadow: var(--fontshadow);
     position: absolute;
     width: 80%;
-    top: 100%;
+    z-index: 1000;
     left: calc(50% - 40%);
 }
 
@@ -1186,29 +1193,17 @@ nav .title {
 
 .howdy {
     font-family: 'Hand of Sean';
-    font-size: 64px;
+    font-size: 70px;
     text-align: right;
-    margin-right: 20px;
-    padding-top: 100px;
-}
-
-.hello {
-    width: 100%;
-    height: 200px;
-    background-image: url(../images/ziggy.svg);
-    background-position: center center;
-    background-size: contain;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding-top: 45px;
+    color: #ffffff;
 }
 
 .helloziggy {
     width: 100%;
     height: 200px;
-    background-position: left center;
+    background-position: center center;
     background-size: contain;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .button {
@@ -1442,7 +1437,7 @@ input, select {
 }
 
 .nooverflow {
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
     height: 63px;
@@ -1486,6 +1481,7 @@ input, select {
 
 .striken {
     text-decoration: line-through;
+    text-decoration-color: var(--red);
 }
 
 .mt20 {

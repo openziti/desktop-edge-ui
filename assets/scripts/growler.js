@@ -1,5 +1,5 @@
 var growler = {
-  isDebugging: true,
+  isDebugging: false,
   showId: -1,
   data: [],
   init: function() {
@@ -57,7 +57,6 @@ var growler = {
     $("#Growler").removeClass("warning");
     $("#Growler").removeClass("info");
     $("#Growler").removeClass("bug");
-    if (growler.isDebugging) console.log(type+"::"+title+" - "+message);
     if (type!="debug"||growler.isDebugging) {
       $("#Growler").addClass(type);
       $("#Growler").find(".title").html(title);

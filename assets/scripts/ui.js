@@ -5,6 +5,7 @@ var ui = {
     timerInterval: null,
     seconds: 0,
     isOn: false,
+    isFirst: true,
     init: function() {
         ui.events();
         ui.animate();
@@ -13,20 +14,36 @@ var ui = {
         $("#OnOffButton").click(ui.power);
     },
     state: function(data) {
-        ui.isOn = data.Active;
-        if (ui.isOn) {
-            if (!$("#OnOffButton").hasClass("on")) {
-                if (ui.timerInterval) clearInterval(ui.timerInterval);
-                ui.seconds = Math.ceil(data.Duration/1000);
-                
-                ui.timerInterval = setInterval(ui.tick, 1000);
-                $("#OnOffButton").addClass("on");
+        console.log(data);
+        if (data.Active!=ui.isOn || ui.isFirst) {
+            ui.isFirst = false;
+            ui.isOn = data.Active;
+            if (ui.isOn) {
+                if (!$("#OnOffButton").hasClass("on")) {
+                    if (ui.timerInterval) clearInterval(ui.timerInterval);
+                    ui.seconds = Math.ceil(data.Duration/1000);
+                    
+                    ui.timerInterval = setInterval(ui.tick, 1000);
+                    $("#OnOffButton").addClass("on");
+                    $("#CircleArea").show();
+                    $("#WelcomeBadge").hide();
+                    $(".serviceon").show();
+                    $(".serviceoff").hide();
+                }
+            } else {
+                ui.seconds = 0;
+                $("#UploadSpeed").html("0.0");
+                $("#DownloadSpeed").html("0.0");
+                $("#OnOffButton").removeClass("on");
+                $("#CircleArea").hide();
+                $("#WelcomeBadge").show();
+                $(".serviceon").hide();
+                $(".serviceoff").show();
+                $("#IdentityScreenArea").addClass("forceHide");
+                $("#ServiceScreenArea").addClass("forceHide");
+                $("#NoDataIdentityScreen").removeClass("forceHide");
+                $("#NoDataServiceScreen").removeClass("forceHide");
             }
-        } else {
-            ui.seconds = 0;
-            $("#UploadSpeed").html("0.0");
-            $("#DownloadSpeed").html("0.0");
-            $("#OnOffButton").removeClass("on");
         }
     },
     power: function(e) {
@@ -44,12 +61,16 @@ var ui = {
             ZitiService.data = [];
             $("#NavServiceCount").html("0");
             $("#NavIdentityCount").html("0");
+            $("#CircleArea").hide();
+            $("#WelcomeBadge").show();
         } else {
             // Show Loader Turn On Service
             app.sendMonitorMessage({ Op:"Start", Action:"Normal" });
             ui.timerInterval = setInterval(ui.tick, 1000);
             ui.isOn = true;
             $("#OnOffButton").addClass("on");
+            $("#CircleArea").show();
+            $("#WelcomeBadge").hide();
         }
     },
     tick: function() {

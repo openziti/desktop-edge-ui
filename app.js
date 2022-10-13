@@ -11,7 +11,7 @@ var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
+var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
 
 var Application = {
     CreateWindow: function() {
@@ -22,7 +22,7 @@ var Application = {
             minWidth: 1200,
             minHeight: 640,
             width: dimensions.width-380,
-            height: dimensions.height-264,
+            height: dimensions.height-234,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: true,
@@ -82,6 +82,7 @@ var Application = {
                 };
                 
                 mainWindow.webContents.send("os", os.platform());
+                mainWindow.webContents.send("locale", app.getLocale());
 
                 if (os.platform() === "linux") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;
@@ -100,6 +101,14 @@ var Application = {
                             'data',
                             function(data) {
                                 Application.onData("ziti-edge-tunnel-event", data);
+                            }
+                        );
+                        ipc.of.ziti.on(
+                            'error',
+                            function(data) {
+                                console.log("ERRRRORRRR");
+                                console.log(data);
+                                mainWindow.webContents.send('service-down', {});
                             }
                         );
                     }
@@ -175,7 +184,7 @@ var Application = {
                         // Log.debug("Application.onData", "Recieved Empty ICP Message");
                     }
                 }
-            } else console.log("Empty Event");
+            }
         } catch (e) {
             Log.error("Application.onData", "Error: "+e);
         }
@@ -262,10 +271,10 @@ var Log = {
                 if (this.toConsole) console.log(logString);
                 if (this.toFile) {
         
-                    let fileName = Log.file+moment().format("YYYYMMDD")+".log";
+                    let fileName = path.join(__dirname, Log.file+moment().format("YYYYMMDD")+".log");
                     var fullPath = path.dirname(fileName);
         
-                    if (!fs.existsSync(fullPath)){
+                    if (!fs.existsSync(fullPath)) {
                         fs.mkdirSync(fullPath, { recursive: true });
                     }
         
@@ -313,10 +322,8 @@ ipcMain.handle("logger-message", (event, data) => {
           name: 'OpenZitiLog'
         };
         sudo.exec(command, options, function(error, stdout, stderr) {
-            if (error) {
-                console.log('error: ' + error);
-            }
-            console.log('stdout: ' + stdout);
+            if (error) Log.error("Application.logger", error);
+            mainWindow.webContents.send("service-logs", stdout);
             return "";
         });
     }
@@ -331,7 +338,6 @@ ipcMain.handle("monitor-message", (event, data) => {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
-                console.log(JSON.stringify(error));
                 if (error.toString().indexOf("User did not grant permission.")>=0) {
                     var command = {
                         Type: "Status",
