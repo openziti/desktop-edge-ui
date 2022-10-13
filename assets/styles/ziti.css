@@ -1156,6 +1156,11 @@ nav .title {
     top: 100px;
 }
 
+.scrollParent {
+    position: relative;
+    height: 100%;
+}
+
 @supports ((-webkit-backdrop-filter: saturate(180%) blur(30px)) or (backdrop-filter: saturate(180%) blur(30px))) {
     .staticmodal {
         background: rgba(248, 251, 255, 0.15);
@@ -1432,7 +1437,7 @@ input, select {
 }
 
 .nooverflow {
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
     height: 63px;

@@ -22,7 +22,7 @@ var Application = {
             minWidth: 1200,
             minHeight: 640,
             width: dimensions.width-380,
-            height: dimensions.height-264,
+            height: dimensions.height-234,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: true,
@@ -82,6 +82,7 @@ var Application = {
                 };
 
                 mainWindow.webContents.send("os", os.platform());
+                mainWindow.webContents.send("locale", app.getLocale());
 
                 if (os.platform() === "linux") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;
@@ -100,6 +101,14 @@ var Application = {
                             'data',
                             function(data) {
                                 Application.onData("ziti-edge-tunnel-event", data);
+                            }
+                        );
+                        ipc.of.ziti.on(
+                            'error',
+                            function(data) {
+                                console.log("ERRRRORRRR");
+                                console.log(data);
+                                mainWindow.webContents.send('service-down', {});
                             }
                         );
                     }

@@ -39,10 +39,10 @@
             <div id="HeaderArea" class="container">
                 <div class="gridrow">
                     <div class="col-sm-3">
-                        <div id="AddButton" data-action="add" data-i18n></div>
+                        <div id="AddButton" data-action="add" class="serviceon" data-i18n></div>
                         <div id="BackButton" data-i18n></div>
                     </div>
-                    <div id="SearchArea" class="col-sm-offset-5 col-sm-4">
+                    <div id="SearchArea" class="col-sm-offset-5 col-sm-4 serviceon">
                         <input id="Search" placeholder="Search" class="search" />
                         <div id="GlobalResults"></div>
                         <div id="ClearSearch" class="clear"></div>
@@ -69,8 +69,9 @@
                             <div id="Greetings" class="howdy" data-i18n></div>
                             <div id="HelloZiggy" class="helloziggy"></div>
                         </div>
-                        <div id="GetStarted" class="subTitle" data-i18n></div>
-                        <div id="WelcomeAddId" class="button" data-action="add" data-i18n></div>
+                        <div id="GetStarted" class="subTitle serviceon" data-i18n></div>
+                        <div id="GetStartedOff" class="subTitle serviceoff" data-i18n></div>
+                        <div id="WelcomeAddId" class="button serviceon" data-action="add" data-i18n></div>
                     </div>
                 </div>
                 <div class="col-sm-4 verticalscroll">
@@ -78,7 +79,7 @@
                         <div class="header">
                             <div id="DownloadActivity" class="title download"></div>
                         </div>
-                        <div id="DownloadSpeed" class="count">0</div>
+                        <div id="DownloadSpeed" class="count">-</div>
                         <div id="DownloadMeasure" class="note">mbps</div>
                         <div id="DownloadGraph" class="graph"></div>
                     </div>
@@ -86,16 +87,16 @@
                         <div class="header">
                             <div id="UploadActivity" class="title upload"></div>
                         </div>
-                        <div id="UploadSpeed" class="count">0</div>
+                        <div id="UploadSpeed" class="count">-</div>
                         <div id="UploadMeasure" class="note">mbps</div>
                         <div id="UploadGraph" class="graph"></div>
                     </div>
-                    <div class="pod">
+                    <div class="pod serviceon">
                         <div class="title">Identities</div>
                         <div id="IdentityCount" class="count">0</div>
                         <div class="button" data-screen="IdentityScreen" data-key="ViewAll" data-i18n></div>
                     </div>
-                    <div class="pod">
+                    <div class="pod serviceon">
                         <div class="title">Services</div>
                         <div id="ServiceCount" class="count">0</div>
                         <div class="button" data-screen="ServiceScreen" data-key="ViewAll" data-i18n></div>
@@ -112,16 +113,15 @@
                         <div id="NoIdentitiesMessage" class="nomessage" data-i18n></div>
                     </div>
                 </div>
-                <div id="IdentityScreenArea" class="gridrow ids forceHide">
+                <div id="IdentityScreenArea" class="gridrow scrollParent ids forceHide">
                     <div class="col-sm-4 verticalscroll">
                         <div class="sortLine">
                             <div></div>
-                            <div class="sort">
-                                Sort by <span id="IdSort">Name</span>
+                            <div class="sort"><span data-key="SortBy" data-i18n></span> <span id="IdSort" data-key="Name" data-i18n></span>
                                 <span class="options">
-                                    <div class="option" data-sort="Name" data-what="identity">Name</div>
-                                    <div class="option" data-sort="Status" data-what="identity">Status</div>
-                                    <div class="option" data-sort="Total Services" data-what="identity">Total Services</div>
+                                    <div class="option" data-sort="Name" data-what="identity" data-key="Name" data-i18n></div>
+                                    <div class="option" data-sort="Status" data-what="identity" data-key="Status" data-i18n></div>
+                                    <div class="option" data-sort="Total Services" data-what="identity" data-key="TotalServices" data-i18n></div>
                                 </span>
                             </div>
                         </div>
@@ -130,15 +130,15 @@
                     <div class="col-sm-8 verticalscroll">
                         <div class="nameValues mb16">
                             <div class="nameValue">
-                                <label>Name</label>
+                                <label data-key="Name" data-i18n></label>
                                 <div id="IdName" class="value"></div>
                             </div>
                             <div class="nameValue">
-                                <label>Network</label>
+                                <label data-key="Network" data-i18n></label>
                                 <div id="IdNetwork" class="value"></div>
                             </div>
                             <div class="nameValue">
-                                <label>Controller</label>
+                                <label data-key="Controller" data-i18n></label>
                                 <div id="IdControllerVersion" class="value"></div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                     <div class="label">-/-</div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-2"><div class="mfatext"><span>MFA</span></div>
+                            <div class="col-sm-6 col-md-2"><div class="mfatext"><span data-key="MFA" data-i18n></span></div>
                             <div id="MfaToggle" class="toggle" data-call="mfa">
                                 <div class="handle"></div>
                                 <div class="onLabel">On</div>
@@ -189,7 +189,7 @@
                         <div id="NoServicesMessage" class="nomessage" data-i18n></div>
                     </div>
                 </div>
-                <div id="ServiceScreenArea" class="gridrow forceHide">
+                <div id="ServiceScreenArea" class="gridrow scrollParent forceHide">
                     <div class="col-sm-4 verticalscroll">
                         <div class="gridrow">
                             <div class="input col-sm-8">
@@ -297,15 +297,15 @@
                         <div class="icon appLog"></div>
                         Application Logs
                     </div>
-                    <div class="fullNav advancedNav" data-sub="LogLevel">
+                    <div class="fullNav advancedNav serviceon" data-sub="LogLevel">
                         <div class="icon level"></div>
                         Set Logging Level
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div id="ConfigInfo" class="sub open">
-                        <div class="title">Tunnel Configuration</div>
-                        <div>Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.</div>
+                        <div class="title" data-key="AdvancedTitle" data-i18n></div>
+                        <div data-key="AdvancedDescription" data-i18n></div>
                         <div class="iconNameValue">
                             <div class="icon ip"></div>
                             <div class="name">IPv4 Address</div>
@@ -337,7 +337,7 @@
                             <div></div>
                             <div></div>
                             <div class="right">
-                                <div id="EditButton" class="button edit">Edit Configuration</div>
+                                <div id="EditButton" class="button edit serviceon" data-i18n></div>
                             </div>
                         </div>
                     </div>
@@ -350,10 +350,11 @@
                                 <div class="iconHeader">
                                     <div class="title">View The<br/>Service Logs</div>
                                     <div class="icon serviceLog"></div>
+                                </div>
                                 <div id="ServiceLogButton" class="button">Open Logs</div>
                             </div>
+                            <div id="ServiceLogs" class="logs"></div>
                         </div>
-                        <div id="ServiceLogs" class="logs"></div>
                     </div>
 
                     <div id="AppLogs" class="sub">
@@ -377,7 +378,7 @@
                             <div class="icon error"></div>
                             <div class="name">Error</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -386,7 +387,7 @@
                             <div class="icon warn"></div>
                             <div class="name">Warn</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -395,7 +396,7 @@
                             <div class="icon info"></div>
                             <div class="name">Info</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -404,7 +405,7 @@
                             <div class="icon debug"></div>
                             <div class="name">Debug</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -413,7 +414,7 @@
                             <div class="icon verbose"></div>
                             <div class="name">Verbose</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -422,7 +423,7 @@
                             <div class="icon trace"></div>
                             <div class="name">Trace</div>
                             <div>
-                                <div class="radio">
+                                <div class="radio serviceon">
                                     <div class="dot"></div>
                                 </div>
                             </div>
@@ -496,7 +497,7 @@
                         <div class="icon docs"></div>
                         Read the Docs
                     </div>
-                    <div class="supportNav windows" data-sub="GiveFeedback" style="display: none;">
+                    <div class="supportNav windows serviceon" data-sub="GiveFeedback" style="display: none;">
                         <div class="icon feedback"></div>
                         Give Feedback
                     </div>
@@ -594,12 +595,12 @@
             <div class="navItem" data-screen="IdentityScreen">
                 <div class="icon identitiy"></div>
                 <div class="label">Identities</div>
-                <div id="NavIdentityCount" class="count">0</div>
+                <div id="NavIdentityCount" class="count serviceon">0</div>
             </div>
             <div class="navItem" data-screen="ServiceScreen">
                 <div class="icon service"></div>
                 <div class="label">Services</div>
-                <div id="NavServiceCount" class="count">0</div>
+                <div id="NavServiceCount" class="count serviceon">0</div>
             </div>
             <div class="title">Others</div>
             <div class="navItem" data-screen="AdvancedScreen">

@@ -22,8 +22,8 @@ var app = {
     downChart: null,
     upChart: null,
     os: '',
+    locale: "en-US",
     init: function() {
-        app.language();
 
         app.events();
         modal.init();
@@ -37,7 +37,9 @@ var app = {
         $(".loader").hide();
     },
     language: function() {
-        var languageFile = path.join(__dirname, 'assets/languages/en-us.json');
+        var filePath = 'assets/languages/en-us.json';
+
+        var languageFile = path.join(__dirname, filePath);
         app.keys = JSON.parse(fs.readFileSync(languageFile));
         $("[data-i18n]").each((i, e) => {
             var key = $(e).data("key");
@@ -48,12 +50,34 @@ var app = {
                 $(e).html(app.keys[key]);
             }
         });
+
+        console.log(app.locale);
+        if (fs.existsSync(path.join(__dirname, 'assets/languages/'+app.locale+'.json'))) {
+            filePath = 'assets/languages/'+app.locale+'.json';
+
+            languageFile = path.join(__dirname, filePath);
+            var obj = JSON.parse(fs.readFileSync(languageFile));
+            for (var item in obj) {
+                app.keys[item] = obj[item];
+            }
+            $("[data-i18n]").each((i, e) => {
+                var key = $(e).data("key");
+                if (!key) {
+                    var id = $(e).attr("id");
+                    $("#"+id).html(app.keys[id]);
+                } else {
+                    $(e).html(app.keys[key]);
+                }
+            });
+        }
     },
     events: function() {
         ipcRenderer.on('service-logs', app.onServiceLogs);
         ipcRenderer.on('message-to-ui', app.onData);
         ipcRenderer.on('os', app.setOS);
+        ipcRenderer.on('locale', app.setLocale);
         ipcRenderer.on('app-status', app.onStatus);
+        ipcRenderer.on('service-down', app.down);
         $("#CloseButton").click(app.close);
         $("[data-screen]").click(app.screen);
         $("[data-action]").click(app.action);
@@ -108,14 +132,25 @@ var app = {
             ipcRenderer.invoke("window", "minimize");
         });
     },
+    copy: function(e) {
+        navigator.clipboard.writeText($(e.currentTarget).html());
+        growler.success($(e.currentTarget).html()+" copied");
+    },
+    down: function(e, data) {
+        ui.state({Active: false, from: "down"});
+    },
     onServiceLogs: function(e) {
         $("#ServiceLogs").html(e);
     },
-    setOS: function(e) {
-        app.os = e;
+    setOS: function(e, data) {
+        app.os = data;
         if (app.os=="win32") $(".windows").show();
         else if (app.os=="linux") $(".linux").show();
         else if (app.os=="darwin") $(".mac").show();
+    },
+    setLocale: function(e, data) {
+        app.locale = data.toLowerCase();
+        app.language();
     },
     enter: function(e) {
 		if (e.keyCode == 13) {
@@ -261,6 +296,7 @@ var app = {
                     }
                     ZitiSettings.init(message.Status);
                     ZitiService.refresh();
+                    message.Status.from = "Status";
                     ui.state(message.Status);
                 } else if (message.Op=="metrics") {
                     app.metrics(message.Identities);
@@ -297,9 +333,9 @@ var app = {
                     }
                 }
             } else {
-                if (message.Type=="Status") {
+                if (message.Type=="Status"&&message.Code==10) {
                     if (message.Status!=null && message.Status=="Stopped") {
-                        ui.state({Active: false});
+                        ui.state({Active: false, from: "Message"});
                         ZitiIdentity.data = [];
                         ZitiService.data = [];
                         $("#NavServiceCount").html("0");

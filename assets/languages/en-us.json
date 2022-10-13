@@ -1,24 +1,38 @@
 {
     "AppTitle": "Ziti Desktop Edge",
-
     "MainTitle": "Mission Control",
-
-    "AddButton": "Add An Identity",
-    "BackButton": "Back",
     "WelcomeTitle": "Welcome to Ziti Desktop Edge",
     "GetStarted": "Add an Identity to Get Started",
+    "GetStartedOff": "Turn on Ziti Tunnel to Get Started",
     "WelcomeAddId": "Add an Identity",
 
-    "ForgetButton": "Forget This Identity",
 
     "InvalidMFACode": "Invalid Code",
+
     "Greetings": "Hello",
 
     "DownloadActivity": "Download Activity",
     "UploadActivity": "Upload Activity",
+
     "ViewAll": "View All",
     "Connected": "Connected",
 
     "NoIdentitiesMessage": "Oh Snap...<br>Looks like you are disconnected or you don't have any identites registered yet. :(",
-    "NoServicesMessage": "Ruh Roh...<br>Looks like you are disconnected or you don't have any services assigned yet. :("
+    "NoServicesMessage": "Ruh Roh...<br>Looks like you are disconnected or you don't have any services assigned yet. :(",
+
+    "BackButton": "Back",
+    "AddButton": "Add An Identity",
+    "ForgetButton": "Forget This Identity",
+    "EditButton": "Edit Configuration",
+
+    "Name": "Name",
+    "Status": "Status",
+    "TotalServices": "Total Services",
+    "SortBy": "Sort By",
+    "Network": "Network",
+    "Controller": "Controller",
+    "MFA": "MFA",
+
+    "AdvancedDescription": "Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.",
+    "AdvancedTitle": "Tunnel Configuration"
 }
