@@ -11,7 +11,7 @@ var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var iconPath = path.join(__dirname, 'assets/images/ziti-white.png');
+var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
 
 app.whenReady().then(async () => {
    console.log("Got Here");
@@ -45,7 +45,7 @@ var Application = {
             minWidth: 1200,
             minHeight: 640,
             width: dimensions.width-380,
-            height: dimensions.height-264,
+            height: dimensions.height-234,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: true,
@@ -103,8 +103,9 @@ var Application = {
                     monitorEvents: ".\\OpenZiti\\ziti-monitor\\events",
                     monitor: ".\\OpenZiti\\ziti-monitor\\ipc"
                 };
-
+                
                 mainWindow.webContents.send("os", os.platform());
+                mainWindow.webContents.send("locale", app.getLocale());
 
                 if (os.platform() === "linux") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;
@@ -118,20 +119,26 @@ var Application = {
                     ipcpaths.monitor = null;
                 }
 
-                if (ipcpaths.events) {
-                    ipc.connectTo(
-                        'ziti',
-                        ipcpaths.events,
-                        function() {
-                            ipc.of.ziti.on(
-                                'data',
-                                function(data) {
-                                    Application.onData("ziti-edge-tunnel-event", data);
-                                }
-                            );
-                        }
-                    );
-                }
+                ipc.connectTo(
+                    'ziti',
+                    ipcpaths.events,
+                    function() {
+                        ipc.of.ziti.on(
+                            'data',
+                            function(data) {
+                                Application.onData("ziti-edge-tunnel-event", data);
+                            }
+                        );
+                        ipc.of.ziti.on(
+                            'error',
+                            function(data) {
+                                console.log("ERRRRORRRR");
+                                console.log(data);
+                                mainWindow.webContents.send('service-down', {});
+                            }
+                        );
+                    }
+                );
               
               
                 if (ipcpaths.tunnel) {
@@ -293,10 +300,10 @@ var Log = {
                 if (this.toConsole) console.log(logString);
                 if (this.toFile) {
         
-                    let fileName = Log.file+moment().format("YYYYMMDD")+".log";
+                    let fileName = path.join(__dirname, Log.file+moment().format("YYYYMMDD")+".log");
                     var fullPath = path.dirname(fileName);
         
-                    if (!fs.existsSync(fullPath)){
+                    if (!fs.existsSync(fullPath)) {
                         fs.mkdirSync(fullPath, { recursive: true });
                     }
         

@@ -1,6 +1,7 @@
 {
-  "name": "ZitiDesktopEdge",
-  "version": "3.0.1",
+  "name": "zitidesktopedgepreview",
+  "productName": "Ziti Desktop Edge (Preview)",
+  "version": "3.0.2",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
   "scripts": {
@@ -69,13 +70,25 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "icon": "./icon.icns"
+            "icon": "./app.png",
+            "maintainer": "OpenZiti",
+            "name": "Ziti Desktop Edge Preview",
+            "genericName": "Ziti Desktop Edge",
+            "productName": "Ziti Desktop Edge Preview",
+            "homepage": "https://openziti.com",
+            "version": "3.0.2"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "icon": "./icon.icns"
+            "icon": "./app.png",
+            "maintainer": "OpenZiti",
+            "name": "Ziti Desktop Edge Preview",
+            "genericName": "Ziti Desktop Edge",
+            "productName": "Ziti Desktop Edge Preview",
+            "homepage": "https://openziti.com",
+            "version": "3.0.2"
           }
         }
       ]

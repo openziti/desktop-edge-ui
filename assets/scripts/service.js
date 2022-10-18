@@ -205,6 +205,8 @@ var ZitiService = {
             $(e.currentTarget).addClass("selected");
             ZitiService.showDetails();
         });
+        $(".nooverflow").off("dblclick");
+        $(".nooverflow").dblclick(app.copy);
     },
     showDetails: function() {
         if ($(".fullservices.selected").length>0) {
