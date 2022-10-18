@@ -398,8 +398,8 @@ var app = {
     metrics: function(identities) {
         var totalUp = 0;
         var totalDown = 0;
-        var upscale = "kbps";
-        var downscale = "kbps";
+        var upscale = app.keys.kbps;
+        var downscale = app.keys.kbps;
         for (var i=0; i<identities.length; i++) {
             totalUp += identities[i].Metrics.Up;
             totalDown += identities[i].Metrics.Down;
@@ -415,30 +415,30 @@ var app = {
 
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = "mbps";
+            upscale = app.keys.mbps;
         }
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = "gbps";
+            upscale = app.keys.gbps;
         }
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = "tbps";
+            upscale = app.keys.tbps;
         }
         $("#UploadSpeed").html(totalUp.toFixed(1));
         $("#UploadMeasure").html(upscale);
         
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = "mbps";
+            downscale = app.keys.mbps;
         }
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = "gbps";
+            downscale = app.keys.gbps;
         }
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = "tbps";
+            downscale = app.keys.tbps;
         }
         $("#DownloadSpeed").html(totalDown.toFixed(1));
         $("#DownloadMeasure").html(downscale);

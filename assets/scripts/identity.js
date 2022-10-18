@@ -289,8 +289,8 @@ var ZitiIdentity = {
         else return "";
     },
     metrics: function(fingerprint, up, down) {
-        var upscale = "kbps";
-        var downscale = "kbps";
+        var upscale = app.keys.kbps;
+        var downscale = app.keys.kbps;
         var upsize = 0;
         var downsize = 0;
         for (var i=0; i<this.data.length; i++) {
@@ -307,30 +307,30 @@ var ZitiIdentity = {
 
         if (upsize>1024) {
             upsize = upsize/1024;
-            upscale = "mbps";
+            upscale = app.keys.mbps;
         }
         if (upsize>1024) {
             upsize = upsize/1024;
-            upscale = "gbps";
+            upscale = app.keys.gbps;
         }
         if (upsize>1024) {
             upsize = upsize/1024;
-            upscale = "tbps";
+            upscale = app.keys.tbps;
         }
         //$("#UploadSpeed").html(upsize.toFixed(1));
         //$("#UploadMeasure").html(upscale);
         
         if (downsize>1024) {
             downsize = downsize/1024;
-            downscale = "mbps";
+            downscale = app.keys.mbps;
         }
         if (downsize>1024) {
             downsize = downsize/1024;
-            downscale = "gbps";
+            downscale = app.keys.gbps;
         }
         if (downsize>1024) {
             downsize = downsize/1024;
-            downscale = "tbps";
+            downscale = app.keys.tbps;
         }
         //$("#DownloadSpeed").html(downsize.toFixed(1));
         //$("#DownloadMeasure").html(downscale);
