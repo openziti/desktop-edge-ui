@@ -5,30 +5,22 @@
     "GetStarted": "Add an Identity to Get Started",
     "GetStartedOff": "Turn on Ziti Tunnel to Get Started",
     "WelcomeAddId": "Add an Identity",
-
-
     "InvalidMFACode": "Invalid Code",
-
     "Greetings": "Hello",
-
     "DownloadActivity": "Download Activity",
     "UploadActivity": "Upload Activity",
     "DownloadSpeed": "Download Speed",
     "UploadSpeed": "Upload Speed",
     "Identities": "Identities",
     "Services": "Services",
-
     "ViewAll": "View All",
     "Connected": "Connected",
-
     "NoIdentitiesMessage": "Oh Snap...<br>Looks like you are disconnected or you don't have any identites registered yet. :(",
     "NoServicesMessage": "Ruh Roh...<br>Looks like you are disconnected or you don't have any services assigned yet. :(",
-
     "BackButton": "Back",
     "AddButton": "Add An Identity",
     "ForgetButton": "Forget This Identity",
     "EditButton": "Edit Configuration",
-
     "Name": "Name",
     "Status": "Status",
     "TotalServices": "Total Services",
@@ -65,17 +57,13 @@
     "ShowQR": "Show QR Code",
     "or": "or",
     "GoToLink": "Go to Link",
-
     "AdvancedDescription": "Advanced setttings affect the operation of the Ziti Tunnel Service. Use the edit button to configure these options.",
     "AdvancedTitle": "Tunnel Configuration",
-
     "kbps": "kbps",
     "mbps": "mbps",
     "gbps": "gbps",
     "tbps": "tbps",
-
     "Descending": "Descending",
-
     "On": "On",
     "Off": "Off",
     "TunnelConfiguration": "Tunnel Configuration",
@@ -122,8 +110,5 @@
     "PrivacyPolicyButton": "Privacy<br />Policy",
     "Open": "Open",
     "Terms": "Terms of<br />Service",
-
     "EditTunnelConfiguration": "Edit Tunnel Configuration"
-
-
 }
