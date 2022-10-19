@@ -76,7 +76,8 @@
             "genericName": "Ziti Desktop Edge",
             "productName": "Ziti Desktop Edge Preview",
             "homepage": "https://openziti.com",
-            "version": "3.0.2"
+            "version": "3.0.2",
+            "depends": ["ziti-edge-tunnel"]
           }
         },
         {
@@ -88,7 +89,8 @@
             "genericName": "Ziti Desktop Edge",
             "productName": "Ziti Desktop Edge Preview",
             "homepage": "https://openziti.com",
-            "version": "3.0.2"
+            "version": "3.0.2",
+            "requires": ["ziti-edge-tunnel"]
           }
         }
       ]
