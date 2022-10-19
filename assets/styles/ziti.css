@@ -497,18 +497,34 @@ body.max .updateavailable {
     display: none;
 }
 
+.levelSelect:hover {
+    background-color: rgba(0,0,0,.15);
+}
+
 .levelSelect {
     width: 99%;
     position: relative;
     display: grid;
-    margin-top: 20px;
-    height: 38px;
-    line-height: 38px;
+    height: 48px;
+    line-height: 48px;
     grid-template-columns: 40px auto 20px;
     cursor: pointer;
     font-weight: 600;
     color: #FFF;
     column-gap: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.unselectable {
+    -webkit-user-select: none; 
+    user-select: none; 
+}
+
+.levelSelect.selected {
+    background-color: rgba(0,0,0,.35);
 }
 
 .levelSelect div {
@@ -518,7 +534,8 @@ body.max .updateavailable {
 .levelSelect .icon {
     width: 38px;
     height: 38px;
-    background-size: contain;
+    background-size: contain;    
+    top: 4px;
 }
 
 .levelSelect .icon.fatal {
@@ -579,6 +596,10 @@ body.max .updateavailable {
 }
 
 .fullNav.selected, .supportNav.selected {
+    background-color: rgba(0,0,0,.35);
+}
+
+.fullNav:hover, .supportNav:hover {
     background-color: rgba(0,0,0,.15);
 }
 
@@ -833,7 +854,7 @@ nav .title {
     left: 100px;
     top: 0px;
     right: 0px;
-    height: 20px;
+    height: 30px;
     -webkit-app-region: drag;
 }
 
@@ -1381,8 +1402,14 @@ input, select {
     position: absolute;
     right: 20px;
     top: 20px;
+    width: 20px;
+    height: 20px;
     color: var(--highlight);
     font-weight: 700;
+    background-image: url(../images/X.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .form.popover .title {
@@ -1554,7 +1581,7 @@ input, select {
 }
 
 .fullservices.selected {
-    background-color: rgba(0,0,0,.15);
+    background-color: rgba(0,0,0,.35);
     border-radius: 15px;
 }
 
@@ -1681,7 +1708,7 @@ input, select {
 }
 
 .identities.selected {
-    background-color: rgba(0,0,0,.15);
+    background-color: rgba(0,0,0,.35);
     border-radius: 15px;
 }
 

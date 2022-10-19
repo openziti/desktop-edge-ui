@@ -41,7 +41,7 @@
             <div id="HeaderArea" class="container">
                 <div class="gridrow">
                     <div class="col-sm-3">
-                        <div id="AddButton" data-action="add" class="serviceon" data-i18n></div>
+                        <div id="AddButton" data-action="add" class="serviceon unselectable" data-i18n></div>
                         <div id="BackButton" data-i18n></div>
                     </div>
                     <div id="SearchArea" class="col-sm-offset-5 col-sm-4 serviceon">
@@ -231,9 +231,15 @@
                                 <label data-key="Url" data-i18n></label>
                                 <div id="ServiceUrl" class="value"></div>
                             </div>
+                            <div class="nameValue">
+                                <label data-key="Identity" data-i18n></label>
+                                <div id="ServiceIdentity" class="value"></div>
+                            </div>
                         </div>
                         <div class="gridrow">
-                            <div class="col-sm-6">
+
+                            <!-- Hide these until tunnel send service level metrics -->
+                            <div class="col-sm-6" style="display: none;">
                                 <div class="pod">
                                     <div class="header">
                                         <div class="title download" data-key="DownloadSpeed" data-i18n></div>
@@ -243,7 +249,7 @@
                                     <div id="DownloadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" style="display: none;">
                                 <div class="pod">
                                     <div class="header">
                                         <div class="title upload" data-key="UploadSpeed" data-i18n></div>
@@ -253,7 +259,17 @@
                                     <div id="UploadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <!-- End Hid Metrics -->
+
+                            <div class="col-sm-12">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label data-key="Addresses" data-i18n></label>
+                                        <div id="ServiceAddresses" class="value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <div class="pod">
                                     <div class="nameValue">
                                         <label data-key="Ports" data-i18n></label>
@@ -265,29 +281,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="pod">
-                                    <div class="nameValue">
-                                        <label data-key="Addresses" data-i18n></label>
-                                        <div id="ServiceAddresses" class="value"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="pod">
                                     <div class="nameValue">
                                         <label data-key="PostureChecks" data-i18n></label>
                                         <div id="PostureChecks" class="value"></div>
                                     </div>
                                     <div id="PassFail"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="pod">
-                                    <div class="nameValue">
-                                        <label data-key="Identity" data-i18n></label>
-                                        <div id="ServiceIdentity" class="value"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -605,27 +605,27 @@
         <nav class="missionBg">
             <div class="navItem selected" data-screen="MissionControl">
                 <div class="icon control"></div>
-                <div class="label" data-key="MainTitle" data-i18n></div>
+                <div class="label unselectable" data-key="MainTitle" data-i18n></div>
             </div>
-            <div class="title" data-key="IdentitiesServices" data-i18n></div>
+            <div class="title unselectable" data-key="IdentitiesServices" data-i18n></div>
             <div class="navItem" data-screen="IdentityScreen">
                 <div class="icon identitiy"></div>
-                <div class="label" data-key="Identities" data-i18n></div>
+                <div class="label unselectable" data-key="Identities" data-i18n></div>
                 <div id="NavIdentityCount" class="count serviceon">0</div>
             </div>
             <div class="navItem" data-screen="ServiceScreen">
                 <div class="icon service"></div>
-                <div class="label" data-key="Services" data-i18n></div>
+                <div class="label unselectable" data-key="Services" data-i18n></div>
                 <div id="NavServiceCount" class="count serviceon">0</div>
             </div>
-            <div class="title" data-key="Others" data-i18n></div>
+            <div class="title unselectable" data-key="Others" data-i18n></div>
             <div class="navItem" data-screen="AdvancedScreen">
                 <div class="icon advanced"></div>
-                <div class="label" data-key="AdvancedSettings" data-i18n></div>
+                <div class="label unselectable" data-key="AdvancedSettings" data-i18n></div>
             </div>
             <div class="navItem" data-screen="SupportScreen">
                 <div class="icon support"></div>
-                <div class="label" data-key="Support" data-i18n></div>
+                <div class="label unselectable" data-key="Support" data-i18n></div>
             </div>
             <div class="nav-z"></div>
             <div id="UpdateAvailable" class="updateavailable" style="display: none;">
@@ -634,7 +634,7 @@
             </div>
             <div id="OnOffButton">
                 <div class="ring"></div>
-                <div id="Timer">00:00:00</div>
+                <div id="Timer" class="unselectable">00:00:00</div>
                 <div class="power"></div>
                 <div id="Stop" data-i18n></div>
             </div>
