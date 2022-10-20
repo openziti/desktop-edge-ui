@@ -103,11 +103,10 @@ body {
 main {
     position: absolute;
     left: 68px;  
-    border-radius: 25px;
-    bottom: 5px;
-    right: 5px;
-    top: 25px;
-    box-shadow: var(--mainShadow);
+    border-radius: 22px;
+    bottom: 0px;
+    right: 0px;
+    top: 0px;
     min-width: 1080px;
     min-height: 608px;
     overflow: hidden;
@@ -856,6 +855,10 @@ nav .title {
     right: 0px;
     height: 30px;
     -webkit-app-region: drag;
+}
+
+#HeaderArea:hover {
+    caret-color: #000;
 }
 
 #HeaderArea #AddButton {

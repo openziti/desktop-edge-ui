@@ -50,25 +50,25 @@
                         <div id="ClearSearch" class="clear"></div>
                     </div>
                 </div>
-                <div class="dragger"></div>
+                <div id="HeadDrag" class="dragger"></div>
             </div>
             <!-- End Header Area -->
 
             <!-- Mission Controls Screen -->
             <div id="MissionControl" class="area gridrow open">
                 <div class="col-sm-8">
-                    <div id="MainTitle" class="globetitle" data-i18n></div>
+                    <div id="MainTitle" class="globetitle unselectable" data-i18n></div>
                     <div id="CircleArea" class="row" style="display: none;">
                         <div id="CanvasBox" class="col-sm-12 mt24">
                             <canvas id="CircleCanvas" style="background-color: unset; opacity: 0.98;"></canvas>
                             <div class="copy">
-                                <h1 data-key="Connected" data-i18n></h1>
+                                <h1 data-key="Connected" data-i18n class="unselectable"></h1>
                             </div>
                         </div>
                     </div>
                     <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
                         <div class="icon close"></div>
-                        <div id="WelcomeTitle" class="title" data-i18n></div>
+                        <div id="WelcomeTitle" class="title unselectable" data-i18n></div>
                         <div class="grid split">
                             <div id="Greetings" class="howdy" data-i18n></div>
                             <div id="HelloZiggy" class="helloziggy"></div>

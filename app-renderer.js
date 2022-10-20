@@ -131,15 +131,16 @@ var app = {
         $("#MinButton").click((e) => {
             ipcRenderer.invoke("window", "minimize");
         });
-        $("#HeaderArea").dblclick((e) => {
-            if ($("body").hasClass("max")) {
-                $("body").removeClass("max");
-                ipcRenderer.invoke("window", "unmaximize");
-            } else {
-                $("body").addClass("max");
-                ipcRenderer.invoke("window", "maximize");
-            }
-        });
+        $("main").dblclick(app.toggleScreen);
+    },
+    toggleScreen: function() {
+        if ($("body").hasClass("max")) {
+            $("body").removeClass("max");
+            ipcRenderer.invoke("window", "unmaximize");
+        } else {
+            $("body").addClass("max");
+            ipcRenderer.invoke("window", "maximize");
+        }
     },
     copy: function(e) {
         navigator.clipboard.writeText($(e.currentTarget).html());
