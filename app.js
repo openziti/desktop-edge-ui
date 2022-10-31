@@ -252,7 +252,6 @@ var AppSettings = {
         var file = path.join(__dirname, filePath);
         fs.writeFile(file, JSON.stringify(AppSettings.data), function (err) {
             if (err)  console.log(err);
-            else  console.log(AppSettings.data);
         });
     }
 }
