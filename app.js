@@ -18,11 +18,18 @@ var Application = {
         app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
+        AppSettings.init();
+        var width = dimensions.width-380;
+        var height = dimensions.height-234;
+        if (AppSettings.IsSet(AppSettings.data.width) && AppSettings.IsSet(AppSettings.data.height)) {
+            if (Number(AppSettings.data.width)<width) width = Number(AppSettings.data.width);
+            if (Number(AppSettings.data.height)<height) height = Number(AppSettings.data.height);
+        }
         mainWindow = new BrowserWindow({
             minWidth: 1200,
             minHeight: 640,
-            width: dimensions.width-380,
-            height: dimensions.height-234,
+            width: width,
+            height: height,
             title: "Ziti Desktop Edge",
             icon: iconPath, 
             show: true,
@@ -69,7 +76,15 @@ var Application = {
               //mainWindow.hide();
             //}
             //return false;
-        //});  
+        //}); 
+        mainWindow.on("resize", function () {
+            var size = mainWindow.getSize();
+            var width = size[0];
+            var height = size[1];
+            AppSettings.data.width = width;
+            AppSettings.data.height = height;
+            AppSettings.Save();
+        }); 
         mainWindow.webContents.on('did-finish-load', function() {
             setTimeout(() => {
                 mainWindow.show();
@@ -209,6 +224,36 @@ var Application = {
     },
     Activation: function() {
         if (mainWindow === null) Application.CreateWindow();
+    }
+}
+
+var AppSettings = {
+    data: {},
+    init: function() {
+        var filePath = 'assets/data/settings.json';
+        var file = path.join(__dirname, filePath);
+        if (!fs.existsSync(file)) {
+            AppSettings.data = {
+                "width": null,
+                "height": null,
+                "logDays": 7
+            };
+            AppSettings.Save();
+        } else {
+            AppSettings.data = JSON.parse(fs.readFileSync(file));
+        }
+    },
+    IsSet: function(prop) {
+        if (prop!=null && !isNaN(prop)) return true;
+        return false;
+    },
+    Save: function() {
+        var filePath = 'assets/data/settings.json';
+        var file = path.join(__dirname, filePath);
+        fs.writeFile(file, JSON.stringify(AppSettings.data), function (err) {
+            if (err)  console.log(err);
+            else  console.log(AppSettings.data);
+        });
     }
 }
 

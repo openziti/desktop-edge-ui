@@ -51,7 +51,6 @@ var app = {
             }
         });
 
-        console.log(app.locale);
         if (fs.existsSync(path.join(__dirname, 'assets/languages/'+app.locale+'.json'))) {
             filePath = 'assets/languages/'+app.locale+'.json';
 
