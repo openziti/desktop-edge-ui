@@ -285,4 +285,4 @@ Jeremy-win32-x64/
 release/
 out/
 logs/
-data/
+assets/data/*
