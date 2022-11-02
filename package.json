@@ -1,7 +1,7 @@
 {
   "name": "zitidesktopedgepreview",
   "productName": "Ziti Desktop Edge (Preview)",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
   "scripts": {
@@ -74,9 +74,10 @@
             "maintainer": "OpenZiti",
             "name": "Ziti Desktop Edge Preview",
             "genericName": "Ziti Desktop Edge",
+            "executableName": "ziti-desktop",
             "productName": "Ziti Desktop Edge Preview",
             "homepage": "https://openziti.com",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "depends": ["ziti-edge-tunnel"]
           }
         },
@@ -86,10 +87,11 @@
             "icon": "./app.png",
             "maintainer": "OpenZiti",
             "name": "Ziti Desktop Edge Preview",
+            "executableName": "ziti-desktop",
             "genericName": "Ziti Desktop Edge",
             "productName": "Ziti Desktop Edge Preview",
             "homepage": "https://openziti.com",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "requires": ["ziti-edge-tunnel"]
           }
         }
