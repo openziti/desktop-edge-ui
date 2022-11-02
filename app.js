@@ -12,9 +12,14 @@ var sudo = require('sudo-prompt');
 var mainWindow;
 var logging = true;
 var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
+var appPath = app.getPath('appData');
+appPath = path.join(appPath, "openziti");
+var logDirectory = path.join(appPath, "logs");
+logDirectory = path.join(logDirectory, "ui");
 
 var Application = {
     CreateWindow: function() {
+        if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
         app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
@@ -230,8 +235,7 @@ var Application = {
 var AppSettings = {
     data: {},
     init: function() {
-        var filePath = 'assets/data/settings.json';
-        var file = path.join(__dirname, filePath);
+        var file = path.join(appPath, 'settings.json');
         if (!fs.existsSync(file)) {
             AppSettings.data = {
                 "width": null,
@@ -248,8 +252,7 @@ var AppSettings = {
         return false;
     },
     Save: function() {
-        var filePath = 'assets/data/settings.json';
-        var file = path.join(__dirname, filePath);
+        var file = path.join(appPath, 'settings.json');
         fs.writeFile(file, JSON.stringify(AppSettings.data), function (err) {
             if (err)  console.log(err);
         });
@@ -262,7 +265,7 @@ var Log = {
     toFile: true,
     toConsole: true,
     levels: ["error", "warn", "info", "debug", "verbose", "trace"],
-    file: "logs"+path.sep+"UI"+path.sep+"ZitiDesktopEdge",
+    file: "ZitiDesktopEdge",
     setLevel: function(level) {
         Log.debug("Log.setLevel", "Set Internal Log Level To "+level);
         var monitorCommand = {
@@ -305,7 +308,7 @@ var Log = {
     },
     write: function(level, from, message) {
         if (level!=null && from!=null && message!=null) {
-           // if (Log.levels.indexOf(Log.level) >= Log.levels.indexOf(level)) {
+           if (Log.levels.indexOf(Log.level) >= Log.levels.indexOf(level)) {
 
                 var messageValue = "";
                 if (typeof messageValue != 'string') messageValue = JSON.stringify(message);
@@ -315,18 +318,15 @@ var Log = {
                 if (this.toConsole) console.log(logString);
                 if (this.toFile) {
         
-                    let fileName = path.join(__dirname, Log.file+moment().format("YYYYMMDD")+".log");
-                    var fullPath = path.dirname(fileName);
+                    let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
         
-                    if (!fs.existsSync(fullPath)) {
-                        fs.mkdirSync(fullPath, { recursive: true });
-                    }
+                    if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
         
                     fs.appendFile(fileName, logString, (err) => {
                         if (err) console.log("Log Write Error: "+err);
                     });
         
-                    fs.readdir(fullPath, (err, files) => {
+                    fs.readdir(logDirectory, (err, files) => {
                         if (files.length>Log.daysToMaintain) {
                             var toDelete = Log.daysToMaintain-files.length;
                             for (let i=0; i<toDelete; i++) {
@@ -335,7 +335,7 @@ var Log = {
                         }
                     });
                 }
-            //}
+            }
         }
     }
 }
