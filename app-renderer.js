@@ -287,6 +287,7 @@ var app = {
     onData: function(event, data) {
         try {
             var message = JSON.parse(data);
+            console.log(message)
             if (message.Op) {
                 if (message.Op=="status") {
                     Log.debug("onData", "IPC In: "+message.Op);
@@ -307,6 +308,14 @@ var app = {
                     ZitiService.refresh();
                     message.Status.from = "Status";
                     ui.state(message.Status);
+                } else if (message.Op=="bulkservice") {
+                    if (message.RemovedServices) {
+                        for (var i=0; i<message.RemovedServices.length; i++) {
+                            var removed = message.RemovedServices[i];
+                            ZitiService.remove(removed.Id);
+                        }
+                        ZitiService.refresh();
+                    }
                 } else if (message.Op=="metrics") {
                     app.metrics(message.Identities);
                 } else if (message.Op=="identity") {

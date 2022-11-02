@@ -32,6 +32,15 @@ var ZitiService = {
         }
         return host;
     },
+    remove: function(id) {
+        var list = [];
+        for (var i=0; i<ZitiService.data.length; i++) {
+            if (ZitiService.data[i].Id!=id) {
+                list.push(ZitiService.data[i]);
+            }
+        }
+        ZitiService.data = list;
+    },
     set: function(id, services) {
         for (var i=0; i<services.length; i++) {
             if (!ZitiService.isDefined(id, services[i].Id)) {
@@ -188,6 +197,9 @@ var ZitiService = {
             }
             $("#ServiceList").append(element);
             $("#FullServiceList").append(fullElement);
+
+            if ($("#ServiceList").find(".open").length==0) $("#IdServiceFilterArea").hide();
+            else $("#IdServiceFilterArea").show();
 
         }
         $(".clickable").click((e) => {

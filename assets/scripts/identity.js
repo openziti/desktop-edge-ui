@@ -213,7 +213,7 @@ var ZitiIdentity = {
         $("#IdName").html(item.Name);
         if (item.Config) {
             $("#IdNetwork").html(item.Config.ztAPI);
-            $("#IdControllerVersion").html(item.Config.ControllerVersion);
+            $("#IdControllerVersion").html(item.ControllerVersion);
         }
         $("#MfaStatus").removeClass("open");
         $("#MfaStatus").find(".icon").removeClass("connected");
