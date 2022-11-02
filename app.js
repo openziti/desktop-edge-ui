@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
+const { app, shell, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
 const electron = require('electron');
 const os = require('os');
 const dialog = require('electron').dialog;
@@ -319,7 +319,6 @@ var Log = {
                 if (this.toFile) {
         
                     let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
-        
                     if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
         
                     fs.appendFile(fileName, logString, (err) => {
@@ -358,6 +357,11 @@ ipc.config.sync = false;
 ipcMain.handle("message", (event, data) => {
     Application.SendMessage(data);
     return "";
+});
+ipcMain.handle("open-logs", (event, data) => {
+    var logFile = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
+    console.log("Opening "+logFile);
+    shell.showItemInFolder(logFile);
 });
 ipcMain.handle("logger-message", (event, data) => {
     if (os.platform() === "linux") {

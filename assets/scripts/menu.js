@@ -27,6 +27,6 @@ var menu = {
         else if (app.os=="darwin") shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"Service"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
     },
     OpenAppLogs: function(e) {
-        shell.showItemInFolder(rootPath+path.sep+"logs"+path.sep+"UI"+path.sep+"ZitiDesktopEdge"+moment().format("YYYYMMDD")+".log");
+        ipcRenderer.invoke("open-logs");
     }
 }

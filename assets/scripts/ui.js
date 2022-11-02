@@ -14,7 +14,6 @@ var ui = {
         $("#OnOffButton").click(ui.power);
     },
     state: function(data) {
-        console.log(data);
         if (data.Active!=ui.isOn || ui.isFirst) {
             ui.isFirst = false;
             ui.isOn = data.Active;
