@@ -11,11 +11,15 @@ var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
+var connectedIcon = path.join(__dirname, 'assets/images/ziti-green.png');
+var disconnectedIcon = path.join(__dirname, 'assets/images/ziti-red.png');
+var trayIcon = path.join(__dirname, 'assets/images/ziti-white.png');
+var iconPath = path.join(__dirname, 'assets/images/ziti.png');
 var appPath = app.getPath('appData');
 appPath = path.join(appPath, "openziti");
 var logDirectory = path.join(appPath, "logs");
 logDirectory = path.join(logDirectory, "ui");
+var tray;
 
 var Application = {
     CreateWindow: function() {
@@ -56,7 +60,7 @@ var Application = {
         });
         if (!app.isPackaged) mainWindow.webContents.openDevTools();
 
-        var appIcon = new Tray(iconPath);
+        tray = new Tray(trayIcon);
         var contextMenu = Menu.buildFromTemplate([
             { 
                 label: 'Show App', click: () => {
@@ -70,7 +74,7 @@ var Application = {
                 } 
             }
         ]); 
-        appIcon.setContextMenu(contextMenu);
+        tray.setContextMenu(contextMenu);iconPath
         
         //mainWindow.on('closed', function () {
           //mainWindow = null
@@ -120,14 +124,17 @@ var Application = {
                         ipc.of.ziti.on(
                             'data',
                             function(data) {
+                                mainWindow.setOverlayIcon(connectedIcon, "Connected");
+                                tray.setImage(connectedIcon);
+                                
                                 Application.onData("ziti-edge-tunnel-event", data);
                             }
                         );
                         ipc.of.ziti.on(
                             'error',
                             function(data) {
-                                console.log("ERRRRORRRR");
-                                console.log(data);
+                                mainWindow.setOverlayIcon(disconnectedIcon, "Disconnected");
+                                tray.setImage(disconnectedIcon);
                                 mainWindow.webContents.send('service-down', {});
                             }
                         );
