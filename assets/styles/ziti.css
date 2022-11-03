@@ -1672,6 +1672,15 @@ input, select {
     opacity: 0.6;
 }
 
+.detailClick {
+    cursor: pointer;
+    opacity: 1;
+    transition: var(--transition);
+}
+
+.detailClick {
+    opacity: 0.8;
+}
 
 .services.open {
     display: grid;

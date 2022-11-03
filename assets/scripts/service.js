@@ -206,15 +206,7 @@ var ZitiService = {
             else $("#IdServiceFilterArea").show();
 
         }
-        $(".clickable").click((e) => {
-            var launcher = $(e.currentTarget).data("launch");
-            var items = launcher.split('|');
-            if (items.length==2) {
-                if (items[0]=="URL") app.openUrl(items[1]);
-                else if (items[0]=="FILE") app.openPath("\\\\"+items[1]+"\\");
-                else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
-            }
-        });
+        $(".clickable").click(ZitiService.launch);
         ZitiService.showDetails();
         $(".fullservices").click((e) => {
             $(".fullservices").removeClass("selected");
@@ -223,6 +215,15 @@ var ZitiService = {
         });
         $(".nooverflow").off("dblclick");
         $(".nooverflow").dblclick(app.copy);
+    },
+    launch: function(e) {
+        var launcher = $(e.currentTarget).data("launch");
+        var items = launcher.split('|');
+        if (items.length==2) {
+            if (items[0]=="URL") app.openUrl(items[1]);
+            else if (items[0]=="FILE") app.openPath("\\\\"+items[1]+"\\");
+            else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
+        }
     },
     showDetails: function() {
         if ($(".fullservices.selected").length>0) {
@@ -244,12 +245,18 @@ var ZitiService = {
                     var val = "";
                     if (item.Addresses[j].HostName) val = item.Addresses[j].HostName;
                     else if (item.Addresses[j].IP) val = item.Addresses[j].IP;
+
                     address += val;
-                    addreses += ((j>0)?'<br/>':'')+val
+                    if (item.Launch.length>0) {
+                        addreses += ((j>0)?'<br/>':'')+'<span class="detailClick" data-launch="'+item.Launch+'">'+val+'</span>';
+                    } else {
+                        addreses += ((j>0)?'<br/>':'')+'<span>'+val+'</span>';
+                    }
                 }
                 address += ":";
                 $("#ServiceAddresses").html(addreses);
             }
+            $(".detailClick").click(ZitiService.launch);
             if (item.Ports && item.Ports.length>0) {
                 var ports = "";
                 for (var j=0; j<item.Ports.length; j++) {
