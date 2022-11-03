@@ -384,6 +384,10 @@ body.max .updateavailable {
     float: right;
 }
 
+#FilterServices {
+    width: 100%;
+}
+
 @media (max-width: 1200px) {
     .container {
       width: 1170px;
@@ -407,6 +411,16 @@ body.max .updateavailable {
     padding-left: 75px;
     transition: .3s;
     z-index: 8000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fullNav .navLabel,  .supportNav .navLabel {
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    padding-right: 10px;
 }
 
 .supportNav:hover {
