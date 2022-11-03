@@ -133,6 +133,7 @@ var ZitiService = {
                 return 0;
             });
         }
+        var mainlist = [];
 
         var opened = $(".identities.selected").data("id");
         for (var i=0; i<ZitiService.data.length; i++) {
@@ -196,7 +197,10 @@ var ZitiService = {
                 fullElement.html(fullElement.html().split("{{"+prop+"}}").join(ZitiService.getValue(item[prop])));
             }
             $("#ServiceList").append(element);
-            $("#FullServiceList").append(fullElement);
+            if (!mainlist.includes(item.Id)) {
+                mainlist.push(item.Id);
+                $("#FullServiceList").append(fullElement);
+            }
 
             if ($("#ServiceList").find(".open").length==0) $("#IdServiceFilterArea").hide();
             else $("#IdServiceFilterArea").show();
