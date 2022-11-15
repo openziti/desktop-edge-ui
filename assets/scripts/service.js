@@ -11,10 +11,13 @@ var ZitiService = {
     setSort: function(sort) {
         this.sort = sort;
         $("#ServiceSort").html(sort);
+        $("#IdServiceSort").html(sort); 
         this.refresh();
     },
     setHow: function(how) {
         this.sortHow = how;
+        if (how=="ASC") $("#SortHow").html(app.keys["Ascending"]);
+        else $("#SortHow").html(app.keys["Descending"]);
         this.refresh();
     },
     GetFirstHostName: function(addresses) {

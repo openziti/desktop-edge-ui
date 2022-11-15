@@ -12,7 +12,7 @@ var ZitiIdentity = {
     },
     setSort: function(sort) {
         ZitiIdentity.sort = sort;
-        $("#IdSort").html(sort); 
+        $("#IdServiceSort").html(sort); 
         ZitiIdentity.refresh();
     },
     events: function() {

@@ -64,6 +64,7 @@
     "gbps": "gbps",
     "tbps": "tbps",
     "Descending": "Descending",
+    "Ascending": "Ascending",
     "On": "On",
     "Off": "Off",
     "TunnelConfiguration": "Tunnel Configuration",

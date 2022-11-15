@@ -103,10 +103,16 @@ var app = {
         $(".option").click((e) => {
             var sortWhat = $(e.currentTarget).data("what");
             var sort = $(e.currentTarget).data("sort");
-            if (sortWhat=="identity") {
-                ZitiIdentity.setSort(sort);
-            } else if (sortWhat=="service") {
-                ZitiService.setSort(sort);
+            var how = $(e.currentTarget).data("how");
+            if (sort) {
+                if (sortWhat=="identity") {
+                    ZitiIdentity.setSort(sort);
+                } else if (sortWhat=="service") {
+                    ZitiService.setSort(sort);
+                }
+            }
+            if (how) {
+                ZitiService.setHow(how);
             }
         });
         $("#ClearSearch").click((e) => {

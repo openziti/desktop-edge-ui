@@ -123,7 +123,9 @@
                     <div class="col-sm-4 verticalscroll">
                         <div class="sortLine">
                             <div></div>
-                            <div class="sort"><span data-key="SortBy" data-i18n></span> <span id="IdSort" data-key="Name" data-i18n></span>
+                            <div class="sort">
+                                <span data-key="SortBy" data-i18n></span> 
+                                <span id="IdSort" data-key="Name" data-i18n></span>
                                 <span class="options">
                                     <div class="option" data-sort="Name" data-what="identity" data-key="Name" data-i18n></div>
                                     <div class="option" data-sort="Status" data-what="identity" data-key="Status" data-i18n></div>
@@ -153,10 +155,25 @@
                                 <input id="FilterId" class="filter" placeholder="Filter" />
                             </div>
                             <div class="right">
-                                <div class="sort sortHow" data-key="Descending" data-i18n></div>
                                 <div class="sort">
+                                    <div id="SortHow" class="sortHow" data-key="Descending" data-i18n></div>
+    
+                                    <span class="options">
+                                        <div class="option" data-how="DESC" data-what="service" data-key="Descending" data-i18n></div>
+                                        <div class="option" data-how="ASC" data-what="service" data-key="Ascending" data-i18n></div>
+                                    </span>
+                                </div>
+                                <div class="sort" style="margin-right: 20px;">
                                     <span data-key="SortBy" data-i18n></span> 
-                                    <span data-key="Name" data-i18n></span>
+                                    <span id="IdServiceSort" data-key="Name" data-i18n></span>
+    
+                                    <span class="options">
+                                        <div class="option" data-sort="Name" data-what="service" data-key="Name" data-i18n></div>
+                                        <div class="option" data-sort="Address" data-what="service" data-key="Address" data-i18n></div>
+                                        <div class="option" data-sort="Port" data-what="service" data-key="Port" data-i18n></div>
+                                        <div class="option" data-sort="Protocol" data-what="service" data-key="Protocol" data-i18n></div>
+                                        <div class="option" data-sort="Total Posture Checks" data-what="service" data-key="PostureChecks" data-i18n></div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -211,11 +228,11 @@
                                 <span id="ServiceSort" data-key="Name" data-i18n></span>
 
                                 <span class="options">
-                                    <div class="option" data-sort="Name" data-what="service" data-key="Name" data-i18n></div>
-                                    <div class="option" data-sort="Address" data-what="service" data-key="Address" data-i18n></div>
-                                    <div class="option" data-sort="Port" data-what="service" data-key="Port" data-i18n></div>
-                                    <div class="option" data-sort="Protocol" data-what="service" data-key="Protocol" data-i18n></div>
-                                    <div class="option" data-sort="Total Posture Checks" data-what="service" data-key="PostureChecks" data-i18n></div>
+                                    <div class="option" data-sort="Name" data-what="service" data-how="ASC" data-key="Name" data-i18n></div>
+                                    <div class="option" data-sort="Address" data-what="service" data-how="ASC" data-key="Address" data-i18n></div>
+                                    <div class="option" data-sort="Port" data-what="service" data-how="ASC" data-key="Port" data-i18n></div>
+                                    <div class="option" data-sort="Protocol" data-what="service" data-how="ASC" data-key="Protocol" data-i18n></div>
+                                    <div class="option" data-sort="Total Posture Checks" data-what="service" data-how="ASC" data-key="PostureChecks" data-i18n></div>
                                 </span>
                             </div>
                         </div>
