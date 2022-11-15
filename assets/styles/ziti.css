@@ -579,6 +579,31 @@ body.max .updateavailable {
     background-image: url(../images/trace.svg);
 }
 
+.radio {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: rgba(255,255,255,.25);
+    position: relative;
+    margin-top: 10px;
+    border-style: solid;
+}
+
+.radio .dot {
+    opacity: 0.0;
+    margin: 1px;
+    background-color: #00DC5A;
+    width: 19px;
+    height: 19px;
+    border-radius: 19px;
+    animation: Pulse 3s infinite ease-in-out;
+}
+
+.radio.selected .dot {
+    opacity: 1.0;
+}
+
 .levelSelect .radio {
     width: 25px;
     height: 25px;
@@ -645,6 +670,16 @@ body.max .updateavailable {
  
 .fullNav .icon.level {
     background-image: url(../images/loglevel.svg);
+    background-size: 30px auto;
+}
+ 
+.fullNav .icon.update {
+    background-image: url(../images/update.svg);
+    background-size: 30px auto;
+}
+ 
+.fullNav .icon.release {
+    background-image: url(../images/release.svg);
     background-size: 30px auto;
 }
 
@@ -1305,6 +1340,7 @@ nav .title {
 .row {
     position: relative;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .area.screen {
@@ -1328,6 +1364,20 @@ nav .title {
     margin-bottom: 35px;
 }
 
+#Updates .iconNameValue {
+    grid-template-columns: 40px auto 61px;
+    height: 60px;
+}
+
+#Updates .iconNameValue.switched {
+    grid-template-columns: 40px auto 185px;
+    height: 60px;
+}
+
+#Updates .radio {
+    margin-top: 7px;
+}
+
 .iconNameValue {
     position: relative;
     height: 41px;
@@ -1347,6 +1397,14 @@ nav .title {
     background-position: center center;
     border-radius: 20px;
     background-color: rgba(255,255,255,.15);
+}
+
+#UpdateOn {
+    top: -14px;
+}
+
+.iconNameValue .icon.noback {
+    background-color: rgba(255,255,255,0) !important;
 }
 
 .iconNameValue .value {
@@ -1371,6 +1429,14 @@ nav .title {
 
 .icon.api {
     background-image: url(../images/pagesize.svg);
+}
+
+.icon.release {
+    background-image: url(../images/release.svg);
+}
+
+.icon.update {
+    background-image: url(../images/update.svg);
 }
 
 .toggleArea {
@@ -2131,6 +2197,32 @@ input, select {
 
 #ServiceList {
     height: calc(100vh - 345px);
+}
+
+.left {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+}
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.dragColumn {
+    border-left-color: #d4d9e2;
+    border-right-color: #d4d9e2;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+    width: 3px;
+    height: 206px;
+    position: fixed;
+    right: 0px;
+    top: 360px;
+    cursor: col-resize;
+    opacity: 0.2;
 }
 
 @keyframes rotation {

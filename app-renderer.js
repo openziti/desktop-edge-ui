@@ -31,6 +31,7 @@ var app = {
         growler.init();
         ui.init();
         mfa.init();
+        dragging.init();
         ZitiIdentity.init();
         ZitiService.init();
 
@@ -85,6 +86,7 @@ var app = {
         $("#EditButton").click(app.showForm);
         $("#CloseForm").click(app.hideForm);
         $(".levelSelect").click(app.levelSelect);
+        $(".releaseStream").click(app.releaseStream);
         $(".toggle").click(app.toggle);
         $('[data-url]').click(app.open);
         $(".search").keyup(app.search);
@@ -241,6 +243,10 @@ var app = {
         var callAfter = $(e.currentTarget).data("call");
         if (callAfter=="mfa") mfa.toggle(); 
     },
+    releaseSelect: function(e) {
+        $(".releaseStream.selected").removeClass("selected");
+        $(e.currentTarget).addClass("selected");
+    },
     levelSelect: function(e) {
         $(".levelSelect.selected").removeClass("selected");
         $(e.currentTarget).addClass("selected");
@@ -278,6 +284,7 @@ var app = {
     },
     sub: function(e) {
         var sub = $(e.currentTarget).data("sub");
+        console.log(sub);
         $("#AdvancedScreen").find(".sub").removeClass("open");
         $("#"+sub).addClass("open");
         $(".fullNav").removeClass("selected");

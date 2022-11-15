@@ -26,6 +26,7 @@
         <script src="assets/scripts/settings.js"></script>
         <script src="assets/scripts/service.js"></script>
         <script src="assets/scripts/identity.js"></script>
+        <script src="assets/scripts/dragger.js"></script>
         <script src="app-renderer.js"></script>
     </head>
     <body>
@@ -332,6 +333,10 @@
                         <div class="icon level"></div>
                         <span data-key="SetLoggingLevel" class="navLabel" data-i18n></span>
                     </div>
+                    <div class="fullNav advancedNav serviceon" data-sub="Updates">
+                        <div class="icon update"></div>
+                        <span data-key="AutomaticUpdates" class="navLabel" data-i18n></span>
+                    </div>
                 </div>
                 <div class="col-sm-8">
                     <div id="ConfigInfo" class="sub open">
@@ -459,7 +464,37 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div id="Updates" class="sub">
+                        <div class="title" data-key="AutomaticUpdates" data-i18n></div>
+                        <div data-key="AutomaticSubTitle" data-i18n></div>
+                        <div class="iconNameValue">
+                            <div class="icon update noback"></div>
+                            <div class="name" data-key="AutomaticUpdates" data-i18n></div>
+                            <div class="row">
+                                <div id="UpdateOn" class="toggle">
+                                    <div class="handle"></div>
+                                    <div class="onLabel" data-key="On" data-i18n></div>
+                                    <div class="row"></div>
+                                    <div class="offLabel" data-key="Off" data-i18n></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iconNameValue switched">
+                            <div class="icon release noback"></div>
+                            <div class="name" data-key="ReleaseStream" data-i18n></div>
+                            <div>
+                                <label class="left" data-key="Normal" data-i18n></label>
+                                <div class="radio selected left releaseStream">
+                                    <div class="dot"></div>
+                                </div>
+                                <label class="left" data-key="Beta" data-i18n></label>
+                                <div class="radio left releaseStream">
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="EditForm" class="form popover">
