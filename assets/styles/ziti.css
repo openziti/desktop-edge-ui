@@ -1275,8 +1275,9 @@ nav .title {
 }
 
 .button.secondary {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 60px;
+    color: #FFF;
+    padding-right: 60px;
     background-color: var(--secondary);
 }
 
