@@ -615,6 +615,14 @@ body.max .updateavailable {
     border-style: solid;
 }
 
+#IdServiceFilterArea {
+    opacity: 0.0;
+}
+
+#IdServiceFilterArea.open {
+    opacity: 1.0;
+}
+
 .levelSelect .radio .dot {
     opacity: 0.0;
     margin: 1px;

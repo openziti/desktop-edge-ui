@@ -205,8 +205,8 @@ var ZitiService = {
                 $("#FullServiceList").append(fullElement);
             }
 
-            if ($("#ServiceList").find(".open").length==0) $("#IdServiceFilterArea").hide();
-            else $("#IdServiceFilterArea").show();
+            if ($("#ServiceList").find(".open").length==0) $("#IdServiceFilterArea").removeClass("open");
+            else $("#IdServiceFilterArea").addClass("open");
 
         }
         $(".clickable").click(ZitiService.launch);
