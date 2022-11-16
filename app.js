@@ -48,7 +48,7 @@ var Application = {
             webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
-              devTools: !app.isPackaged
+              devTools: true
             }
         });
         mainWindow.setMenu(null);
@@ -213,7 +213,7 @@ var Application = {
                 }
             }
         } catch (e) {
-            Log.error("Application.onData", "Error: "+e);
+            Log.error("Application.onData", "Error: "+e+" "+data);
         }
     },
     onDataFromService(data) {
@@ -222,9 +222,12 @@ var Application = {
     SendMessage: function(data) {
         ipc.config.rawBuffer = true;
         Log.debug("Application.SendMessage", JSON.stringify(data));
-        ipc.of.ZitiSend.emit(JSON.stringify(data));
-        if (os.platform() === "linux") ipc.of.ZitiSend.emit("\0");
-        else ipc.of.ZitiSend.emit("\n");
+        var command = JSON.stringify(data);
+        if (os.platform() == "linux") command += "\0";
+        else command += "\n";
+        ipc.of.ZitiSend.emit(command);
+        // if (os.platform() !== "linux") ipc.of.ZitiSend.emit("\n");
+        // else ipc.of.ZitiSend.emit("\n");
     },
     SendMonitorMessage: function(data) {
         ipc.config.rawBuffer = true;
@@ -469,9 +472,12 @@ ipcMain.handle("action-add", (event, data) => {
                     }
                 };
 
-                ipc.of.ZitiSend.emit(JSON.stringify(json));
-                if (os.platform() === "linux") ipc.of.ZitiSend.emit("\0");
-                else ipc.of.ZitiSend.emit("\n");
+                var command = JSON.stringify(json);
+                if (os.platform() == "linux") command += "\0";
+                else command += "\n";
+                ipc.of.ZitiSend.emit(command);
+                //if (os.platform() === "linux") ipc.of.ZitiSend.emit("\0");
+                //else ipc.of.ZitiSend.emit("\n");
 
             } else return {status: "File Not Selected"};
         }

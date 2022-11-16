@@ -334,7 +334,7 @@ var app = {
                     var id = message.Id;
 
                     var idSelected = ZitiIdentity.selected();
-                    if (id.FingerPrint==idSelected.FingerPrint) modal.close();
+                    if (idSelected && id.FingerPrint==idSelected.FingerPrint) modal.close();
 
                     if (!id.Services) id.Services = [];
                     id.TotalServices = id.Services.length;
