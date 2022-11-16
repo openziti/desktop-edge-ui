@@ -223,7 +223,7 @@ var Application = {
         ipc.config.rawBuffer = true;
         Log.debug("Application.SendMessage", JSON.stringify(data));
         ipc.of.ZitiSend.emit(JSON.stringify(data));
-        if (os.platform() !== "linux") ipc.of.ZitiSend.emit("\0");
+        if (os.platform() === "linux") ipc.of.ZitiSend.emit("\0");
         else ipc.of.ZitiSend.emit("\n");
     },
     SendMonitorMessage: function(data) {
@@ -470,7 +470,7 @@ ipcMain.handle("action-add", (event, data) => {
                 };
 
                 ipc.of.ZitiSend.emit(JSON.stringify(json));
-                if (os.platform() !== "linux") ipc.of.ZitiSend.emit("\0");
+                if (os.platform() === "linux") ipc.of.ZitiSend.emit("\0");
                 else ipc.of.ZitiSend.emit("\n");
 
             } else return {status: "File Not Selected"};
