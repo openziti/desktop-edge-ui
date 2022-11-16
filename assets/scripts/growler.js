@@ -3,7 +3,7 @@ var growler = {
   showId: -1,
   data: [],
   init: function() {
-    $("body").append('<div id="Growler" class="growler"><div class="title"></div><div class="subtitle"></div><div class="content"></div><div class="icon"></div></div>');
+    $("body").append('<div id="Growler" class="growler"><div class="subtitle"></div><div class="icon"></div></div>');
     growler.events();
     if (!growler.data) growler.data = [];
   },

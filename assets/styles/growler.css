@@ -1,14 +1,17 @@
 #Growler.open {
-    bottom: 45px;
+    left: 368px;   
+    opacity: 1.0; 
 }
 
 #Growler {
+    left: 20px;    
     position: fixed;
-    right: 42px;
-    bottom: -100px;
-    min-width: 300px;
-    z-index: 9999999;
+    left: 368px;    
+    bottom: 68px;
+    min-width: 284px;
+    z-index: 49;
     max-width: 500px;
+    opacity: 0.0;
 }
 
 #NotificationsList {
@@ -34,9 +37,9 @@
 }
 
 .growler {
-	background: rgba(248, 251, 255, 0.45);
-    backdrop-filter: saturate(180%) blur(30px);  
-	min-height: 105px;
+    background: rgba(248, 251, 255, 0.45);
+    backdrop-filter: saturate(40%) blur(6px);
+	min-height: 82px;
 	min-width: 334px;
 	font-size: 16px;
 	color: #ffffff;
@@ -104,12 +107,12 @@
 }
 
 .growler .subtitle {
-    padding-top: 17px;
+    padding-top: 31px;
     font-size: 15px;
     font-weight: bold;
     padding-left: 75px;
-    padding-right: 10px;
-	overflow: hidden;
+    padding-right: 22px;
+    overflow: hidden;
 }
 
 .growler .content {
@@ -134,15 +137,15 @@
     background-size: 80%;
     position: absolute;
     left: 10px;
-    top: 40px;
+    top: 16px;
 }
 
 .growler.error .icon {
-    background-image: url(../images/error.png);
+    background-image: url(../images/errorflag.png);
 }
 
 .growler.success .icon {
-    background-image: url(../images/success.png);
+    background-image: url(../images/successflag.svg);
 }
 
 .growler.info .icon {
@@ -150,7 +153,7 @@
 }
 
 .growler.warning .icon {
-    background-image: url(../images/warning.png);
+    background-image: url(../images/warnflag.png);
 }
 
 .growler.bug .icon {

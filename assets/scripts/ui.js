@@ -1,5 +1,3 @@
-
-
 var ui = {
     hello: null,
     timerInterval: null,
@@ -12,6 +10,7 @@ var ui = {
     },
     events: function() {
         $("#OnOffButton").click(ui.power);
+        $(".releaseStream").click(ui.updateRelease);
     },
     state: function(data) {
         if (data.Active!=ui.isOn || ui.isFirst) {
@@ -44,6 +43,18 @@ var ui = {
                 $("#NoDataServiceScreen").removeClass("forceHide");
             }
         }
+    },
+    updateRelease: function(e) {
+        $(".releaseStream").removeClass("selected");
+        $(e.currentTarget).addClass("selected");
+    },
+    updateConfig: function() {
+        var isOn = $("#UpdateOn").hasClass("on");
+        var command = {
+            Op: "SetAutomaticUpgradeDisabled", 
+            Action: isOn
+        };
+        Application.sendMonitorMessage(command);
     },
     power: function(e) {
         if ($("#OnOffButton").hasClass("on")) {

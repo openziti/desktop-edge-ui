@@ -333,9 +333,12 @@
                         <div class="icon level"></div>
                         <span data-key="SetLoggingLevel" class="navLabel" data-i18n></span>
                     </div>
-                    <div class="fullNav advancedNav serviceon" data-sub="Updates">
-                        <div class="icon update"></div>
-                        <span data-key="AutomaticUpdates" class="navLabel" data-i18n></span>
+                    <!-- Remove me if Updates feature is working -->
+                    <div style="display: none;">
+                        <div class="fullNav advancedNav serviceon windows" data-sub="Updates">
+                            <div class="icon update"></div>
+                            <span data-key="AutomaticUpdates" class="navLabel" data-i18n></span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -473,7 +476,7 @@
                             <div class="icon update noback"></div>
                             <div class="name" data-key="AutomaticUpdates" data-i18n></div>
                             <div class="row">
-                                <div id="UpdateOn" class="toggle">
+                                <div id="UpdateOn" class="toggle" data-call="updates">
                                     <div class="handle"></div>
                                     <div class="onLabel" data-key="On" data-i18n></div>
                                     <div class="row"></div>
@@ -486,11 +489,11 @@
                             <div class="name" data-key="ReleaseStream" data-i18n></div>
                             <div>
                                 <label class="left" data-key="Normal" data-i18n></label>
-                                <div class="radio selected left releaseStream">
+                                <div data-id="Normal" class="radio selected left releaseStream">
                                     <div class="dot"></div>
                                 </div>
                                 <label class="left" data-key="Beta" data-i18n></label>
-                                <div class="radio left releaseStream">
+                                <div data-id="Beta" class="radio left releaseStream">
                                     <div class="dot"></div>
                                 </div>
                             </div>

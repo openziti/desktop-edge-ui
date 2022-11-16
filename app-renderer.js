@@ -242,6 +242,7 @@ var app = {
         else $(e.currentTarget).addClass("on");
         var callAfter = $(e.currentTarget).data("call");
         if (callAfter=="mfa") mfa.toggle(); 
+        else if (callAfter=="updates") ui.updateConfig(); 
     },
     releaseSelect: function(e) {
         $(".releaseStream.selected").removeClass("selected");

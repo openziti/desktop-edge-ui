@@ -231,6 +231,7 @@ var Application = {
     },
     SendMonitorMessage: function(data) {
         ipc.config.rawBuffer = true;
+        console.log("Sending "+JSON.stringify(data));
         Log.debug("Application.SendMonitorMessage", JSON.stringify(data));
         ipc.of.MonitorSend.emit(JSON.stringify(data));
         ipc.of.MonitorSend.emit("\n");
