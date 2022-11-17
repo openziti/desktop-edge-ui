@@ -12,6 +12,13 @@ var ui = {
         $("#OnOffButton").click(ui.power);
         $(".releaseStream").click(ui.updateRelease);
     },
+    updates: function(data) {
+        $(".releaseStream").removeClass("selected");
+        if (data.ReleaseStream=="stable") $(".releaseStream[data-id='Normal']").addClass("selected");
+        else $(".releaseStream[data-id='Beta']").addClass("selected");
+        if (data.AutomaticUpgradeDisabled.toLowerCase()=='false') $("#UpdateOn").addClass("on");
+        else $("#UpdateOn").removeClass("on");
+    },
     state: function(data) {
         if (data.Active!=ui.isOn || ui.isFirst) {
             ui.isFirst = false;
@@ -44,6 +51,32 @@ var ui = {
             }
         }
     },
+    notification: function(data) {
+        var now = moment();
+        console.log(data.InstallTime);
+        console.log(data);
+        var installDate = moment(data.InstallTime);
+        var message = "";
+        if ($("#UpdateOn").hasClass("on")) {
+            console.log(installDate.diff(now, 'seconds'));
+            console.log(data.ZDEVersion);
+            console.log(installDate.format("MM/DD/YYYY hh:mm A"));
+            if (installDate.diff(now, 'seconds') < 60) {
+                message = "Ziti Desktop Edge will initiate auto installation in the next minute!";
+            } else {
+                console.log("Here");
+                message = "Update "+data.ZDEVersion+" is available for Ziti Desktop Edge and will be automatically installed by "+installDate.format("MM/DD/YYYY hh:mm A");
+                console.log("And Here");
+            }
+            
+            //var notify = new Notification("Timed Out", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+        } else {
+            message = "Version "+data.ZDEVersion+" is available for Ziti Desktop Edge";
+        }
+        console.log("The Message");
+        console.log(message);
+        var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "", icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+    },
     updateRelease: function(e) {
         $(".releaseStream").removeClass("selected");
         $(e.currentTarget).addClass("selected");
@@ -52,9 +85,9 @@ var ui = {
         var isOn = $("#UpdateOn").hasClass("on");
         var command = {
             Op: "SetAutomaticUpgradeDisabled", 
-            Action: isOn
+            Action: !isOn
         };
-        Application.sendMonitorMessage(command);
+        app.sendMonitorMessage(command);
     },
     power: function(e) {
         if ($("#OnOffButton").hasClass("on")) {

@@ -208,7 +208,7 @@ var Application = {
                             Log.debug("Application.onData", "Cant Parse JSON: "+json[i]);
                         }
                     } else {
-                        // Log.debug("Application.onData", "Recieved Empty ICP Message");
+                        // Log.debug("Application.onData", "Recieved Empty IPC Message");
                     }
                 }
             }
