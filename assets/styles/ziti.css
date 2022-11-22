@@ -89,7 +89,7 @@ body {
 	margin: 0px;	
     width: 100%;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 16px;
+	font-size: 15px;
 	height: 100%;
 	overflow: hidden;
 	-webkit-font-smoothing: antialiased;
@@ -316,9 +316,9 @@ body.max #OnOffButton .ring {
     opacity: 0.0;
     width: 100%;
     position: absolute;
-    top: 26px;
+    top: 29px;
     transition: 0.3s;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     text-shadow: var(--fontshadow);
     color: #ffffff;
@@ -397,11 +397,11 @@ body.max .updateavailable {
 .fullNav, .supportNav {
     position: relative;
     width: 100%;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     color: #FFF;
-    height: 80px;
-    line-height: 80px;
+    height: 70px;
+    line-height: 8=70px;
     text-shadow: var(--fontshadow);
     border-radius: 15px;
     cursor: pointer;
@@ -494,7 +494,7 @@ body.max .updateavailable {
 .sub .title {
     width: 100%;
     position: relative;
-    font-size: 28px;
+    font-size: 24px;
     color: #FFF;
     text-shadow: var(--fontshadow);
     font-weight: 700;
@@ -657,8 +657,8 @@ body.max .updateavailable {
     border-radius: 25px;
     background-size: auto 33px;
     background-position: center center;
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    left: 10px;
 }
 
 .fullNav .icon.train {
@@ -774,7 +774,7 @@ nav .title {
     position: relative;
     float: left;
     width: 100%;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     opacity: .5;
     height: 40px;
@@ -897,6 +897,33 @@ nav .title {
     padding-top: 30px;
 }
 
+
+body.max #MissionControl {
+    padding-left: 300px;
+}
+
+
+body.max #IdentityScreen {
+    padding-left: 300px;
+}
+
+body.max #ServiceScreen {
+    padding-left: 300px;
+}
+
+body.max #AdvancedScreen {
+    padding-left: 300px;
+}
+
+body.max #SupportScreen {
+    padding-left: 300px;
+}
+
+body.max #HeaderArea {
+    padding-left: 300px;
+}
+
+
 #HeaderArea .title {
     font-weight: bold;
     color: #fff;
@@ -930,12 +957,12 @@ nav .title {
     background-image: url(../images/plus.svg);
     background-position: 1px 8px;
     background-size: 34px 20px;
-    font-size: 18px;
-    padding-left: 36px;
+    font-size: 15px;
+    padding-left: 35px;
     text-align: left;
     line-height: 35px;
     height: 38px;
-    width: 185px;
+    width: 165px;
     cursor: pointer;
     transition: var(--transition);
     z-index: 5000;
@@ -964,7 +991,7 @@ nav .title {
     background-position: 8px 6px;
     line-height: 39px;
     height: 39px;
-    font-size: 18px;
+    font-size: 16px;
     z-index: 5000;
 }
 
@@ -984,13 +1011,13 @@ nav .title {
 
 
 #GlobalResults {
-    width: 270px;
+    width: 215px;
     background-color: rgba(0,0,0,.25);
     backdrop-filter: blur(30px);
     border-radius: 7px;
     position: absolute;
-    top: 45px;
-    left: 50px;
+    top: 39px;
+    left: 44px;
     height: 0;
     opacity: 0;
     text-align: left;
@@ -1006,6 +1033,7 @@ nav .title {
     padding: 15px;
     height: fit-content;
     opacity: 1;
+    z-index: 1000;
 }
 
 #GlobalResults .title {
@@ -1221,7 +1249,7 @@ nav .title {
     text-align: center;
     line-height: 50px;
     color: #ffffff;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     text-shadow: var(--fontshadow);
 }
 
@@ -1247,7 +1275,7 @@ nav .title {
     border-radius: 28px;
     background-color: #F8FBFF;
     position: absolute;
-    top: 100px;
+    top: 50px;
 }
 
 .scrollParent {
@@ -1591,7 +1619,7 @@ input, select {
     line-height: 16px;
     width: 100%;
     font-size: 16px;
-    grid-template-columns: 95px auto;
+    grid-template-columns: 85px auto;
     margin-bottom: 10px;
 }
 
@@ -1608,7 +1636,7 @@ input, select {
     text-align: left;
     white-space: no-wrap;
     text-overflow: ellipsis;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .striken {
@@ -1636,13 +1664,13 @@ input, select {
 
 .filter {
     background-image: url(../images/filter.svg);
-    background-size: 25px auto;
-    background-position: 10px 10px;
+    background-size: 20px auto;
+    background-position: 10px 12px;
     background-color: rgba(0,0,0,.15);
     border-radius: 12px;
     border-width: 0px;
     height: 38px;
-    padding-left: 50px;
+    padding-left: 40px;
     width: 200px;
     font-size: 16px;
     color: #FFF;
@@ -1652,20 +1680,19 @@ input, select {
 .fullservices {
     width: 100%;
     position: relative;
-    height: 24px;
     line-height: 24px;
     column-gap: 10px;
     padding: 0px;
     display: grid;
-    grid-template-columns: 50px auto;
+    grid-template-columns: 36px auto;
     font-size: 15px;
     color: #FFF;
     text-align: left;
     cursor: pointer;
     transition: .3s;
     font-weight: 400;    
-    height: 63px;
-    line-height: 63px;
+    height: 50px;
+    line-height: 50px;
     text-overflow: ellipsis;
     white-space: no-wrap;
     display: none;
@@ -1691,15 +1718,15 @@ input, select {
 }
 
 .fullservices.selected {
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0,0,0,.30);
     border-radius: 15px;
 }
 
 .fullservices .icon {
-    width: 23px;
-    height: 23px;
-    margin-left: 20px;
-    margin-top: 20px;
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    margin-top: 13px;
     background-size: contain;
     background-position: center center;
     background-image: url(../images/services.svg);
@@ -1817,10 +1844,12 @@ input, select {
     width: 100%;
     position: relative;
     display: grid;
-    height: 63px;
+    height: 54px;
     line-height: 31px;
     column-gap: 12px;
-    padding: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 11px;
     grid-template-columns: 22px auto 22px 61px;
     font-size: 15px;
     color: #FFF;
@@ -1966,7 +1995,6 @@ input, select {
 
 .sortLine {
     width: 100%;
-    margin-bottom: 10px;
     position: relative;
     display: grid;
     text-align: right;
@@ -1985,7 +2013,8 @@ input, select {
     padding-right: 15px;
     text-align: right;
     color: rgba(255,255,255,.75);
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
     transition: 1.5s;
     margin-right: 0px;
