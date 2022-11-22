@@ -131,9 +131,9 @@ body.max nav {
 nav {
     position: absolute;
     left: 25px;
-    top: 67px;
-    bottom: 47px;
-    width: 300px;
+    top: 45px;
+    bottom: 40px;
+    width: 225px;
     border-radius: 25px;
     box-shadow: var(--shadow);
     padding: 12px;
@@ -224,14 +224,14 @@ nav:hover {
 
 #OnOffButton {
     cursor: pointer;
-    width: 285px;
+    width: 212px;
     height: 85px;
     background: linear-gradient(180deg, rgba(90,53,151,1) 0%, var(--secondary) 100%);
     border-radius: 20px;
     box-shadow: var(--shadow);
     position: absolute;
-    left: 20px;
-    bottom: 20px;
+    left: 16px;
+    bottom: 16px;
     transition: .3s;
 }
 
@@ -282,7 +282,7 @@ body.max #OnOffButton {
 }
 
 #OnOffButton .ring {
-    width: 272px;
+    width: 200px;
     height: 71px;
     border-radius: 15px;
     border-width: 4px;
@@ -714,7 +714,7 @@ body.max .updateavailable {
 .navItem {
     position: relative;
     width: 100%;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     color: #FFF;
     height: 44px;
@@ -839,8 +839,8 @@ nav .title {
 
 #MissionControl {
     width: 100%;
-    padding-left: 310px;
-    padding-top: 30px;
+    padding-left: 230px;
+    padding-top: 25px;
 }
 
 #MissionControl.area.open {
@@ -849,8 +849,8 @@ nav .title {
 
 #IdentityScreen {
     width: 100%;
-    padding-left: 310px;
-    padding-right: 30px;
+    padding-left: 230px;
+    padding-right: 25px;
     padding-top: 30px;
 }
 
@@ -860,8 +860,8 @@ nav .title {
 
 #ServiceScreen {
     width: 100%;
-    padding-left: 310px;
-    padding-top: 30px;
+    padding-left: 230px;
+    padding-top: 25px;
 }
 
 #ServiceScreen.area.open {
@@ -870,8 +870,8 @@ nav .title {
 
 #AdvancedScreen {
     width: 100%;
-    padding-left: 310px;
-    padding-right: 30px;
+    padding-left: 230px;
+    padding-right: 25px;
     padding-top: 30px;
 }
 
@@ -881,8 +881,8 @@ nav .title {
 
 #SupportScreen {
     width: 100%;
-    padding-left: 310px;
-    padding-right: 30px;
+    padding-left: 230px;
+    padding-right: 25px;
     padding-top: 30px;
 }
 
@@ -892,8 +892,8 @@ nav .title {
  
 #HeaderArea {
     width: 100%;
-    padding-left: 310px;
-    padding-right: 30px;
+    padding-left: 230px;
+    padding-right: 25px;
     padding-top: 30px;
 }
 
