@@ -1,3 +1,4 @@
+
 var ZitiService = {
     data: [],
     sort: "Name",
@@ -6,7 +7,7 @@ var ZitiService = {
         this.data = [];
     },
     events: function() {
-
+        $("#ServiceUrl").click(ZitiService.urlClicked);
     },
     setSort: function(sort) {
         this.sort = sort;
@@ -19,6 +20,15 @@ var ZitiService = {
         if (how=="ASC") $("#SortHow").html(app.keys["Ascending"]);
         else $("#SortHow").html(app.keys["Descending"]);
         this.refresh();
+    },
+    urlClicked: function(e) {
+        var obj = $(e.currentTarget);
+        var protocol = obj.data("protocol");
+        var url = obj.data("url");
+        var port = Number(obj.data("port"));
+        alert(url);
+        if (port==80) app.openUrl("http://"+url);
+        else if (port==443) app.openUrl("https://"+url);
     },
     GetFirstHostName: function(addresses) {
         var host = "";
@@ -163,21 +173,19 @@ var ZitiService = {
             }
 
             var postureStatus = "pass";
-            var postureStyle = "green";
+            var postureStyle = "";
 
             if (item.PostureChecks!=null && Array.isArray(item.PostureChecks) && item.PostureChecks.length>0) {
                 postureStatus = "pass";
-                postureStyle = "green";
+                postureStyle = "";
                 for (var j=0; j<item.PostureChecks.length; j++) {
                     var check = item.PostureChecks[j];
                     if (!check.IsPassing) {
                         postureStatus = "fail";
-                        postureStyle = "red";
+                        postureStyle = "error";
                         break;
                     }
                 }
-            } else {
-                postureStyle = "forceHide";
             }
 
             if (item.Launch.length>0) {
@@ -233,9 +241,13 @@ var ZitiService = {
             var id = $(".fullservices.selected").data("id");
             var item = ZitiService.getById(id);
             var address = "";
+            var firstProtocol = "";
+            var firstHost = "";
+            var firstPort = "";
             if (item.Protocols && item.Protocols.length>0) {
                 var protocols = "";
                 for (var j=0; j<item.Protocols.length; j++) {
+                    if (firstProtocol=="") firstProtocol = item.Protocols[j];
                     address += ((j>0)?", ":"")+item.Protocols[j];
                     protocols += ((j>0)?", ":"")+item.Protocols[j];
                 }
@@ -246,8 +258,10 @@ var ZitiService = {
                 var addreses = "";
                 for (var j=0; j<item.Addresses.length; j++) {
                     var val = "";
-                    if (item.Addresses[j].HostName) val = item.Addresses[j].HostName;
-                    else if (item.Addresses[j].IP) val = item.Addresses[j].IP;
+                    if (item.Addresses[j].HostName) {
+                        if (firstHost=="") firstHost = item.Addresses[j].HostName;
+                        val = item.Addresses[j].HostName;
+                    } else if (item.Addresses[j].IP) val = item.Addresses[j].IP;
 
                     address += val;
                     if (item.Launch.length>0) {
@@ -258,6 +272,7 @@ var ZitiService = {
                 }
                 address += ":";
                 $("#ServiceAddresses").html(addreses);
+                if (firstHost=="") firstHost = item.Addresses[0].IP;
             }
             $(".detailClick").click(ZitiService.launch);
             if (item.Ports && item.Ports.length>0) {
@@ -267,6 +282,7 @@ var ZitiService = {
                     ports += ((j>0)?", ":"");
                     if (port.High==port.Low) ports += port.High;
                     else ports += port.Low+"-"+port.High;
+                    if (firstPort=="") firstPort = port.Low;
                     address += ports;
                 }
                 $("#ServicePorts").html(ports);
@@ -299,7 +315,15 @@ var ZitiService = {
             }
     
             $("#ServiceName").html(item.Name);
-            $("#ServiceUrl").html(address);
+            var url = "";
+            url += firstProtocol+"://"+firstHost+":"+firstPort;
+
+            $("#ServiceUrl").removeClass("openable");
+            $("#ServiceUrl").html(url);
+            $("#ServiceUrl").data("protocol", firstProtocol);
+            $("#ServiceUrl").data("host", firstHost);
+            $("#ServiceUrl").data("port", firstPort);
+            if (firstPort==80 || firstPort==443) $("#ServiceUrl").addClass("openable");
         }
     },
     getValue: function (item) {

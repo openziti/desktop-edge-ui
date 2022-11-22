@@ -224,7 +224,7 @@
                             <div class="input col-sm-8">
                                 <input id="FilterServices" class="filter" placeholder="Filter" />
                             </div>
-                            <div class="sort col-sm-4">
+                            <div class="sort col-sm-4 forceHide">
                                 <span data-key="SortBy" data-i18n></span> 
                                 <span id="ServiceSort" data-key="Name" data-i18n></span>
 
@@ -247,7 +247,7 @@
                             </div>
                             <div class="nameValue">
                                 <label data-key="Url" data-i18n></label>
-                                <div id="ServiceUrl" class="value"></div>
+                                <div id="ServiceUrl" class="value" data-protocol="tcp" data-url="openziti.io" data-port="80" ></div>
                             </div>
                             <div class="nameValue">
                                 <label data-key="Identity" data-i18n></label>
@@ -287,25 +287,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="pod">
-                                    <div class="nameValue">
-                                        <label data-key="Ports" data-i18n></label>
-                                        <div id="ServicePorts" class="value"></div>
-                                    </div>
-                                    <div class="nameValue mt20">
-                                        <label data-key="Protocols" data-i18n></label>
-                                        <div id="ServiceProtocols" class="value"></div>
+                            <div class="grid split">
+                                <div class="col-sm-12">
+                                    <div class="pod">
+                                        <div class="nameValue">
+                                            <label data-key="Ports" data-i18n></label>
+                                            <div id="ServicePorts" class="value"></div>
+                                        </div>
+                                        <div class="nameValue mt20">
+                                            <label data-key="Protocols" data-i18n></label>
+                                            <div id="ServiceProtocols" class="value"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="pod">
-                                    <div class="nameValue">
-                                        <label data-key="PostureChecks" data-i18n></label>
-                                        <div id="PostureChecks" class="value"></div>
+                                <div class="col-sm-12">
+                                    <div class="pod">
+                                        <div class="nameValue">
+                                            <label data-key="PostureChecks" data-i18n></label>
+                                            <div id="PostureChecks" class="value"></div>
+                                        </div>
+                                        <div id="PassFail"></div>
                                     </div>
-                                    <div id="PassFail"></div>
                                 </div>
                             </div>
                         </div>
@@ -713,10 +715,8 @@
         </div>
 
         <div id="FullServiceItem" class="fullservices template">
-            <div class="icon"></div>
-            <div class="nooverflow">{{address}} {{ports}}</div>
-            <div class="right"><span class="rounded {{postureStyle}}">{{postureStatus}}</span></div>
-            <div class="chart"></div>
+            <div class="icon {{postureStyle}}" title="{{postureStatus}}"></div>
+            <div class="nooverflow">{{Name}}</div>
         </div>
 
         <!-- Modals -->

@@ -1087,6 +1087,19 @@ nav .title {
     text-align: center;
 }
 
+#ServiceUrl {
+    cursor: unset;
+}
+
+#ServiceUrl.openable {
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#ServiceUrl.openable:hover {
+    opacity: 0.6;
+}
+
 #PassFail.fail {
     color: #F4044D;
 }
@@ -1644,7 +1657,7 @@ input, select {
     column-gap: 10px;
     padding: 0px;
     display: grid;
-    grid-template-columns: 50px auto 50px 50px;
+    grid-template-columns: 50px auto;
     font-size: 15px;
     color: #FFF;
     text-align: left;
@@ -1690,6 +1703,10 @@ input, select {
     background-size: contain;
     background-position: center center;
     background-image: url(../images/services.svg);
+}
+
+.fullservices .icon.error {
+    background-image: url(../images/services-error.svg);
 }
 
 .options {
