@@ -401,7 +401,7 @@ body.max .updateavailable {
     font-weight: 600;
     color: #FFF;
     height: 70px;
-    line-height: 8=70px;
+    line-height: 70px;
     text-shadow: var(--fontshadow);
     border-radius: 15px;
     cursor: pointer;
