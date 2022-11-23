@@ -6,8 +6,8 @@
 #Growler {
     left: 20px;    
     position: fixed;
-    left: 368px;    
-    bottom: 68px;
+    left: 295px;    
+    bottom: 59px;
     min-width: 284px;
     z-index: 49;
     max-width: 500px;
@@ -37,8 +37,9 @@
 }
 
 .growler {
-    background: rgba(248, 251, 255, 0.45);
-    backdrop-filter: saturate(40%) blur(6px);
+    background: rgba(248, 251, 255, 0.15);
+    -webkit-backdrop-filter: saturate(180%) blur(30px);
+    backdrop-filter: saturate(180%) blur(30px);
 	min-height: 82px;
 	min-width: 334px;
 	font-size: 16px;

@@ -340,7 +340,7 @@ body.max #OnOffButton .ring {
 
 .updateavailable {
     cursor: pointer;
-    width: 285px;
+    width: 208px;
     height: 55px;
     background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
     backdrop-filter: saturate(180%) blur(30px);
@@ -351,8 +351,8 @@ body.max #OnOffButton .ring {
     border-radius: 12px;
     line-height: 55px;
     text-align: right;
-    font-size: 18px;
-    padding-right: 40px;
+    font-size: 15px;
+    padding-right: 18px;
     left: 20px;
     bottom: 135px;
     transition: .3s;
