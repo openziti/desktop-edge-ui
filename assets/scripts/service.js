@@ -1,4 +1,3 @@
-
 var ZitiService = {
     data: [],
     sort: "Name",
@@ -222,6 +221,13 @@ var ZitiService = {
         $(".fullservices").click((e) => {
             $(".fullservices").removeClass("selected");
             $(e.currentTarget).addClass("selected");
+            ZitiService.showDetails();
+        });
+        $(".clicker").click((e) => {
+            var id = $(e.currentTarget).data("id");
+            app.showScreen("ServiceScreen");
+            $(".fullservices").removeClass("selected");
+            $(".fullservices[data-id='"+id+"']").addClass("selected");
             ZitiService.showDetails();
         });
         $(".nooverflow").off("dblclick");

@@ -1,16 +1,14 @@
 #Growler.open {
-    left: 368px;   
+    left: 298px;   
     opacity: 1.0; 
 }
 
 #Growler {
     left: 20px;    
     position: fixed;
-    left: 295px;    
     bottom: 59px;
     min-width: 284px;
     z-index: 49;
-    max-width: 500px;
     opacity: 0.0;
 }
 
@@ -38,8 +36,8 @@
 
 .growler {
     background: rgba(248, 251, 255, 0.15);
-    -webkit-backdrop-filter: saturate(180%) blur(30px);
-    backdrop-filter: saturate(180%) blur(30px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
 	min-height: 82px;
 	min-width: 334px;
 	font-size: 16px;
@@ -59,6 +57,7 @@
 
 .growler.open {
     opacity: 1.0;
+    left: 295px;    
 }
 
 .growler .time {
@@ -114,6 +113,7 @@
     padding-left: 75px;
     padding-right: 22px;
     overflow: hidden;
+    white-space: no-wrap;
 }
 
 .growler .content {

@@ -1797,6 +1797,15 @@ input, select {
     top: 0px;
 }
 
+.clicker {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.clicker:hover {
+    opacity: 0.6;
+}
+
 .services.clickable {
     cursor: pointer;
 }
