@@ -1810,8 +1810,13 @@ input, select {
     cursor: pointer;
 }
 
+.services .icon {
+    opacity: 0.6;
+}
+
 .icon.clickable {
     cursor: pointer;
+    opacity: 1.0;
     transition: var(--transition);
 }
 
