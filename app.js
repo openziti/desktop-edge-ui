@@ -48,7 +48,7 @@ var Application = {
             webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
-              devTools: true
+              devTools: !app.isPackaged
             }
         });
         mainWindow.setMenu(null);
