@@ -32,15 +32,21 @@
     <body>
         <main class="missionBg">
 
-            <div id="ActionsArea">
-                <div id="CloseButton" class="screenActions close"></div>
-                <div id="MinButton" class="screenActions minimize"></div>
-                <div id="MaxButton" class="screenActions maximize"></div>
+            <div id="MacActionsArea" class="mac" style="display: none;">
+                <div class="screenActions closeApp"></div>
+                <div class="screenActions minimize"></div>
+                <div class="screenActions maximize"></div>
+            </div>
+
+            <div id="WindowsActionsArea" class="windows linux" style="display: none;">
+                <div class="screenActions minimize"></div>
+                <div class="screenActions maximize"></div>
+                <div class="screenActions closeApp"></div>
             </div>
 
             <!-- Header Area -->
             <div id="HeaderArea" class="container">
-                <div class="gridrow">
+                <div class="gridrow mt50">
                     <div class="col-sm-3">
                         <div id="AddButton" data-action="add" class="serviceon unselectable" data-i18n></div>
                         <div id="BackButton" data-i18n></div>
@@ -483,7 +489,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="iconNameValue switched">
+                        <div id="ReleaseStream" class="iconNameValue switched" style="display: none;">
                             <div class="icon release noback"></div>
                             <div class="name" data-key="ReleaseStream" data-i18n></div>
                             <div>
@@ -798,6 +804,13 @@
                 </div>
                 <div id="YesButton" class="button"></div>
             </div>
+        </div>
+
+        <div class="version" style="display: none;">
+            <span data-i18n data-key="App"></span>:
+            <span id="AppVersion"></span>
+            <span data-i18n data-key="Service"></span>:
+            <span id="ServiceVersion"></span>
         </div>
 
     </body>

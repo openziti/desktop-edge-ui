@@ -12,6 +12,8 @@ var sudo = require('sudo-prompt');
 var mainWindow;
 var logging = true;
 var connectedIcon = path.join(__dirname, 'assets/images/ziti-green.png');
+var warnIcon = path.join(__dirname, 'assets/images/ziti-yellow.png');
+var connectedIcon = path.join(__dirname, 'assets/images/ziti-green.png');
 var disconnectedIcon = path.join(__dirname, 'assets/images/ziti-red.png');
 var trayIcon = path.join(__dirname, 'assets/images/ziti-white.png');
 var iconPath = path.join(__dirname, 'assets/images/ziti.png');
@@ -74,7 +76,10 @@ var Application = {
                 } 
             }
         ]); 
-        tray.setContextMenu(contextMenu);iconPath
+        tray.setContextMenu(contextMenu);
+        tray.on("click", (e) => {
+            mainWindow.show();
+        });
         
         //mainWindow.on('closed', function () {
           //mainWindow = null
@@ -107,6 +112,7 @@ var Application = {
                 
                 mainWindow.webContents.send("os", os.platform());
                 mainWindow.webContents.send("locale", app.getLocale());
+                mainWindow.webContents.send("version", app.getVersion());
 
                 if (os.platform() === "linux") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;
@@ -423,6 +429,14 @@ ipcMain.handle("log", (event, data) => {
 ipcMain.handle("level", (event, data) => {
     Log.setLevel(data);
     return "";
+});
+ipcMain.handle("icon-green", (event, data) => {
+    console.log("Settings Green");
+    tray.setImage(connectedIcon);
+});
+ipcMain.handle("icon-yellow", (event, data) => {
+    console.log("Settings Yelloe");
+    tray.setImage(warnIcon);
 });
 ipcMain.handle("mfa-enable", (event, data) => {
     var enableMfa = {

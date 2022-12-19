@@ -23,6 +23,7 @@ var ui = {
         if (data.Active!=ui.isOn || ui.isFirst) {
             ui.isFirst = false;
             ui.isOn = data.Active;
+            if (data.ServiceVersion&&data.ServiceVersion.Version) $("#ServiceVersion").html(data.ServiceVersion.Version);
             if (ui.isOn) {
                 if (!$("#OnOffButton").hasClass("on")) {
                     if (ui.timerInterval) clearInterval(ui.timerInterval);
@@ -53,28 +54,17 @@ var ui = {
     },
     notification: function(data) {
         var now = moment();
-        console.log(data.InstallTime);
-        console.log(data);
         var installDate = moment(data.InstallTime);
         var message = "";
         if ($("#UpdateOn").hasClass("on")) {
-            console.log(installDate.diff(now, 'seconds'));
-            console.log(data.ZDEVersion);
-            console.log(installDate.format("MM/DD/YYYY hh:mm A"));
             if (installDate.diff(now, 'seconds') < 60) {
                 message = "Ziti Desktop Edge will initiate auto installation in the next minute!";
             } else {
-                console.log("Here");
                 message = "Update "+data.ZDEVersion+" is available for Ziti Desktop Edge and will be automatically installed by "+installDate.format("MM/DD/YYYY hh:mm A");
-                console.log("And Here");
             }
-            
-            //var notify = new Notification("Timed Out", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
         } else {
             message = "Version "+data.ZDEVersion+" is available for Ziti Desktop Edge";
         }
-        console.log("The Message");
-        console.log(message);
         var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "", icon: path.join(__dirname, '/assets/images/ziti-white.png') });
     },
     updateRelease: function(e) {

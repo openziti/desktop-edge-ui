@@ -116,5 +116,7 @@
     "PrivacyPolicyButton": "Privacy<br />Policy",
     "Open": "Open",
     "Terms": "Terms of<br />Service",
+    "App": "App",
+    "Service": "Service",
     "EditTunnelConfiguration": "Edit Tunnel Configuration"
 }

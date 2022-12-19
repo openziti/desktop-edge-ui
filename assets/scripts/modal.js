@@ -13,12 +13,16 @@ var modal = {
 		$(".modal.background").addClass("open");
 		$("#"+id).addClass("open");
 		$("body").addClass("hideScroll");
+		$("main").addClass("disable");
+		$("nav").addClass("disable");
 	},
 	hide: function(e) {
 		$(".modal.open").removeClass("open");
 		$("body").removeClass("hideScroll");
 	},
 	close: function(e) {
+		$("main").removeClass("disable");
+		$("nav").removeClass("disable");
 		$(".modal.open").removeClass("open");
 		$("body").removeClass("hideScroll");
 		if (e && e.currentTarget) {

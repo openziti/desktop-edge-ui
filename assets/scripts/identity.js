@@ -139,6 +139,8 @@ var ZitiIdentity = {
             $("#NoDataServiceScreen").addClass("forceHide");
         }
 
+        var hasIssues = false;
+
         for (var i=0; i<ZitiIdentity.data.length; i++) {
             var item = ZitiIdentity.data[i];
             ZitiService.set(item.FingerPrint, item.Services);
@@ -164,6 +166,10 @@ var ZitiIdentity = {
             }
 
             var status = "";
+            if (item.MfaNeeded) {
+                hasIssues = true;
+                status = "warning";
+            }
             // Check if timing out and set to warn or if timed out and set to error
 
             element.html(element.html().split("{{count}}").join(item.Services.length));
@@ -203,6 +209,11 @@ var ZitiIdentity = {
         if (ZitiIdentity.data.length>0) {
             let identity = ZitiIdentity.selected();
             ZitiIdentity.select(identity.FingerPrint);
+        }
+        if (hasIssues) {
+            ipcRenderer.invoke("icon-yellow", "minimize");
+        } else {
+            ipcRenderer.invoke("icon-green", "minimize");
         }
     },
     select: function(id) {

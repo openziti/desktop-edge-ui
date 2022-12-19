@@ -148,7 +148,19 @@ nav:hover {
     transition: 0.2s;
 }
 
-#ActionsArea {
+#WindowsActionsArea {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 71px;
+    height: 17px;
+    display: grid;
+    z-index: 100;
+    grid-column-gap: 10px;
+    grid-template-columns: 17px 17px 17px;
+}
+
+#MacActionsArea {
     position: absolute;
     left: 15px;
     top: 15px;
@@ -166,6 +178,7 @@ nav:hover {
     background-size: contain;
     cursor: pointer;
     transition: .3s;
+    background-position: center center;
 }
 
 .screenActions:hover {
@@ -181,7 +194,7 @@ nav:hover {
     transition: .3s;
 }
 
-.screenActions.close {
+.screenActions.closeApp {
     background-image: url(../images/close.svg);
 }
 
@@ -191,6 +204,22 @@ nav:hover {
 
 .screenActions.maximize {
     background-image: url(../images/max.svg);
+}
+
+#WindowsActionsArea .screenActions.closeApp {
+    background-image: url(../images/winclose.svg);
+}
+
+#WindowsActionsArea .screenActions.minimize {
+    background-image: url(../images/winmin.svg);
+}
+
+#WindowsActionsArea .screenActions.maximize {
+    background-image: url(../images/winmax.svg);
+}
+
+body.max #WindowsActionsArea .screenActions.maximize {
+    background-image: url(../images/restore.svg);
 }
 
 .missionBg {
@@ -840,61 +869,60 @@ nav .title {
 #MissionControl {
     width: 100%;
     padding-left: 230px;
-    padding-top: 25px;
 }
 
 #MissionControl.area.open {
     height: calc(100% - 60px);
+    top: 95px;
 }
 
 #IdentityScreen {
     width: 100%;
     padding-left: 230px;
     padding-right: 25px;
-    padding-top: 30px;
 }
 
 #IdentityScreen.area.open {
     height: calc(100% - 60px);
+    top: 95px;
 }
 
 #ServiceScreen {
     width: 100%;
     padding-left: 230px;
-    padding-top: 25px;
 }
 
 #ServiceScreen.area.open {
     height: calc(100% - 60px);
+    top: 95px;
 }
 
 #AdvancedScreen {
     width: 100%;
     padding-left: 230px;
     padding-right: 25px;
-    padding-top: 30px;
 }
 
 #AdvancedScreen.area.open {
     height: calc(100% - 60px);
+    top: 95px;
 }
 
 #SupportScreen {
     width: 100%;
     padding-left: 230px;
     padding-right: 25px;
-    padding-top: 30px;
 }
 
 #SupportScreen.area.open {
     height: calc(100% - 60px);
+    top: 95px;
 }
  
 #HeaderArea {
     width: 100%;
     padding-left: 230px;
     padding-right: 25px;
-    padding-top: 30px;
 }
 
 
@@ -923,7 +951,6 @@ body.max #HeaderArea {
     padding-left: 300px;
 }
 
-
 #HeaderArea .title {
     font-weight: bold;
     color: #fff;
@@ -936,7 +963,7 @@ body.max #HeaderArea {
     position: absolute;
     left: 100px;
     top: 0px;
-    right: 0px;
+    right: 100px;
     height: 30px;
     -webkit-app-region: drag;
 }
@@ -1644,8 +1671,17 @@ input, select {
     text-decoration-color: var(--red);
 }
 
+.disable {
+    pointer-events: none;
+    filter: blur(4px);
+}
+
 .mt20 {
     margin-top: 20px;
+}
+
+.mt50 {
+    margin-top: 50px;
 }
 
 .sections {
@@ -2275,6 +2311,14 @@ input, select {
 
 .pl20 {
     padding-left: 20px;
+}
+
+.version {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #FFF;
+    font-size: 16px;
 }
 
 .dragColumn {

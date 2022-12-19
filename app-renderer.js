@@ -11,6 +11,7 @@ var Highcharts = require('highcharts');
 require('highcharts/modules/exporting')(Highcharts);  
 
 var app = {
+    settings: {},
     screenId: "MissionControl",
     filterId: null,
     actionId: null,
@@ -34,8 +35,16 @@ var app = {
         dragging.init();
         ZitiIdentity.init();
         ZitiService.init();
+        app.loadSettings();
 
         $(".loader").hide();
+    },
+    loadSettings: function() {
+        var filePath = 'assets/data/settings.json';
+        var settingsFile = path.join(__dirname, filePath);
+        app.settings = JSON.parse(fs.readFileSync(settingsFile));
+        console.log(app.settings);
+        if (app.settings.ShowReleaseStream) $("#ReleaseStream").show();
     },
     language: function() {
         var filePath = 'assets/languages/en-us.json';
@@ -76,9 +85,9 @@ var app = {
         ipcRenderer.on('message-to-ui', app.onData);
         ipcRenderer.on('os', app.setOS);
         ipcRenderer.on('locale', app.setLocale);
+        ipcRenderer.on('version', app.setVersion);
         ipcRenderer.on('app-status', app.onStatus);
         ipcRenderer.on('service-down', app.down);
-        $("#CloseButton").click(app.close);
         $("[data-screen]").click(app.screen);
         $("[data-action]").click(app.action);
         $(".fullNav").click(app.sub);
@@ -126,7 +135,8 @@ var app = {
         $("main").click((e) => {
             if ($("#GlobalResults").hasClass("open")) $("#GlobalResults").removeClass("open");
         });
-        $("#MaxButton").click((e) => {
+        $(".closeApp").click(app.close);
+        $(".maximize").click((e) => {
             if ($("body").hasClass("max")) {
                 $("body").removeClass("max");
                 ipcRenderer.invoke("window", "unmaximize");
@@ -135,10 +145,10 @@ var app = {
                 ipcRenderer.invoke("window", "maximize");
             }
         });
-        $("#MinButton").click((e) => {
+        $(".minimize").click((e) => {
             ipcRenderer.invoke("window", "minimize");
         });
-        $("main").dblclick(app.toggleScreen);
+        $("#HeaderArea").dblclick(app.toggleScreen);
     },
     toggleScreen: function() {
         if ($("body").hasClass("max")) {
@@ -168,6 +178,9 @@ var app = {
     setLocale: function(e, data) {
         app.locale = data.toLowerCase();
         app.language();
+    },
+    setVersion: function(e, data) {
+        $("#AppVersion").html(data);
     },
     enter: function(e) {
 		if (e.keyCode == 13) {
@@ -281,6 +294,10 @@ var app = {
         if (ui.isOn) $("#OnOffButton").addClass("on");
         $("#OnOffButton").addClass(app.screenId);
         $("div.navItem[data-screen='"+screen+"']").addClass("selected");
+        if (screen=="SupportScreen") $(".version").show();
+        else $(".version").hide();
+        if (screen=="IdentityScreen"||screen=="MissionControl") $("#AddButton").show();
+        else $("#AddButton").hide();
         ZitiService.refresh();
     },
     sub: function(e) {
