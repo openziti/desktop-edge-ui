@@ -1998,8 +1998,8 @@ input, select {
 .blurArea .icon {
     height: 25px;
     background-image: contain;
-    margin-top: 11px;
-    margin-left: 11px;
+    margin-top: 10px;
+    margin-left: 8px;
 }
 
 .blurArea .icon.authorize {
