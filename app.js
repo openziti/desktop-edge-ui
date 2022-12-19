@@ -250,6 +250,20 @@ var Application = {
     }
 }
 
+const appLock = app.requestSingleInstanceLock();
+    
+if (!appLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+  app.on('ready', () => {})
+}
+
 var AppSettings = {
     data: {},
     init: function() {
