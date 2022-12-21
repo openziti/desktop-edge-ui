@@ -150,13 +150,13 @@ nav:hover {
 
 #WindowsActionsArea {
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 36px;
+    top: 19px;
     width: 71px;
     height: 17px;
     display: grid;
     z-index: 100;
-    grid-column-gap: 10px;
+    grid-column-gap: 15px;
     grid-template-columns: 17px 17px 17px;
 }
 
@@ -173,8 +173,8 @@ nav:hover {
 }
 
 .screenActions {
-    width: 17px;
-    height: 17px;
+    width: 15px;
+    height: 15px;
     background-size: contain;
     cursor: pointer;
     transition: .3s;
@@ -1673,7 +1673,7 @@ input, select {
 
 .disable {
     pointer-events: none;
-    filter: blur(4px);
+    filter: blur(1px);
 }
 
 .mt20 {
@@ -2064,7 +2064,8 @@ input, select {
     text-align: right;
     color: rgba(255,255,255,.75);
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 38px;
     cursor: pointer;
     transition: 1.5s;
     margin-right: 0px;
@@ -2318,7 +2319,8 @@ input, select {
     bottom: 20px;
     right: 20px;
     color: #FFF;
-    font-size: 16px;
+    font-size: 14px;
+    opacity: .7;
 }
 
 .dragColumn {
