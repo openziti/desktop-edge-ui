@@ -88,7 +88,7 @@
                 <div class="col-sm-4 verticalscroll pr0 mt16">
                     <div class="pod">
                         <div class="header">
-                            <div id="DownloadActivity" class="title download"></div>
+                            <div id="DownloadActivity" class="title download">Download Activity</div>
                         </div>
                         <div id="DownloadSpeed" class="count">-</div>
                         <div id="DownloadMeasure" class="note" data-key="mbps" data-i18n></div>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="pod">
                         <div class="header">
-                            <div id="UploadActivity" class="title upload"></div>
+                            <div id="UploadActivity" class="title upload">Upload Activity</div>
                         </div>
                         <div id="UploadSpeed" class="count">-</div>
                         <div id="UploadMeasure" class="note" data-key="mbps" data-i18n></div>
@@ -107,7 +107,7 @@
                         <div id="IdentityCount" class="count">0</div>
                         <div class="button" data-screen="IdentityScreen" data-key="ViewAll" data-i18n></div>
                     </div>
-                    <div class="pod serviceon">
+                    <div class="pod serviceon mb64">
                         <div class="title" data-key="Services" data-i18n></div>
                         <div id="ServiceCount" class="count">0</div>
                         <div class="button" data-screen="ServiceScreen" data-key="ViewAll" data-i18n></div>
@@ -189,7 +189,7 @@
                             <div class="col-sm-6 col-md-4">
                                 <div id="MfaStatus" class="blurArea">
                                     <div class="icon connected"></div>
-                                    <div class="label" data-key="Connected" data-i18n></div>
+                                    <div class="label authsmall" data-key="Connected" data-i18n></div>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -634,18 +634,20 @@
                     </div>
             
                     <div id="Terms" class="sub">
-                        <div class="title" data-key="PrivacyPolicyTerms" data-i18n></div>
+                        <div class="title" data-key="PrivacyPolicy" data-i18n></div>
                         <div id="PrivacyDescription" data-i18n></div>
                         <div class="grid boxes">
                             <div class="pod">
                                 <div class="iconHeader">
                                     <div class="title" data-key="PrivacyPolicyButton" data-i18n></div>
+                                    <div class="icon termsandprivacy"></div>
                                 </div>
                                 <div class="button" data-url="https://netfoundry.io/privacy" data-key="Open" data-i18n></div>
                             </div>
                             <div class="pod">
                                 <div class="iconHeader">
                                     <div class="title" data-key="Terms" data-i18n></div>
+                                    <div class="icon termsandprivacy"></div>
                                 </div>
                                 <div class="button" data-url="https://netfoundry.io/terms" data-key="Open" data-i18n></div>
                             </div>
@@ -704,11 +706,13 @@
         <div id="IdentityItem" class="identities template">
             <div class="status {{status}}"></div>
             <div class="name nooverflow">{{Name}}</div>
-            <div class="count">{{count}}</div>
-            <div class="toggle {{toggled}}" data-id="{{Identifier}}">
-                <div class="handle"></div>
-                <div class="onLabel" data-key="On" data-i18n></div>
-                <div class="offLabel" data-key="Off" data-i18n></div>
+            <div><div class="servicecount">{{count}}</div><div class="servicetag">Services</div></div>
+            <div>
+                <div class="toggle {{toggled}}" data-id="{{Identifier}}">
+                    <div class="handle"></div>
+                    <div class="onLabel" data-key="On" data-i18n></div>
+                    <div class="offLabel" data-key="Off" data-i18n></div>
+                </div>
             </div>
         </div>
 

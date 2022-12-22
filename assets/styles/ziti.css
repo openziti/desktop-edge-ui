@@ -520,6 +520,10 @@ body.max .updateavailable {
     background-image: url(../images/package.svg);
 }
 
+.icon.termsandprivacy {
+    background-image: url(../images/termsandprivacy.svg);
+}
+
 .sub .title {
     width: 100%;
     position: relative;
@@ -1225,7 +1229,9 @@ body.max #HeaderArea {
     background-color:rgba(248, 251, 255, 0.1);
     margin-bottom: 20px;
     min-height: 175px!important;
-    padding: 20px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-shadow: var(--fontshadow);
     position: relative;
     text-align: left;
@@ -1702,7 +1708,7 @@ input, select {
     background-image: url(../images/filter.svg);
     background-size: 20px auto;
     background-position: 10px 12px;
-    background-color: rgba(0,0,0,.15);
+    background-color: rgba(0,0,0,.3);
     border-radius: 12px;
     border-width: 0px;
     height: 38px;
@@ -1895,12 +1901,12 @@ input, select {
     position: relative;
     display: grid;
     height: 54px;
-    line-height: 31px;
-    column-gap: 12px;
+    line-height: 32px;
+    column-gap: 7px;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 11px;
-    grid-template-columns: 22px auto 22px 61px;
+    padding-top: 10px;
+    grid-template-columns: 22px auto 40px 40px;
     font-size: 15px;
     color: #FFF;
     text-align: left;
@@ -1913,6 +1919,36 @@ input, select {
     background-color: rgba(0,0,0,.35);
     border-radius: 15px;
 }
+
+.servicecount {
+    text-align: center;
+    background-color: rgba(255,255,255,.25);
+    border-radius: 25px;
+    line-height: 21px;
+    height: 22px;
+}
+
+.servicetag {
+    font-size: 12px;
+    margin-top: -8px;
+    margin-left: -4px;
+}
+
+
+element.style {
+    display: none;
+}
+
+.authsmall {
+    padding-left: 10px;
+    text-align: left;
+}
+
+@media (max-width: 1228px)
+{
+.authsmall {
+    display: none;
+}}
 
 .toggle {
     width: 61px;
@@ -1974,6 +2010,71 @@ input, select {
     background-color: rgba(3,219,92,1);
 }
 
+.identities .toggle {
+    width: 40px;
+    background-color:rgba(255,255,255,.25);
+    border-radius: 20px;
+    height: 22px;
+    cursor: pointer;
+    transition: .3s;
+    position: relative;
+    display: inline-block;
+}
+
+.identities .onLabel {
+    opacity: 0.0;
+    position: absolute;
+    width: 100%;
+    line-height: 61px;
+    font-size: 12px;
+    padding-left: unset;
+    padding-right: unset;
+    text-align: center;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.identities .offLabel {
+    opacity: 1.0;
+    position: absolute;
+    width: 100%;
+    line-height: 61px;
+    font-size: 12px;
+    padding-left: unset;
+    padding-right: unset;
+    text-align: center;
+    font-weight: 500;
+    transition: .3s;
+}
+
+.identities .toggle .handle {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #FFF;
+    border-radius: 14px;
+    left: 2px;
+    top: 2px;
+    transition: .3s;
+}
+
+.identities .toggle.on .handle {
+    left: 20px;
+}
+
+.identities .toggle.on .onLabel {
+    opacity: 1.0;
+}
+
+.identities .toggle.on .offLabel {
+    opacity: 0.0;
+}
+
+.identities .toggle.on {
+    background-color: rgba(3,219,92,1);
+}
+
+
 .blurArea.open {
     opacity: 1;
 }
@@ -1985,7 +2086,7 @@ input, select {
     background-color: rgba(255,255,255,.15);
     border-radius: 10px;
     display: grid;
-    grid-template-columns: auto 100px;
+    grid-template-columns: 65px auto;
     opacity: 0;
     padding-right: 5px;
     transition: var(--transition);
