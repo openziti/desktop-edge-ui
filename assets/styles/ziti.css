@@ -110,6 +110,11 @@ main {
     min-width: 1080px;
     min-height: 608px;
     overflow: hidden;
+    transition: var(--transition);
+}
+
+main.slid {
+    left: 0px;
 }
 
 body.max main {
@@ -955,6 +960,31 @@ body.max #HeaderArea {
     padding-left: 300px;
 }
 
+
+main.slid #MissionControl {
+    padding-left: 288px;
+}
+
+main.slid #IdentityScreen {
+    padding-left: 288px;
+}
+
+main.slid #ServiceScreen {
+    padding-left: 288px;
+}
+
+main.slid #AdvancedScreen {
+    padding-left: 288px;
+}
+
+main.slid #SupportScreen {
+    padding-left: 288px;
+}
+
+main.slid #HeaderArea {
+    padding-left: 288px;
+}
+
 .missions {
     position: relative;
 }
@@ -1377,6 +1407,14 @@ body.max #HeaderArea .dragger {
     height: 200px;
     background-position: center center;
     background-size: contain;
+}
+
+.confusedziggy {
+    width: 100%;
+    height: 200px;
+    background-position: center center;
+    background-size: contain;
+    background-image: url(../images/headache.svg);
 }
 
 .button {
@@ -2465,6 +2503,14 @@ element.style {
     top: 360px;
     cursor: col-resize;
     opacity: 0.2;
+}
+
+.sliderLeft {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 75px;
 }
 
 @keyframes rotation {

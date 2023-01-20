@@ -12,6 +12,9 @@ var ui = {
         $("#OnOffButton").click(ui.power);
         $(".releaseStream").click(ui.updateRelease);
         $("#UpdateAvailable").click(ui.forceUpdate);
+        $(".sliderLeft").mouseover(ui.slideOpen);
+        $("main").mouseover(ui.slideClosed);
+        $("nav").mouseover(ui.slideClosed);
     },
     updates: function(data) {
         $(".releaseStream").removeClass("selected");
@@ -19,6 +22,14 @@ var ui = {
         else $(".releaseStream[data-id='Beta']").addClass("selected");
         if (data.AutomaticUpgradeDisabled.toLowerCase()=='false') $("#UpdateOn").addClass("on");
         else $("#UpdateOn").removeClass("on");
+    },
+    slideOpen: function(e) {
+        if (!$("body").hasClass("max")) {
+            $("main").addClass("slid");
+        }
+    },
+    slideClosed: function(e) {
+        $("main").removeClass("slid");
     },
     state: function(data) {
         if (data.Active!=ui.isOn || ui.isFirst) {
@@ -104,9 +115,7 @@ var ui = {
     },
     power: function(e) {
         ui.showLoad();
-        $(".missions").hide();
         if ($("#OnOffButton").hasClass("on")) {
-            $("#NoIdentityState").show();
             if (ui.timerInterval) clearInterval(ui.timerInterval);
             ui.seconds = 0;
             ui.isOn = false;
@@ -123,7 +132,6 @@ var ui = {
             $("#CircleArea").hide();
             $("#WelcomeBadge").show();
         } else {
-            $("#DisconnectedState").show();
             // Show Loader Turn On Service
             app.sendMonitorMessage({ Op:"Start", Action:"Normal" });
             ui.timerInterval = setInterval(ui.tick, 1000);

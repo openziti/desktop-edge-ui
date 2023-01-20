@@ -109,16 +109,13 @@
                 </div>
 
                 <div id="DisconnectedState" class="missions" style="display: none;">
-                    <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
-                        <div class="icon close"></div>
-                        <div class="title unselectable"></div>
+                    <div id="WelcomeBadge" class="staticmodal inline">
+                        <div id="NotConnected" class="title unselectable" data-i18n></div>
                         <div class="grid split">
-                            <div class="howdy" data-i18n></div>
-                            <div class="helloziggy"></div>
+                            <div id="UhOh" class="howdy" data-i18n></div>
+                            <div class="confusedziggy"></div>
                         </div>
-                        <div class="subTitle serviceon" data-i18n></div>
-                        <div class="subTitle serviceoff" data-i18n></div>
-                        <div class="button serviceon" data-action="add" data-i18n></div>
+                        <div id="GetConnected" class="subTitle" data-i18n></div>
                     </div>
                 </div>
             </div>
@@ -646,7 +643,7 @@
             <!-- End Support Screen -->
 
             <!-- Overlays -->
-            <span class="loader"></span>
+            <span class="loader" style="display: none;"></span>
 
         </main>
 
@@ -803,6 +800,8 @@
             <span data-i18n data-key="Service"></span>:
             <span id="ServiceVersion"></span>
         </div>
+
+        <div class="sliderLeft"></div>
 
     </body>
 </html>

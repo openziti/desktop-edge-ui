@@ -127,8 +127,10 @@ var ZitiIdentity = {
             return 0;
         });
 
+        $(".missions").hide();
         if (ZitiIdentity.data.length==0) {
-            $("#NoIdentityState").show();
+            if (ui.isOn) $("#NoIdentityState").show();
+            else $("#DisconnectedState").show();
             $("#ConnectedState").hide();
             $("#IdentityScreenArea").addClass("forceHide");
             $("#ServiceScreenArea").addClass("forceHide");
