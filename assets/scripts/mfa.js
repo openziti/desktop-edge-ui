@@ -79,6 +79,8 @@ var mfa = {
                     }
                 }
                 app.sendMessage(command);
+                app.startAction("GetMFACodes");
+                ui.showLoad();
             } else growler.error(app.keys.InvalidMFACode);
         }
     },

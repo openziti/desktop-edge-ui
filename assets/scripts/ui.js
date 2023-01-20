@@ -11,6 +11,7 @@ var ui = {
     events: function() {
         $("#OnOffButton").click(ui.power);
         $(".releaseStream").click(ui.updateRelease);
+        $("#UpdateAvailable").click(ui.forceUpdate);
     },
     updates: function(data) {
         $(".releaseStream").removeClass("selected");
@@ -65,11 +66,33 @@ var ui = {
         } else {
             message = "Version "+data.ZDEVersion+" is available for Ziti Desktop Edge";
         }
-        var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "", icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+        $("#UpdateAvailable").show();
+        var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "update", icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+    },
+    forceUpdate: function(e) {
+        var command = {
+            Op: "TriggerUpdate", 
+            Action: ""
+        };
+        app.sendMonitorMessage(command);
     },
     updateRelease: function(e) {
         $(".releaseStream").removeClass("selected");
         $(e.currentTarget).addClass("selected");
+    },
+    showLoad: function() {
+        $(".loader").show();
+		$(".modal.background").addClass("open");
+		$("body").addClass("hideScroll");
+		$("main").addClass("disable");
+		$("nav").addClass("disable");
+    },
+    hideLoad: function() {
+        $(".loader").hide();
+		$(".modal.background").removeClass("open");
+		$("body").removeClass("hideScroll");
+		$("main").removeClass("disable");
+		$("nav").removeClass("disable");
     },
     updateConfig: function() {
         var isOn = $("#UpdateOn").hasClass("on");
@@ -80,7 +103,10 @@ var ui = {
         app.sendMonitorMessage(command);
     },
     power: function(e) {
+        ui.showLoad();
+        $(".missions").hide();
         if ($("#OnOffButton").hasClass("on")) {
+            $("#NoIdentityState").show();
             if (ui.timerInterval) clearInterval(ui.timerInterval);
             ui.seconds = 0;
             ui.isOn = false;
@@ -97,6 +123,7 @@ var ui = {
             $("#CircleArea").hide();
             $("#WelcomeBadge").show();
         } else {
+            $("#DisconnectedState").show();
             // Show Loader Turn On Service
             app.sendMonitorMessage({ Op:"Start", Action:"Normal" });
             ui.timerInterval = setInterval(ui.tick, 1000);

@@ -7,6 +7,7 @@ const moment = require('moment');
 const path = require('path');
 const fs = require('fs');
 const ipc = require("node-ipc").default;
+const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
 
 var mainWindow;
@@ -23,6 +24,10 @@ var logDirectory = path.join(appPath, "logs");
 logDirectory = path.join(logDirectory, "ui");
 var tray;
 
+contextMenu({
+	showSaveImageAs: false
+});
+
 var Application = {
     CreateWindow: function() {
         if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
@@ -32,6 +37,8 @@ var Application = {
         AppSettings.init();
         var width = dimensions.width-380;
         var height = dimensions.height-234;
+        width = 1200;
+        height = 640;
         if (AppSettings.IsSet(AppSettings.data.width) && AppSettings.IsSet(AppSettings.data.height)) {
             if (Number(AppSettings.data.width)<width) width = Number(AppSettings.data.width);
             if (Number(AppSettings.data.height)<height) height = Number(AppSettings.data.height);
@@ -464,6 +471,7 @@ ipcMain.handle("mfa-enable", (event, data) => {
 });
 ipcMain.handle("window", (event, data) => {
     if (data=="maximize") {
+        mainWindow.setResizable(false);
         mainWindow.maximize();
     } else if (data=="unmaximize") {
         /*
@@ -471,6 +479,7 @@ ipcMain.handle("window", (event, data) => {
         mainWindow.setResizable(true);
         mainWindow.setSize(dimensions.width-200, dimensions.height-200);
         */
+        mainWindow.setResizable(true);
         mainWindow.unmaximize();
     } else if (data=="minimize") mainWindow.minimize();
     return "";

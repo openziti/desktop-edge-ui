@@ -63,16 +63,9 @@
 
             <!-- Mission Controls Screen -->
             <div id="MissionControl" class="area gridrow open">
-                <div class="col-sm-8">
-                    <div id="MainTitle" class="globetitle unselectable" data-i18n></div>
-                    <div id="CircleArea" class="row" style="display: none;">
-                        <div id="CanvasBox" class="col-sm-12 mt24">
-                            <canvas id="CircleCanvas" style="background-color: unset; opacity: 0.98;"></canvas>
-                            <div class="copy">
-                                <h1 data-key="Connected" data-i18n class="unselectable"></h1>
-                            </div>
-                        </div>
-                    </div>
+                <div id="MainTitle" class="globetitle unselectable" data-i18n></div>
+
+                <div id="NoIdentityState" class="missions" style="display: none;">
                     <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
                         <div class="icon close"></div>
                         <div id="WelcomeTitle" class="title unselectable" data-i18n></div>
@@ -85,7 +78,8 @@
                         <div id="WelcomeAddId" class="button serviceon" data-action="add" data-i18n></div>
                     </div>
                 </div>
-                <div class="col-sm-4 verticalscroll pr0 mt16">
+
+                <div id="ConnectedState" class="missions" style="display: none;">
                     <div class="pod">
                         <div class="header">
                             <div id="DownloadActivity" class="title download">Download Activity</div>
@@ -107,10 +101,24 @@
                         <div id="IdentityCount" class="count">0</div>
                         <div class="button" data-screen="IdentityScreen" data-key="ViewAll" data-i18n></div>
                     </div>
-                    <div class="pod serviceon mb64">
+                    <div class="pod serviceon">
                         <div class="title" data-key="Services" data-i18n></div>
                         <div id="ServiceCount" class="count">0</div>
                         <div class="button" data-screen="ServiceScreen" data-key="ViewAll" data-i18n></div>
+                    </div>
+                </div>
+
+                <div id="DisconnectedState" class="missions" style="display: none;">
+                    <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
+                        <div class="icon close"></div>
+                        <div class="title unselectable"></div>
+                        <div class="grid split">
+                            <div class="howdy" data-i18n></div>
+                            <div class="helloziggy"></div>
+                        </div>
+                        <div class="subTitle serviceon" data-i18n></div>
+                        <div class="subTitle serviceoff" data-i18n></div>
+                        <div class="button serviceon" data-action="add" data-i18n></div>
                     </div>
                 </div>
             </div>
@@ -243,7 +251,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div id="FullServiceList"></div>
+                        <div id="FullServiceList" class="pb50"></div>
                     </div>
                     <div class="col-sm-6 verticalscroll">
                         <div class="nameValues mb16">
@@ -285,7 +293,7 @@
                             </div>
                             <!-- End Hid Metrics -->
 
-                            <div class="col-sm-12">
+                            <div class="grid address">
                                 <div class="pod">
                                     <div class="nameValue">
                                         <label data-key="Addresses" data-i18n></label>
@@ -293,27 +301,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="pod">
-                                        <div class="nameValue">
-                                            <label data-key="Ports" data-i18n></label>
-                                            <div id="ServicePorts" class="value"></div>
-                                        </div>
-                                        <div class="nameValue mt20">
-                                            <label data-key="Protocols" data-i18n></label>
-                                            <div id="ServiceProtocols" class="value"></div>
-                                        </div>
+                            <div class="grid splitValues">
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label data-key="Ports" data-i18n></label>
+                                        <div id="ServicePorts" class="value"></div>
+                                    </div>
+                                    <div class="nameValue mt20">
+                                        <label data-key="Protocols" data-i18n></label>
+                                        <div id="ServiceProtocols" class="value"></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="pod">
-                                        <div class="nameValue">
-                                            <label data-key="PostureChecks" data-i18n></label>
-                                            <div id="PostureChecks" class="value"></div>
-                                        </div>
-                                        <div id="PassFail"></div>
+                                <div class="pod">
+                                    <div class="nameValue">
+                                        <label data-key="PostureChecks" data-i18n></label>
+                                        <div id="PostureChecks" class="value"></div>
                                     </div>
+                                    <div id="PassFail"></div>
                                 </div>
                             </div>
                         </div>
@@ -512,16 +516,7 @@
                     <input id="EditIP" type="text" placeholder="0.0.0.0" />
                     <label for="EditSubnet" data-key="SubnetMask" data-i18n></label>
                     <select id="EditSubnet">
-                        <option value="1" selected>/1 - 128.0.0.0</option>
-                        <option value="2">/2 - 192.0.0.0</option>
-                        <option value="3">/3 - 224.0.0.0</option>
-                        <option value="4">/4 - 240.0.0.0</option>
-                        <option value="5">/5 - 248.0.0.0</option>
-                        <option value="6">/6 - 252.0.0.0</option>
-                        <option value="7">/7 - 254.0.0.0</option>
-                        <option value="8">/8 - 255.0.0.0</option>
-                        <option value="9">/9 - 255.128.0.0</option>
-                        <option value="10">/10 - 255.192.0.0</option>
+                        <option value="10" selected>/10 - 255.192.0.0</option>
                         <option value="11">/11 - 255.224.0.0</option>
                         <option value="12">/12 - 255.240.0.0</option>
                         <option value="13">/13 - 255.248.0.0</option>
@@ -536,14 +531,6 @@
                         <option value="22">/22 - 255.255.252.0</option>
                         <option value="23">/23 - 255.255.254.0</option>
                         <option value="24">/24 - 255.255.255.0</option>
-                        <option value="25">/25 - 255.255.255.128</option>
-                        <option value="26">/26 - 255.255.255.192</option>
-                        <option value="27">/27 - 255.255.255.224</option>
-                        <option value="28">/28 - 255.255.255.240</option>
-                        <option value="29">/29 - 255.255.255.248</option>
-                        <option value="30">/30 - 255.255.255.252</option>
-                        <option value="31">/31 - 255.255.255.254</option>
-                        <option value="32">/32 - 255.255.255.255</option>
                     </select>
                     <label data-key="PageSize" data-i18n></label>
                     <input id="EditAPI" type="text" placeholder="50-500" />

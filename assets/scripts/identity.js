@@ -128,11 +128,15 @@ var ZitiIdentity = {
         });
 
         if (ZitiIdentity.data.length==0) {
+            $("#NoIdentityState").show();
+            $("#ConnectedState").hide();
             $("#IdentityScreenArea").addClass("forceHide");
             $("#ServiceScreenArea").addClass("forceHide");
             $("#NoDataIdentityScreen").removeClass("forceHide");
             $("#NoDataServiceScreen").removeClass("forceHide");
         } else {
+            $("#NoIdentityState").hide();
+            $("#ConnectedState").show();
             $("#IdentityScreenArea").removeClass("forceHide");
             $("#ServiceScreenArea").removeClass("forceHide");
             $("#NoDataIdentityScreen").addClass("forceHide");
@@ -214,6 +218,17 @@ var ZitiIdentity = {
             ipcRenderer.invoke("icon-yellow", "minimize");
         } else {
             ipcRenderer.invoke("icon-green", "minimize");
+        }
+    },
+    mfaRemoved: function() {
+        let id = ZitiIdentity.selected().FingerPrint;
+        for (var i=0; i<ZitiIdentity.data.length; i++) {
+            var item = ZitiIdentity.data[i];
+            if (item.FingerPrint==id) {
+                ZitiIdentity.data[i].MfaEnabled = false;
+                found = true;
+                break;
+            }
         }
     },
     select: function(id) {

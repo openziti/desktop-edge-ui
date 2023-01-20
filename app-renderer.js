@@ -378,11 +378,25 @@ var app = {
                         } else {
                             growler.error(app.keys.InvalidMFACode)
                         }
+                    } else if (message.Action=="enrollment_remove") {
+
+                        // The Enrollment verification event
+                        if (message.Successful) {
+                            growler.success(app.keys.MFARemoved);
+                            ZitiIdentity.mfaRemoved();
+                            $("#MfaStatus").removeClass("open");
+                            modal.hide();
+                            ui.hideLoad();
+                        } else {
+                            growler.error(app.keys.InvalidMFACode)
+                        }
                     }
                 }
             } else {
-                if (message.Type=="Status"&&message.Code==10) {
-                    if (message.Status!=null && message.Status=="Stopped") {
+                if (message.Type=="Status") {
+                    ui.updates(message);
+                    if (message.Status&&message.Status=="Stopped") {
+                        ui.hideLoad();
                         ui.state({Active: false, from: "Message"});
                         ZitiIdentity.data = [];
                         ZitiService.data = [];
@@ -390,57 +404,70 @@ var app = {
                         $("#NavIdentityCount").html("0");
                         ZitiIdentity.refresh();
                     } else {
+                        ui.hideLoad();
                         if (message.Operation=="OnOff") {
                             ui.state(message);
-                        } 
+                        }
                     }
-                } else {
-                    if (message.Type=="Status") {
-                        ui.updates(message);
-                    } else if (message.Type=="Notification") {
-                        ui.notification(message);
-                    } else {
-                        if (message.Success != null) {
-                            if (!message.Success) growler.error(message.Error);    
-                            
-                            // Remove Identity Success Event
-                            if (message.Data !=null) {
-                                if (message.Data.Command !=null) {
-                                    if (message.Data.Command=="RemoveIdentity") {
-                                        $(".loader").hide();
-                                        ZitiIdentity.forgotten(message.Data.Data.Identifier);
-                                        growler.success("Identity Forgotten");
-                                    } 
-                                } else {
+                    if (message.Message&&message.Message=="Running") {
+                        ui.hideLoad();
+                        ui.state({Active: true, from: "Message"});
+                        ZitiIdentity.data = [];
+                        ZitiService.data = [];
+                        $("#NavServiceCount").html("0");
+                        $("#NavIdentityCount").html("0");
+                        ZitiIdentity.refresh();
+                    }
+                } else if (message.Type=="Notification") {
+                    ui.notification(message);
+                 } else {
+                    if (message.Success != null) {
+                        if (message.Error) growler.error(message.Error); 
+
+                        if (message.Data != null) {
+                            if (message.Data.Command !=null) {
+                                if (message.Data.Command=="RemoveIdentity") {
+                                    $(".loader").hide();
+                                    ZitiIdentity.forgotten(message.Data.Data.Identifier);
+                                    growler.success("Identity Forgotten");
+                                } 
+                            } else {
+                                if (app.actionId=="GetMFACodes") {
+                                    app.actionId = null;
                                     if (message.Data.RecoveryCodes!=null && message.Data.RecoveryCodes.length>0) {
+                                        ui.hideLoad();
                                         let identity = ZitiIdentity.selected();
                                         mfa.MfaCodes[identity.FingerPrint] = message.Data.RecoveryCodes;
-                                        //mfa.recoveryCodes();
+                                        modal.hide();
+                                        setTimeout(() => {
+                                            mfa.recoveryCodes();
+                                        }, 1000);
                                     }
-                                }
-                            } else {
-                                if (app.actionId=="SaveConfig") {
-                                    growler.success("Config Saved, please restart Ziti to update.");
-                                    $("#EditForm").removeClass("open");
                                 }
                             }
                         } else {
-    
-                            if (app.actionId!=null) {
-                                if (message.Error!=null && message.Error.trim().length>0) {
-                                    growler.error(message.Error);
-                                    $(".loader").hide();
-                                    $(".actionPending").removeClass("disabled");
-                                } else if (message.Message!=null && message.Message.trim().length>0) {
-                                    $(".loader").hide();
-                                    $(".actionPending").removeClass("disabled");
-                                    if (app.actionId=="CaptureLogs") {
-                                        shell.showItemInFolder(message.Message);
-                                        growler.success("Package Generated");
-                                    }
-                                    app.actionId = null;
-                                }
+                            if (app.actionId=="SaveConfig") {
+                                growler.warning("Config Saved, please restart Ziti to update.");
+                                $("#EditForm").removeClass("open");
                             }
+                        }
+                    } else {
+                        if (app.actionId!=null) {
+                            if (message.Error!=null && message.Error.trim().length>0) {
+                                growler.error(message.Error);
+                                $(".loader").hide();
+                                $(".actionPending").removeClass("disabled");
+                            } else if (message.Message!=null && message.Message.trim().length>0) {
+                                $(".loader").hide();
+                                $(".actionPending").removeClass("disabled");
+                                if (app.actionId=="CaptureLogs") {
+                                    shell.showItemInFolder(message.Message);
+                                    growler.success("Package Generated");
+                                }
+                                app.actionId = null;
+                            }
+                        } else {
+                            ui.hideLoad();
                         }
                     }
                 }
@@ -627,10 +654,12 @@ var app = {
     },
     sendMessage: function(e) {
         Log.debug("app.sendMessage", e);
+        console.log("Sending", e);
         ipcRenderer.invoke("message", e);
     },
     sendMonitorMessage: function(e) {
         Log.debug("app.sendMonitorMessage", e);
+        console.log("Sending", e);
         ipcRenderer.invoke("monitor-message", e);
     },
     startAction: function(name) {

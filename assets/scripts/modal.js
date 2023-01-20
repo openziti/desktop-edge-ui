@@ -11,10 +11,10 @@ var modal = {
 	},
 	show: function(id) {
 		$(".modal.background").addClass("open");
-		$("#"+id).addClass("open");
 		$("body").addClass("hideScroll");
 		$("main").addClass("disable");
 		$("nav").addClass("disable");
+		$("#"+id).addClass("open");
 	},
 	hide: function(e) {
 		$(".modal.open").removeClass("open");

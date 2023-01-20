@@ -25,7 +25,6 @@ var ZitiService = {
         var protocol = obj.data("protocol");
         var url = obj.data("url");
         var port = Number(obj.data("port"));
-        alert(url);
         if (port==80) app.openUrl("http://"+url);
         else if (port==443) app.openUrl("https://"+url);
     },
@@ -240,6 +239,7 @@ var ZitiService = {
             if (items[0]=="URL") app.openUrl(items[1]);
             else if (items[0]=="FILE") app.openPath("\\\\"+items[1]+"\\");
             else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
+            ipcRenderer.invoke("window", "minimize");
         }
     },
     showDetails: function() {

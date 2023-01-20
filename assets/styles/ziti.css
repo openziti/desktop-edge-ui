@@ -102,7 +102,7 @@ body {
 
 main {
     position: absolute;
-    left: 68px;  
+    left: 58px;  
     border-radius: 22px;
     bottom: 0px;
     right: 0px;
@@ -130,7 +130,7 @@ body.max nav {
 
 nav {
     position: absolute;
-    left: 25px;
+    left: 15px;
     top: 45px;
     bottom: 40px;
     width: 225px;
@@ -144,7 +144,7 @@ nav {
 
 nav:hover {
     transform: scale3d(1.01, 1.01, 1);
-    box-shadow: 0px 5px 22px 3px rgb(0 0 0 / 25%);
+    box-shadow: var(--shadow);
     transition: 0.2s;
 }
 
@@ -955,6 +955,10 @@ body.max #HeaderArea {
     padding-left: 300px;
 }
 
+.missions {
+    position: relative;
+}
+
 #HeaderArea .title {
     font-weight: bold;
     color: #fff;
@@ -963,12 +967,16 @@ body.max #HeaderArea {
     text-shadow: var(--fontshadow);
 }
 
+body.max #HeaderArea .dragger {
+    -webkit-app-region: unset;
+}
+
 #HeaderArea .dragger {
     position: absolute;
-    left: 100px;
+    left: 0px;
     top: 0px;
-    right: 100px;
-    height: 30px;
+    right: 120px;
+    height: 50px;
     -webkit-app-region: drag;
 }
 
@@ -1224,10 +1232,19 @@ body.max #HeaderArea {
     color: #00DC5A;
 }
 
+.grid.address {
+    padding: 10px;
+}
+
+.grid.splitValues {
+    grid-template-columns: 49% auto;
+    column-gap: 20px;
+    padding: 10px;
+}
+
 .pod {
     border-radius: 15px;
     background-color:rgba(248, 251, 255, 0.1);
-    margin-bottom: 20px;
     min-height: 175px!important;
     padding-top: 10px;
     padding-left: 20px;
@@ -1235,6 +1252,7 @@ body.max #HeaderArea {
     text-shadow: var(--fontshadow);
     position: relative;
     text-align: left;
+    display: inline-grid;
 }
 
 @supports ((-webkit-backdrop-filter: blur(30px)) or (backdrop-filter: blur(30px))) {
@@ -1328,9 +1346,9 @@ body.max #HeaderArea {
     padding: 30px;
     text-shadow: var(--fontshadow);
     position: absolute;
-    width: 80%;
     z-index: 1000;
-    left: calc(50% - 40%);
+    left: 50px;
+    right: 50px;
 }
 
 .staticmodal.inline .title {
@@ -2074,6 +2092,14 @@ element.style {
     background-color: rgba(3,219,92,1);
 }
 
+#ConnectedState {
+    grid-template-columns: 50% auto;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    gap: 20px;
+    margin-left: 17px;
+    margin-right: 17px;
+}
 
 .blurArea.open {
     opacity: 1;
@@ -2399,6 +2425,7 @@ element.style {
     display: inline-block;
     margin-top: 20px;
     width: 100%;
+    padding-bottom: 50px;
 }
 
 #ServiceList {
