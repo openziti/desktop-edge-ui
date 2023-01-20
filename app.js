@@ -25,6 +25,7 @@ logDirectory = path.join(logDirectory, "ui");
 var tray;
 
 contextMenu({
+    showSearchWithGoogle: false,
 	showSaveImageAs: false
 });
 
