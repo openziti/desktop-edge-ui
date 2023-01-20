@@ -131,6 +131,24 @@ var ui = {
             $("#NavIdentityCount").html("0");
             $("#CircleArea").hide();
             $("#WelcomeBadge").show();
+            if (app.os=="linux") {
+                // Do this here because there is no state coming once off on Linux
+                $(".missions").hide();
+                ui.hideLoad();
+                ui.seconds = 0;
+                $("#UploadSpeed").html("0.0");
+                $("#DownloadSpeed").html("0.0");
+                $("#OnOffButton").removeClass("on");
+                $("#CircleArea").hide();
+                $("#WelcomeBadge").show();
+                $(".serviceon").hide();
+                $(".serviceoff").show();
+                $("#IdentityScreenArea").addClass("forceHide");
+                $("#ServiceScreenArea").addClass("forceHide");
+                $("#NoDataIdentityScreen").removeClass("forceHide");
+                $("#NoDataServiceScreen").removeClass("forceHide");
+                $("#DisconnectedState").show();
+            }
         } else {
             // Show Loader Turn On Service
             app.sendMonitorMessage({ Op:"Start", Action:"Normal" });

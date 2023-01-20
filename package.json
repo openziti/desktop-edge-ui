@@ -73,10 +73,10 @@
           "config": {
             "icon": "./app.png",
             "maintainer": "OpenZiti",
-            "name": "Ziti Desktop Edge Preview",
-            "genericName": "Ziti Desktop Edge",
+            "name": "ziti-desktop-edge",
+            "genericName": "ziti-desktop-edge",
             "executableName": "ziti-desktop",
-            "productName": "Ziti Desktop Edge Preview",
+            "productName": "ziti-desktop-edge",
             "homepage": "https://openziti.com",
             "version": "3.1.0",
             "depends": [
@@ -89,10 +89,10 @@
           "config": {
             "icon": "./app.png",
             "maintainer": "OpenZiti",
-            "name": "Ziti Desktop Edge Preview",
+            "name": "ziti-desktop-edge",
             "executableName": "ziti-desktop",
-            "genericName": "Ziti Desktop Edge",
-            "productName": "Ziti Desktop Edge Preview",
+            "genericName": "ziti-desktop-edge",
+            "productName": "iti-desktop-edge",
             "homepage": "https://openziti.com",
             "version": "3.1.0",
             "requires": [

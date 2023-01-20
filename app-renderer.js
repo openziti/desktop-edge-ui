@@ -43,7 +43,6 @@ var app = {
         var filePath = 'assets/data/settings.json';
         var settingsFile = path.join(__dirname, filePath);
         app.settings = JSON.parse(fs.readFileSync(settingsFile));
-        console.log(app.settings);
         if (app.settings.ShowReleaseStream) $("#ReleaseStream").show();
     },
     language: function() {

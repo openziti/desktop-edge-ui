@@ -30,5 +30,9 @@ var ZitiSettings = {
         $("#SettingMTU").html(ZitiSettings.MTU);
         $("#SettingDNS").html(ZitiSettings.AddDns?"enabled":"disabled");
         $("#SettingAPI").html(ZitiSettings.ApiPageSize);
+
+        if (obj.Active) {
+            ui.hideLoad();
+        }
     }
 }
