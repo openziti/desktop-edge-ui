@@ -34,10 +34,10 @@ var modal = {
 		}
 	},
 	confirm: function(onConfirm, onCancel, message, title, yesLabel, noLabel) {
-		var cTitle = "Delete Confirmation";
-		var cText = "Are you sure you want to continue?<br/><br/>Once this is deleted it will be gone forever.";
-		var cYes = "yes";
-		var cNo = "no";
+		var cTitle = locale.get("DeleteTitle");
+		var cText = locale.get("DeleteMessage");
+		var cYes = locale.get("Yes");
+		var cNo = locale.get("No");
 		if (title) cTitle = title;
 		if (message) cText = message;
 		if (yesLabel) cYes = yesLabel;

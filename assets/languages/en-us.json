@@ -123,5 +123,22 @@
     "Terms": "Terms of<br />Service",
     "App": "App",
     "Service": "Service",
-    "EditTunnelConfiguration": "Edit Tunnel Configuration"
+    "EditTunnelConfiguration": "Edit Tunnel Configuration",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "IdentityForgotten": "Identity Forgotten",
+    "Authorize": "Authorize",
+    "ConfirmDelete": "If you delete the identity {{id}} you will no longer have access to the resources that it grants you.",
+    "ConfirmForget": "Confirm Forget",
+    "MfaTimedOut": "Some or all of the services for {{id}} have timed out",
+    "MfaWillTimeout": "The services for {{id}} will start to timeout ",
+    "TimedOut": "Timed Out",
+    "TimingOut": "Timeout Warning",
+    "DeleteTitle": "Delete Confirmation",
+    "DeleteMessage": "Are you sure you want to continue?<br/><br/>Once this is deleted it will be gone forever.",
+    "Yes": "Yes",
+    "No": "No",
+    "UpdateAlert": "Ziti Desktop Edge will initiate auto installation in the next minute!",
+    "UpdateDate": "Update {{version}} is available for Ziti Desktop Edge and will be automatically installed by {{date}}",
+    "UpdateVersion": "Version {{version}} is available for Ziti Desktop Edge"
 }

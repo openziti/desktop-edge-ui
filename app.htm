@@ -27,6 +27,7 @@
         <script src="assets/scripts/service.js"></script>
         <script src="assets/scripts/identity.js"></script>
         <script src="assets/scripts/dragger.js"></script>
+        <script src="assets/scripts/locale.js"></script>
         <script src="app-renderer.js"></script>
     </head>
     <body>
@@ -85,7 +86,7 @@
                             <div id="DownloadActivity" class="title download">Download Activity</div>
                         </div>
                         <div id="DownloadSpeed" class="count">-</div>
-                        <div id="DownloadMeasure" class="note" data-key="mbps" data-i18n></div>
+                        <div id="DownloadMeasure" class="note" data-i18n="mbps"></div>
                         <div id="DownloadGraph" class="graph"></div>
                     </div>
                     <div class="pod">
@@ -93,18 +94,18 @@
                             <div id="UploadActivity" class="title upload">Upload Activity</div>
                         </div>
                         <div id="UploadSpeed" class="count">-</div>
-                        <div id="UploadMeasure" class="note" data-key="mbps" data-i18n></div>
+                        <div id="UploadMeasure" class="note" data-i18n="mbps"></div>
                         <div id="UploadGraph" class="graph"></div>
                     </div>
                     <div class="pod serviceon">
-                        <div class="title" data-key="Identities" data-i18n></div>
+                        <div class="title" data-i18n="Identities"></div>
                         <div id="IdentityCount" class="count">0</div>
-                        <div class="button" data-screen="IdentityScreen" data-key="ViewAll" data-i18n></div>
+                        <div class="button" data-screen="IdentityScreen" data-i18n="ViewAll"></div>
                     </div>
                     <div class="pod serviceon">
-                        <div class="title" data-key="Services" data-i18n></div>
+                        <div class="title" data-i18n="Services"></div>
                         <div id="ServiceCount" class="count">0</div>
-                        <div class="button" data-screen="ServiceScreen" data-key="ViewAll" data-i18n></div>
+                        <div class="button" data-screen="ServiceScreen" data-i18n="ViewAll"></div>
                     </div>
                 </div>
 
@@ -136,12 +137,12 @@
                         <div class="sortLine">
                             <div></div>
                             <div class="sort">
-                                <span data-key="SortBy" data-i18n></span> 
-                                <span id="IdSort" data-key="Name" data-i18n></span>
+                                <span data-i18n="SortBy"></span> 
+                                <span id="IdSort" data-i18n="Name"></span>
                                 <span class="options">
-                                    <div class="option" data-sort="Name" data-what="identity" data-key="Name" data-i18n></div>
-                                    <div class="option" data-sort="Status" data-what="identity" data-key="Status" data-i18n></div>
-                                    <div class="option" data-sort="Total Services" data-what="identity" data-key="TotalServices" data-i18n></div>
+                                    <div class="option" data-sort="Name" data-what="identity" data-i18n="Name"></div>
+                                    <div class="option" data-sort="Status" data-what="identity" data-i18n="Status"></div>
+                                    <div class="option" data-sort="Total Services" data-what="identity" data-i18n="TotalServices"></div>
                                 </span>
                             </div>
                         </div>
@@ -150,15 +151,15 @@
                     <div class="col-sm-7">
                         <div class="nameValues mb16">
                             <div class="nameValue">
-                                <label data-key="Name" data-i18n></label>
+                                <label data-i18n="Name"></label>
                                 <div id="IdName" class="value"></div>
                             </div>
                             <div class="nameValue">
-                                <label data-key="Network" data-i18n></label>
+                                <label data-i18n="Network"></label>
                                 <div id="IdNetwork" class="value"></div>
                             </div>
                             <div class="nameValue">
-                                <label data-key="Controller" data-i18n></label>
+                                <label data-i18n="Controller"></label>
                                 <div id="IdControllerVersion" class="value"></div>
                             </div>
                         </div>
@@ -168,51 +169,46 @@
                             </div>
                             <div class="right">
                                 <div class="sort">
-                                    <div id="SortHow" class="sortHow" data-key="Descending" data-i18n></div>
+                                    <div id="SortHow" class="sortHow" data-i18n="Descending"></div>
     
                                     <span class="options">
-                                        <div class="option" data-how="DESC" data-what="service" data-key="Descending" data-i18n></div>
-                                        <div class="option" data-how="ASC" data-what="service" data-key="Ascending" data-i18n></div>
+                                        <div class="option" data-how="DESC" data-what="service" data-i18n="Descending"></div>
+                                        <div class="option" data-how="ASC" data-what="service" data-i18n="Ascending"></div>
                                     </span>
                                 </div>
                                 <div class="sort" style="margin-right: 20px;">
-                                    <span data-key="SortBy" data-i18n></span> 
+                                    <span data-i18n="SortBy" data-i18n></span> 
                                     <span id="IdServiceSort"data-i18n></span>
     
                                     <span class="options">
-                                        <div class="option" data-sort="Name" data-what="service" data-key="Name" data-i18n></div>
-                                        <div class="option" data-sort="Address" data-what="service" data-key="Address" data-i18n></div>
-                                        <div class="option" data-sort="Port" data-what="service" data-key="Port" data-i18n></div>
-                                        <div class="option" data-sort="Protocol" data-what="service" data-key="Protocol" data-i18n></div>
-                                        <div class="option" data-sort="Posture Checks" data-what="service" data-key="PostureChecks" data-i18n></div>
+                                        <div class="option" data-sort="Name" data-what="service" data-i18n="Name"></div>
+                                        <div class="option" data-sort="Address" data-what="service" data-i18n="Address"></div>
+                                        <div class="option" data-sort="Port" data-what="service" data-i18n="Port"></div>
+                                        <div class="option" data-sort="Protocol" data-what="service" data-i18n="Protocol"></div>
+                                        <div class="option" data-sort="Posture Checks" data-what="service" data-i18n="PostureChecks"></div>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div id="ServiceList" class="verticalscroll"></div>
                         <div class="controls">
-                            <div class="col-sm-6 col-md-4">
-                                <div id="MfaStatus" class="blurArea">
-                                    <div class="icon connected"></div>
-                                    <div class="label authsmall" data-key="Connected" data-i18n></div>
+                            <div id="MfaStatus" class="blurArea">
+                                <div class="icon connected"></div>
+                                <div class="label authsmall" data-i18n="Authorize"></div>
+                            </div>
+                            <div id="MfaTimeout" class="blurArea reversed">
+                                <div class="icon timer"></div>
+                                <div class="label">-/-</div>
+                            </div>
+                            <div>
+                                <div class="mfatext"><span data-i18n="MFA"></span></div>
+                                <div id="MfaToggle" class="toggle" data-call="mfa">
+                                    <div class="handle"></div>
+                                    <div class="onLabel" data-i18n="On"></div>
+                                    <div class="offLabel" data-i18n="Off"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div id="MfaTimeout" class="blurArea reversed">
-                                    <div class="icon timer"></div>
-                                    <div class="label">-/-</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-2"><div class="mfatext"><span data-key="MFA" data-i18n></span></div>
-                            <div id="MfaToggle" class="toggle" data-call="mfa">
-                                <div class="handle"></div>
-                                <div class="onLabel" data-key="On" data-i18n></div>
-                                <div class="offLabel" data-key="Off" data-i18n></div>
-                            </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3 pr0">
-                                <div id="ForgetButton" class="button red" data-i18n></div>
-                            </div>
+                            <div id="ForgetButton" class="button red" data-i18n></div>
                         </div>
                     </div>
                 </div>
@@ -236,15 +232,15 @@
                                 <input id="FilterServices" class="filter" placeholder="Filter" />
                             </div>
                             <div class="sort col-sm-4 forceHide">
-                                <span data-key="SortBy" data-i18n></span> 
-                                <span id="ServiceSort" data-key="Name" data-i18n></span>
+                                <span data-i18n="SortBy"></span> 
+                                <span id="ServiceSort" data-i18n="Name"></span>
 
                                 <span class="options">
-                                    <div class="option" data-sort="Name" data-what="service" data-how="ASC" data-key="Name" data-i18n></div>
-                                    <div class="option" data-sort="Address" data-what="service" data-how="ASC" data-key="Address" data-i18n></div>
-                                    <div class="option" data-sort="Port" data-what="service" data-how="ASC" data-key="Port" data-i18n></div>
-                                    <div class="option" data-sort="Protocol" data-what="service" data-how="ASC" data-key="Protocol" data-i18n></div>
-                                    <div class="option" data-sort="Total Posture Checks" data-what="service" data-how="ASC" data-key="PostureChecks" data-i18n></div>
+                                    <div class="option" data-sort="Name" data-what="service" data-how="ASC" data-i18n="Name"></div>
+                                    <div class="option" data-sort="Address" data-what="service" data-how="ASC" data-i18n="Address"></div>
+                                    <div class="option" data-sort="Port" data-what="service" data-how="ASC" data-i18n="Port"></div>
+                                    <div class="option" data-sort="Protocol" data-what="service" data-how="ASC" data-i18n="Protocol"></div>
+                                    <div class="option" data-sort="Total Posture Checks" data-what="service" data-how="ASC" data-i18n="PostureChecks"></div>
                                 </span>
                             </div>
                         </div>
@@ -253,15 +249,15 @@
                     <div class="col-sm-6 verticalscroll">
                         <div class="nameValues mb16">
                             <div class="nameValue">
-                                <label data-key="Name" data-i18n></label>
+                                <label data-i18n="Name"></label>
                                 <div id="ServiceName" class="value"></div>
                             </div>
                             <div class="nameValue">
-                                <label data-key="Url" data-i18n></label>
+                                <label data-i18n="Url"></label>
                                 <div id="ServiceUrl" class="value" data-protocol="tcp" data-url="openziti.io" data-port="80" ></div>
                             </div>
                             <div class="nameValue">
-                                <label data-key="Identity" data-i18n></label>
+                                <label data-i18n="Identity"></label>
                                 <div id="ServiceIdentity" class="value"></div>
                             </div>
                         </div>
@@ -271,20 +267,20 @@
                             <div class="col-sm-6" style="display: none;">
                                 <div class="pod">
                                     <div class="header">
-                                        <div class="title download" data-key="DownloadSpeed" data-i18n></div>
+                                        <div class="title download" data-i18n="DownloadSpeed"></div>
                                     </div>
                                     <div id="DownloadServiceSpeed" class="count">0</div>
-                                    <div id="DownloadServiceMeasure" class="note" data-key="mbps" data-i18n></div>
+                                    <div id="DownloadServiceMeasure" class="note" data-i18n="mbps"></div>
                                     <div id="DownloadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6" style="display: none;">
                                 <div class="pod">
                                     <div class="header">
-                                        <div class="title upload" data-key="UploadSpeed" data-i18n></div>
+                                        <div class="title upload" data-i18n="UploadSpeed"></div>
                                     </div>
                                     <div id="UploadServiceSpeed" class="count">0</div>
-                                    <div id="UploadServiceMeasure" class="note" data-key="mbps" data-i18n></div>
+                                    <div id="UploadServiceMeasure" class="note" data-i18n="mbps"></div>
                                     <div id="UploadServiceGraph" class="graph"></div>
                                 </div>
                             </div>
@@ -293,7 +289,7 @@
                             <div class="grid address">
                                 <div class="pod">
                                     <div class="nameValue">
-                                        <label data-key="Addresses" data-i18n></label>
+                                        <label data-i18n="Addresses"></label>
                                         <div id="ServiceAddresses" class="value"></div>
                                     </div>
                                 </div>
@@ -301,17 +297,17 @@
                             <div class="grid splitValues">
                                 <div class="pod">
                                     <div class="nameValue">
-                                        <label data-key="Ports" data-i18n></label>
+                                        <label data-i18n="Ports"></label>
                                         <div id="ServicePorts" class="value"></div>
                                     </div>
                                     <div class="nameValue mt20">
-                                        <label data-key="Protocols" data-i18n></label>
+                                        <label data-i18n="Protocols"></label>
                                         <div id="ServiceProtocols" class="value"></div>
                                     </div>
                                 </div>
                                 <div class="pod">
                                     <div class="nameValue">
-                                        <label data-key="PostureChecks" data-i18n></label>
+                                        <label data-i18n="PostureChecks"></label>
                                         <div id="PostureChecks" class="value"></div>
                                     </div>
                                     <div id="PassFail"></div>
@@ -328,52 +324,52 @@
                 <div class="col-sm-4">
                     <div class="fullNav advancedNav selected" data-sub="ConfigInfo">
                         <div class="icon train"></div>
-                        <span data-key="TunnelConfiguration" class="navLabel" data-i18n></span>
+                        <span data-i18n="TunnelConfiguration" class="navLabel"></span>
                     </div>
                     <div class="fullNav advancedNav" data-sub="ServiceLogs">
                         <div class="icon serviceLog"></div>
-                        <span data-key="ServiceLogs" class="navLabel" data-i18n></span>
+                        <span data-i18n="ServiceLogs" class="navLabel"></span>
                     </div>
                     <div class="fullNav advancedNav" data-sub="AppLogs">
                         <div class="icon appLog"></div>
-                        <span data-key="ApplicationLogs" class="navLabel" data-i18n></span>
+                        <span data-i18n="ApplicationLogs" class="navLabel"></span>
                     </div>
                     <div class="fullNav advancedNav serviceon" data-sub="LogLevel">
                         <div class="icon level"></div>
-                        <span data-key="SetLoggingLevel" class="navLabel" data-i18n></span>
+                        <span data-i18n="SetLoggingLevel" class="navLabel"></span>
                     </div>
                     <div class="fullNav advancedNav serviceon windows" data-sub="Updates">
                         <div class="icon update"></div>
-                        <span data-key="AutomaticUpdates" class="navLabel" data-i18n></span>
+                        <span data-i18n="AutomaticUpdates" class="navLabel"></span>
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div id="ConfigInfo" class="sub open">
-                        <div class="title" data-key="AdvancedTitle" data-i18n></div>
-                        <div data-key="AdvancedDescription" data-i18n></div>
+                        <div class="title" data-i18n="AdvancedTitle"></div>
+                        <div data-i18n="AdvancedDescription"></div>
                         <div class="iconNameValue">
                             <div class="icon ip"></div>
-                            <div class="name" data-key="IPv4Address" data-i18n></div>
+                            <div class="name" data-i18n="IPv4Address"></div>
                             <div id="SettingIp" class="value">-</div>
                         </div>
                         <div class="iconNameValue">
                             <div class="icon subnet"></div>
-                            <div class="name" data-key="SubnetMask" data-i18n></div>
+                            <div class="name" data-i18n="SubnetMask"></div>
                             <div id="SettingSubnet" class="value">-</div>
                         </div>
                         <div class="iconNameValue">
                             <div class="icon mtu"></div>
-                            <div class="name" data-key="MTU" data-i18n></div>
+                            <div class="name" data-i18n="MTU"></div>
                             <div id="SettingMTU" class="value">-</div>
                         </div>
                         <div class="iconNameValue">
                             <div class="icon dns"></div>
-                            <div class="name" data-key="DNSServers" data-i18n></div>
+                            <div class="name" data-i18n="DNSServers"></div>
                             <div id="SettingDNS" class="value">-</div>
                         </div>
                         <div class="iconNameValue">
                             <div class="icon api"></div>
-                            <div class="name" data-key="APIPageSize" data-i18n></div>
+                            <div class="name" data-i18n="APIPageSize"></div>
                             <div id="SettingAPI" class="value">-</div>
                         </div>
                         <div class="controls">
@@ -388,40 +384,40 @@
                     </div>
 
                     <div id="ServiceLogs" class="sub">
-                        <div class="title" data-key="ServiceLogs" data-i18n></div>
-                        <div data-key="ServiceLogSubTitle" data-i18n></div>
+                        <div class="title" data-i18n="ServiceLogs"></div>
+                        <div data-i18n="ServiceLogSubTitle"></div>
                         <div class="grid boxes">
                             <div class="pod">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="ViewTheServiceLogs" data-i18n></div>
+                                    <div class="title" data-i18n="ViewTheServiceLogs"></div>
                                     <div class="icon serviceLog"></div>
                                 </div>
-                                <div id="ServiceLogButton" class="button" data-key="OpenLogs" data-i18n></div>
+                                <div id="ServiceLogButton" class="button" data-i18n="OpenLogs"></div>
                             </div>
                             <div id="ServiceLogs" class="logs"></div>
                         </div>
                     </div>
 
                     <div id="AppLogs" class="sub">
-                        <div class="title" data-key="ApplicationLogs" data-i18n></div>
-                        <div data-key="ApplicationLogsSubTitle" data-i18n></div>
+                        <div class="title" data-i18n="ApplicationLogs"></div>
+                        <div data-i18n="ApplicationLogsSubTitle"></div>
                         <div class="grid boxes">
                             <div class="pod">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="ViewTheAppLogs" data-i18n></div>
+                                    <div class="title" data-i18n="ViewTheAppLogs"></div>
                                     <div class="icon appLog"></div>
                                 </div>
-                                <div id="AppLogButton" class="button" data-key="OpenLogs" data-i18n></div>
+                                <div id="AppLogButton" class="button" data-i18n="OpenLogs"></div>
                             </div>
                         </div>
                     </div>
 
                     <div id="LogLevel" class="sub">
-                        <div class="title" data-key="SetLoggingLevel" data-i18n></div>
-                        <div data-key="LoggingLevelSubTitle" data-i18n></div>
+                        <div class="title" data-i18n="SetLoggingLevel"></div>
+                        <div data-i18n="LoggingLevelSubTitle"></div>
                         <div id="LevelError" class="levelSelect" data-level="error">
                             <div class="icon error"></div>
-                            <div class="name" data-key="Error" data-i18n></div>
+                            <div class="name" data-i18n="Error"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -430,7 +426,7 @@
                         </div>
                         <div id="LevelWarn" class="levelSelect" data-level="warn">
                             <div class="icon warn"></div>
-                            <div class="name" data-key="Warn" data-i18n></div>
+                            <div class="name" data-i18n="Warn"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -439,7 +435,7 @@
                         </div>
                         <div id="LevelInfo" class="levelSelect" data-level="info">
                             <div class="icon info"></div>
-                            <div class="name" data-key="Info" data-i18n></div>
+                            <div class="name" data-i18n="Info"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -448,7 +444,7 @@
                         </div>
                         <div id="LevelDebug" class="levelSelect" data-level="debug">
                             <div class="icon debug"></div>
-                            <div class="name" data-key="Debug" data-i18n></div>
+                            <div class="name" data-i18n="Debug"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -457,7 +453,7 @@
                         </div>
                         <div id="LevelVerbose" class="levelSelect" data-level="verbose">
                             <div class="icon verbose"></div>
-                            <div class="name" data-key="Verbose" data-i18n></div>
+                            <div class="name" data-i18n="Verbose"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -466,7 +462,7 @@
                         </div>
                         <div id="LevelTrace" class="levelSelect" data-level="trace">
                             <div class="icon trace"></div>
-                            <div class="name" data-key="Trace" data-i18n></div>
+                            <div class="name" data-i18n="Trace"></div>
                             <div>
                                 <div class="radio serviceon">
                                     <div class="dot"></div>
@@ -476,29 +472,29 @@
                     </div>
 
                     <div id="Updates" class="sub">
-                        <div class="title" data-key="AutomaticUpdates" data-i18n></div>
-                        <div data-key="AutomaticSubTitle" data-i18n></div>
+                        <div class="title" data-i18n="AutomaticUpdates"></div>
+                        <div data-i18n="AutomaticSubTitle"></div>
                         <div class="iconNameValue">
                             <div class="icon update noback"></div>
-                            <div class="name" data-key="AutomaticUpdates" data-i18n></div>
+                            <div class="name" data-i18n="AutomaticUpdates"></div>
                             <div class="row">
                                 <div id="UpdateOn" class="toggle" data-call="updates">
                                     <div class="handle"></div>
-                                    <div class="onLabel" data-key="On" data-i18n></div>
+                                    <div class="onLabel" data-i18n="On"></div>
                                     <div class="row"></div>
-                                    <div class="offLabel" data-key="Off" data-i18n></div>
+                                    <div class="offLabel" data-i18n="Off"></div>
                                 </div>
                             </div>
                         </div>
                         <div id="ReleaseStream" class="iconNameValue switched" style="display: none;">
                             <div class="icon release noback"></div>
-                            <div class="name" data-key="ReleaseStream" data-i18n></div>
+                            <div class="name" data-i18n="ReleaseStream"></div>
                             <div>
-                                <label class="left" data-key="Normal" data-i18n></label>
+                                <label class="left" data-i18n="Normal"></label>
                                 <div data-id="Normal" class="radio selected left releaseStream">
                                     <div class="dot"></div>
                                 </div>
-                                <label class="left" data-key="Beta" data-i18n></label>
+                                <label class="left" data-i18n="Beta"></label>
                                 <div data-id="Beta" class="radio left releaseStream">
                                     <div class="dot"></div>
                                 </div>
@@ -507,11 +503,11 @@
                     </div>
                 </div>
                 <div id="EditForm" class="form popover">
-                    <div class="title" data-key="EditTunnelConfiguration" data-i18n></div>
-                    <div id="CloseForm" class="close" data-key="Close" data-i18n></div>
-                    <label for="EditIP" data-key="IPAddress" data-i18n></label>
+                    <div class="title" data-i18n="EditTunnelConfiguration"></div>
+                    <div id="CloseForm" class="close" data-i18n="Close"></div>
+                    <label for="EditIP" data-i18n="IPAddress"></label>
                     <input id="EditIP" type="text" placeholder="0.0.0.0" />
-                    <label for="EditSubnet" data-key="SubnetMask" data-i18n></label>
+                    <label for="EditSubnet" data-i18n="SubnetMask"></label>
                     <select id="EditSubnet">
                         <option value="10" selected>/10 - 255.192.0.0</option>
                         <option value="11">/11 - 255.224.0.0</option>
@@ -529,14 +525,14 @@
                         <option value="23">/23 - 255.255.254.0</option>
                         <option value="24">/24 - 255.255.255.0</option>
                     </select>
-                    <label data-key="PageSize" data-i18n></label>
+                    <label data-i18n="PageSize"></label>
                     <input id="EditAPI" type="text" placeholder="50-500" />
                     <div class="toggleArea">
-                        <label data-key="AddDNS" data-i18n></label>
+                        <label data-i18n="AddDNS"></label>
                         <div id="EditDNS" class="toggle">
                             <div class="handle"></div>
-                            <div class="onLabel" data-key="On" data-i18n></div>
-                            <div class="offLabel" data-key="Off" data-i18n></div>
+                            <div class="onLabel" data-i18n="On"></div>
+                            <div class="offLabel" data-i18n="Off"></div>
                         </div>
                     </div>
                     <div class="buttonArea">
@@ -551,19 +547,19 @@
                 <div class="col-sm-4 verticalscroll">
                     <div class="supportNav selected" data-sub="GetSupport">
                         <div class="icon support"></div>
-                        <span data-key="GetSupport" class="navLabel" data-i18n></span>
+                        <span data-i18n="GetSupport" class="navLabel"></span>
                     </div>
                     <div class="supportNav" data-sub="ReadDocs">
                         <div class="icon docs"></div>
-                        <span data-key="ReadTheDocs" class="navLabel" data-i18n></span>
+                        <span data-i18n="ReadTheDocs" class="navLabel"></span>
                     </div>
                     <div class="supportNav windows serviceon" data-sub="GiveFeedback" style="display: none;">
                         <div class="icon feedback"></div>
-                        <span data-key="GiveFeedback" class="navLabel" data-i18n></span>
+                        <span data-i18n="GiveFeedback" class="navLabel"></span>
                     </div>
                     <div class="supportNav" data-sub="Terms">
                         <div class="icon privacy"></div>
-                        <span data-key="PrivacyTerms" class="navLabel" data-i18n></span>
+                        <span data-i18n="PrivacyTerms" class="navLabel"></span>
                     </div>
                 </div>
                 <div class="col-sm-8 verticalscroll">
@@ -591,49 +587,49 @@
                                     <div id="ReadUp" class="title" data-i18n></div>
                                     <div class="icon ziticon"></div>
                                 </div>
-                                <div class="button" data-url="https://openziti.org" data-key="ReadTheDocs" data-i18n></div>
+                                <div class="button" data-url="https://openziti.org" data-i18n="ReadTheDocs"></div>
                             </div>
                         </div>
                     </div>
             
                     <div id="GiveFeedback" class="sub">
-                        <div class="title" data-key="GiveFeedback" data-i18n></div>
+                        <div class="title" data-i18n="GiveFeedback"></div>
                         <div id="FeedbackDescription" data-i18n></div>
                         <div class="grid boxes">
                             <div class="pod" style="display: none;">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="ReportIssue" data-i18n></div>
+                                    <div class="title" data-i18n="ReportIssue"></div>
                                     <div class="icon feedback"></div>
                                 </div>
-                                <div id="FeedbackButton" class="button" data-key="ContactUs" data-i18n></div>
+                                <div id="FeedbackButton" class="button" data-i18n="ContactUs"></div>
                             </div>
                             <div class="pod">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="Package" data-i18n></div>
+                                    <div class="title" data-i18n="Package"></div>
                                     <div class="icon package"></div>
                                 </div>
-                                <div id="GenerateButton" class="button actionPending" data-key="Generate" data-i18n></div>
+                                <div id="GenerateButton" class="button actionPending" data-i18n="Generate"></div>
                             </div>
                         </div>
                     </div>
             
                     <div id="Terms" class="sub">
-                        <div class="title" data-key="PrivacyPolicy" data-i18n></div>
+                        <div class="title" data-i18n="PrivacyPolicy"></div>
                         <div id="PrivacyDescription" data-i18n></div>
                         <div class="grid boxes">
                             <div class="pod">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="PrivacyPolicyButton" data-i18n></div>
+                                    <div class="title" data-i18n="PrivacyPolicyButton"></div>
                                     <div class="icon termsandprivacy"></div>
                                 </div>
-                                <div class="button" data-url="https://netfoundry.io/privacy" data-key="Open" data-i18n></div>
+                                <div class="button" data-url="https://netfoundry.io/privacy" data-i18n="Open"></div>
                             </div>
                             <div class="pod">
                                 <div class="iconHeader">
-                                    <div class="title" data-key="Terms" data-i18n></div>
+                                    <div class="title" data-i18n="Terms"></div>
                                     <div class="icon termsandprivacy"></div>
                                 </div>
-                                <div class="button" data-url="https://netfoundry.io/terms" data-key="Open" data-i18n></div>
+                                <div class="button" data-url="https://netfoundry.io/terms" data-i18n="Open"></div>
                             </div>
                         </div>
                     </div>
@@ -651,31 +647,31 @@
         <nav class="missionBg">
             <div class="navItem selected" data-screen="MissionControl">
                 <div class="icon control"></div>
-                <div class="label unselectable" data-key="MainTitle" data-i18n></div>
+                <div class="label unselectable" data-i18n="MainTitle"></div>
             </div>
-            <div class="title unselectable" data-key="IdentitiesServices" data-i18n></div>
+            <div class="title unselectable" data-i18n="IdentitiesServices"></div>
             <div class="navItem" data-screen="IdentityScreen">
                 <div class="icon identitiy"></div>
-                <div class="label unselectable" data-key="Identities" data-i18n></div>
+                <div class="label unselectable" data-i18n="Identities"></div>
                 <div id="NavIdentityCount" class="count serviceon">0</div>
             </div>
             <div class="navItem" data-screen="ServiceScreen">
                 <div class="icon service"></div>
-                <div class="label unselectable" data-key="Services" data-i18n></div>
+                <div class="label unselectable" data-i18n="Services"></div>
                 <div id="NavServiceCount" class="count serviceon">0</div>
             </div>
-            <div class="title unselectable" data-key="Others" data-i18n></div>
+            <div class="title unselectable" data-i18n="Others"></div>
             <div class="navItem" data-screen="AdvancedScreen">
                 <div class="icon advanced"></div>
-                <div class="label unselectable" data-key="AdvancedSettings" data-i18n></div>
+                <div class="label unselectable" data-i18n="AdvancedSettings"></div>
             </div>
             <div class="navItem" data-screen="SupportScreen">
                 <div class="icon support"></div>
-                <div class="label unselectable" data-key="Support" data-i18n></div>
+                <div class="label unselectable" data-i18n="Support"></div>
             </div>
             <div class="nav-z"></div>
             <div id="UpdateAvailable" class="updateavailable" style="display: none;">
-                <span data-key="UpdateAvailable" data-i18n></span>
+                <span data-i18n="UpdateAvailable" data-i18n></span>
                 <div class="downloadupdate"></div>
             </div>
             <div id="OnOffButton">
@@ -689,13 +685,15 @@
         <!-- Repeater Templates -->
         <div id="IdentityItem" class="identities template">
             <div class="status {{status}}"></div>
-            <div class="name nooverflow">{{Name}}</div>
+            <div class="name nooverflow">
+                <input class="invisible" value="{{Name}}"/>
+            </div>
             <div><div class="servicecount">{{count}}</div><div class="servicetag">Services</div></div>
             <div>
                 <div class="toggle {{toggled}}" data-id="{{Identifier}}">
                     <div class="handle"></div>
-                    <div class="onLabel" data-key="On" data-i18n></div>
-                    <div class="offLabel" data-key="Off" data-i18n></div>
+                    <div class="onLabel" data-i18n="On"></div>
+                    <div class="offLabel" data-i18n="Off"></div>
                 </div>
             </div>
         </div>
@@ -721,65 +719,65 @@
             <div id="MfaSecret" class="secret" style="display: none !important;"></div>
             <div id="QrCode"></div>
             <div class="links">
-                <span id="MfaLinkButton" class="link" data-key="GoToLink" data-i18n></span> 
-                <span data-key="or" data-i18n>or</span> 
-                <span id="MfaSecretButton" class="link" data-key="ShowSecret" data-i18n></span>
-                <span id="MfaQrButton" class="link" style="display: none !important;" data-key="ShowQR" data-i18n></span>
+                <span id="MfaLinkButton" class="link" data-i18n="GoToLink"></span> 
+                <span data-i18n="or">or</span> 
+                <span id="MfaSecretButton" class="link" data-i18n="ShowSecret"></span>
+                <span id="MfaQrButton" class="link" style="display: none !important;" data-i18n="ShowQR"></span>
             </div>
-            <div data-key="EnterAuthenticate" data-i18n></div>
+            <div data-i18n="EnterAuthenticate"></div>
             <div class="row">
                 <div id="SetupAuthCode" class="code">
                     <input id="MfaSetupCode" type="text" maxlength="8" placeholder="######" data-enter="AuthenticateButton"/>
                 </div>
             </div>
-            <div id="AuthenticateButton" class="button" data-key="Authenticate" data-i18n></div>
+            <div id="AuthenticateButton" class="button" data-i18n="Authenticate"></div>
         </div>
 
         <div id="MfaAuthModal" class="modal">
             <div class="close"></div>
-            <div class="title" data-key="Reauthenticate" data-i18n></div>
-            <div data-key="EnterCode" data-i18n></div>
+            <div class="title" data-i18n="Reauthenticate"></div>
+            <div data-i18n="EnterCode"></div>
             <div class="row">
                 <div id="AuthCodeArea" class="code">
                     <input id="AuthCode" type="text" maxlength="8" placeholder="######" data-enter="ReAuthenticateButton"/>
                 </div>
             </div>
-            <div id="ReAuthenticateButton" class="button" data-key="Authenticate" data-i18n></div>
+            <div id="ReAuthenticateButton" class="button" data-i18n="Authenticate"></div>
         </div>
 
         <div id="MfaRemoveModal" class="modal">
             <div class="close" data-action="mfaremove"></div>
-            <div class="title" data-key="RemoveMFA" data-i18n></div>
-            <div data-key="EnterCode" data-i18n></div>
+            <div class="title" data-i18n="RemoveMFA"></div>
+            <div data-i18n="EnterCode"></div>
             <div class="row">
                 <div id="RemoveCodeArea" class="code">
                     <input id="RemoveCode" type="text" maxlength="8" placeholder="######" data-enter="RemoveMfaButton"/>
                 </div>
             </div>
-            <div id="RemoveMfaButton" class="button" data-key="Remove" data-i18n></div>
+            <div id="RemoveMfaButton" class="button" data-i18n="Remove"></div>
         </div>
 
         <div id="MfaRecoveryAuthModal" class="modal">
             <div class="close" data-action="mfaremove"></div>
-            <div class="title" data-key="Authenticate" data-i18n></div>
-            <div data-key="EnterAuthenticate" data-i18n></div>
+            <div class="title" data-i18n="Authenticate"></div>
+            <div data-i18n="EnterAuthenticate"></div>
             <div class="row">
                 <div id="RecoveryCodeArea" class="code">
                     <input id="RecoveryCode" type="text" maxlength="8" placeholder="######" data-enter="RecoveryMfaButton"/>
                 </div>
             </div>
-            <div id="RecoveryMfaButton" class="button" data-key="Authenticate" data-i18n></div>
+            <div id="RecoveryMfaButton" class="button" data-i18n="Authenticate"></div>
         </div>
 
         <div id="MfaRecoveryModal" class="modal">
             <div class="close"></div>
-            <div class="title" data-key="MFARecoveryCodes" data-i18n></div>
+            <div class="title" data-i18n="MFARecoveryCodes"></div>
             <div id="RecoveryCodeList"></div>
             <div class="buttons">
                 <div class="left">
-                    <div id="RegenerateButton" class="button red" data-key="Regenerate" data-i18n></div>
+                    <div id="RegenerateButton" class="button red" data-i18n="Regenerate"></div>
                 </div>
-                <div id="SaveCodesButton" class="button" data-key="Save" data-i18n></div>
+                <div id="SaveCodesButton" class="button" data-i18n="Save"></div>
             </div>
         </div>
 
@@ -795,9 +793,9 @@
         </div>
 
         <div class="version" style="display: none;">
-            <span data-i18n data-key="App"></span>:
+            <span data-i18n="App"></span>:
             <span id="AppVersion"></span>
-            <span data-i18n data-key="Service"></span>:
+            <span data-i18n="Service"></span>:
             <span id="ServiceVersion"></span>
         </div>
 

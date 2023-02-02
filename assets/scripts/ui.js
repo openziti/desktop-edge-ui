@@ -68,14 +68,18 @@ var ui = {
         var now = moment();
         var installDate = moment(data.InstallTime);
         var message = "";
+        var props = {
+            version: data.ZDEVersionm,
+            date: installDate.format("MM/DD/YYYY hh:mm A")
+        };
         if ($("#UpdateOn").hasClass("on")) {
             if (installDate.diff(now, 'seconds') < 60) {
-                message = "Ziti Desktop Edge will initiate auto installation in the next minute!";
+                message = locale.get("UpdateAlert");
             } else {
-                message = "Update "+data.ZDEVersion+" is available for Ziti Desktop Edge and will be automatically installed by "+installDate.format("MM/DD/YYYY hh:mm A");
+                message = locale.getReplace("UpdateAlert", props);
             }
         } else {
-            message = "Version "+data.ZDEVersion+" is available for Ziti Desktop Edge";
+            message = locale.getReplace("UpdateVersion", props);
         }
         $("#UpdateAvailable").show();
         var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "update", icon: path.join(__dirname, '/assets/images/ziti-white.png') });

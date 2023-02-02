@@ -23,7 +23,6 @@ var app = {
     downChart: null,
     upChart: null,
     os: '',
-    locale: "en-US",
     init: function() {
 
         app.events();
@@ -44,40 +43,6 @@ var app = {
         var settingsFile = path.join(__dirname, filePath);
         app.settings = JSON.parse(fs.readFileSync(settingsFile));
         if (app.settings.ShowReleaseStream) $("#ReleaseStream").show();
-    },
-    language: function() {
-        var filePath = 'assets/languages/en-us.json';
-
-        var languageFile = path.join(__dirname, filePath);
-        app.keys = JSON.parse(fs.readFileSync(languageFile));
-        $("[data-i18n]").each((i, e) => {
-            var key = $(e).data("key");
-            if (!key) {
-                var id = $(e).attr("id");
-                $("#"+id).html(app.keys[id]);
-            } else {
-                $(e).html(app.keys[key]);
-            }
-        });
-
-        if (fs.existsSync(path.join(__dirname, 'assets/languages/'+app.locale+'.json'))) {
-            filePath = 'assets/languages/'+app.locale+'.json';
-
-            languageFile = path.join(__dirname, filePath);
-            var obj = JSON.parse(fs.readFileSync(languageFile));
-            for (var item in obj) {
-                app.keys[item] = obj[item];
-            }
-            $("[data-i18n]").each((i, e) => {
-                var key = $(e).data("key");
-                if (!key) {
-                    var id = $(e).attr("id");
-                    $("#"+id).html(app.keys[id]);
-                } else {
-                    $(e).html(app.keys[key]);
-                }
-            });
-        }
     },
     events: function() {
         ipcRenderer.on('service-logs', app.onServiceLogs);
@@ -175,8 +140,7 @@ var app = {
         else if (app.os=="darwin") $(".mac").show();
     },
     setLocale: function(e, data) {
-        app.locale = data.toLowerCase();
-        app.language();
+        locale.init(data.toLowerCase());
     },
     setVersion: function(e, data) {
         $("#AppVersion").html(data);
@@ -198,13 +162,13 @@ var app = {
             var services = ZitiService.search(filter);
             var html = "";
             if (identities.length>0) {
-                html += '<div class="title">'+identities.length+' '+((identities.length>1)?'identities':'identity')+'</div>';
+                html += '<div class="title">'+identities.length+' '+((identities.length>1)?locale.getLower("Identities"):locale.getLower("Identity"))+'</div>';
                 for (var i=0; i<identities.length; i++) {
                     html += '<div class="result" data-type="identity" data-id="'+identities[i].FingerPrint+'">'+identities[i].Name+'</div>';
                 }
             }
             if (services.length>0) {
-                html += '<div class="title">'+services.length+' '+((services.length>1)?'services':'service')+'</div>';
+                html += '<div class="title">'+services.length+' '+((services.length>1)?locale.getLower("Services"):locale.getLower("Service"))+'</div>';
                 for (var i=0; i<services.length; i++) {
                     html += '<div class="result" data-service="identity" data-id="'+services[i].Id+'">'+services[i].Address+'</div>';
                 }
@@ -322,7 +286,7 @@ var app = {
                     Log.debug("onData", "IPC In: "+message.Op);
                     Log.debug("onData", JSON.stringify(message));
                     for (var i=0; i<message.Status.Identities.length; i++) {
-                        message.Status.Identities[i].Status = ((message.Status.Identities[i].Active)?"Active":"Inactive");
+                        message.Status.Identities[i].Status = ((message.Status.Identities[i].Active)?locale.get("Active"):locale.get("Inactive"));
                         if (!message.Status.Identities[i].Services) message.Status.Identities[i].Services = [];
     
                         message.Status.Identities[i].TotalServices = message.Status.Identities[i].Services.length;
@@ -428,7 +392,7 @@ var app = {
                                 if (message.Data.Command=="RemoveIdentity") {
                                     $(".loader").hide();
                                     ZitiIdentity.forgotten(message.Data.Data.Identifier);
-                                    growler.success("Identity Forgotten");
+                                    growler.success(locale.get("IdentityForgotten"));
                                 } 
                             } else {
                                 if (app.actionId=="GetMFACodes") {
@@ -446,7 +410,7 @@ var app = {
                             }
                         } else {
                             if (app.actionId=="SaveConfig") {
-                                growler.warning("Config Saved, please restart Ziti to update.");
+                                growler.warning(locale.get("ConfigSaved"));
                                 $("#EditForm").removeClass("open");
                             }
                         }

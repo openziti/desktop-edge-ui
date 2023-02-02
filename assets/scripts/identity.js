@@ -26,8 +26,8 @@ var ZitiIdentity = {
                 var passed = moment.utc().diff(moment.utc(id.MfaLastUpdatedTime), "seconds");
                 if ((id.MfaMaxTimeoutRem-passed) <= 0) {
                     if (!ZitiIdentity.notified.includes(id.FingerPrint) && ZitiIdentity.notifiable.includes(id.FingerPrint)) {
-                        var message = "Some or all of the services for "+id.Name+" have timed out";
-                        var notify = new Notification("Timed Out", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+                        var message = locale.get("MfaTimedOut").split("{{id}}").join(id.name);
+                        var notify = new Notification(locale.get("TimedOut"), { appID: locale.get("AppTitle"), body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
                         notify.onclick = function(e) {
                             ZitiIdentity.select(e.target.tag);
                             app.showScreen("IdentityScreen");
@@ -37,8 +37,8 @@ var ZitiIdentity = {
                 } else {
                     if ((id.MfaMinTimeoutRem-passed) <= 1200) {
                         if (!ZitiIdentity.timerNotified.includes(id.FingerPrint) && ZitiIdentity.notifiable.includes(id.FingerPrint)) {
-                            var message = "The services for "+id.Name+" will start to timeout "+moment().add(passed, 'seconds').fromNow();
-                            var notify = new Notification("Timeout Warning", { appID: "Ziti Desktop Edge", body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
+                            var message = locale.get("MfaWillTimeout").split("{{id}}").join(id.name)+moment().add(passed, 'seconds').fromNow();
+                            var notify = new Notification(locale.get("TimingOut"), { appID: locale.get("AppTitle"), body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
                             notify.onclick = function(e) {
                                 ZitiIdentity.select(e.target.tag);
                                 app.showScreen("IdentityScreen");
@@ -83,7 +83,9 @@ var ZitiIdentity = {
     },
     forget: function(e) {
         var identity = ZitiIdentity.selected();
-        modal.confirm(ZitiIdentity.doForget, null, "If you delete the identity "+identity.name+" you will no longer have access to the resources that it grants you.", "Confirm Forget");
+        let prompt = locale.get("ConfirmDelete");
+        prompt = prompt.split("{{id}}").join(identity.name);
+        modal.confirm(ZitiIdentity.doForget, null, prompt, locale.get("ConfirmForget"));
     },
     doForget: function() {
         $(".loader").show();
@@ -252,11 +254,11 @@ var ZitiIdentity = {
             $("#MfaToggle").addClass("on");
             if (item.MfaNeeded) {
                 $("#MfaStatus").find(".icon").addClass("authorize");
-                $("#MfaStatus").find(".label").html("Authorize");
+                $("#MfaStatus").find(".label").html(locale.get("Authorize"));
                 $("#MfaToggle").addClass("disabled");
             } else {
                 $("#MfaStatus").find(".icon").addClass("connected");
-                $("#MfaStatus").find(".label").html("Connected");
+                $("#MfaStatus").find(".label").html(locale.get("Connected"));
             }
             $("#MfaStatus").addClass("open");
             // Calc Time since
