@@ -1497,6 +1497,14 @@ body.max #HeaderArea .dragger {
 
 .invisible {
     background-color: rgba(0,0,0,0);
+    width: 100%;
+    color: #FFF;
+    border-width: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-top: -20px;
+    border-radius: 0;
+    font-size: 15px;
 }
 
 .controls {
