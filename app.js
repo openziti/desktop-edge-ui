@@ -13,24 +13,25 @@ var mainWindow;
 var logging = true;
 var iconPath = path.join(__dirname, 'assets/images/ziti-base.png');
 
-app.whenReady().then(async () => {
-   console.log("Got Here");
-  systemPreferences.subscribeNotification(
-        "some-event-name",
-        (event, userInfo) => {
-            console.log("What 1");
-          console.log(userInfo);
-        },
-    );
+app.whenReady().then(async () => {  
+    console.log("I am in");
+    systemPreferences.subscribeNotification(
+    "sub",
+    (event, userInfo) => {
+      console.log(event);
+      console.log(userInfo);
+    },
+);
 
-    systemPreferences.postNotification(
-        "some-event-name",
-        {
-         // some data
-          foo: "bar"
-        },
-        true,
-    );
+// you would probably embed this in a ipcMain event call to hook up to UI
+systemPreferences.postNotification(
+  "postEvent",
+  {
+   // some data
+    foo: "bar"
+  },
+  true,
+);
    
   
 })
@@ -119,6 +120,7 @@ var Application = {
                     ipcpaths.monitor = null;
                 }
 
+                if (ipcpaths.events) {
                 ipc.connectTo(
                     'ziti',
                     ipcpaths.events,
@@ -139,6 +141,7 @@ var Application = {
                         );
                     }
                 );
+                }
               
               
                 if (ipcpaths.tunnel) {
