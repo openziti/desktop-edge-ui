@@ -145,6 +145,14 @@
                                     <div class="option" data-sort="Total Services" data-what="identity" data-i18n="TotalServices"></div>
                                 </span>
                             </div>
+                            <div class="sort">
+                                <span data-i18n="SortHow"></span> 
+                                <span id="IdSortHowMain" data-i18n="ASC"></span>
+                                <span class="options">
+                                    <div class="option" data-how="ASC" data-what="identity" data-i18n="ASC"></div>
+                                    <div class="option" data-how="DESC" data-what="identity" data-i18n="DESC"></div>
+                                </span>
+                            </div>
                         </div>
                         <div id="IdentityList"></div>
                     </div>
@@ -172,8 +180,8 @@
                                     <div id="SortHow" class="sortHow" data-i18n="Descending"></div>
     
                                     <span class="options">
-                                        <div class="option" data-how="DESC" data-what="service" data-i18n="Descending"></div>
                                         <div class="option" data-how="ASC" data-what="service" data-i18n="Ascending"></div>
+                                        <div class="option" data-how="DESC" data-what="service" data-i18n="Descending"></div>
                                     </span>
                                 </div>
                                 <div class="sort" style="margin-right: 20px;">
@@ -254,7 +262,7 @@
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Url"></label>
-                                <div id="ServiceUrl" class="value" data-protocol="tcp" data-url="openziti.io" data-port="80" ></div>
+                                <div id="ServiceUrl" class="value"></div>
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Identity"></label>
@@ -700,7 +708,6 @@
 
         <div id="ServiceItem" class="services template">
             <div class="icon"></div>
-            <div class="nooverflow clicker" data-id="{{Id}}"></div>
             <div class="nooverflow">{{address}}</div>
             <div class="right">{{ports}}</div>
             <div class="right">{{protocols}}</div>

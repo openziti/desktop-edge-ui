@@ -123,8 +123,8 @@ var Application = {
                 mainWindow.webContents.send("version", app.getVersion());
 
                 if (os.platform() === "linux" || os.platform() === "darwin") {
-                    ipcpaths.events = "/tmp/"+ipcpaths.events;
-                    ipcpaths.tunnel = "/tmp/"+ipcpaths.tunnel;
+                    ipcpaths.events = "/tmp/.ziti/"+ipcpaths.events;
+                    ipcpaths.tunnel = "/tmp/.ziti/"+ipcpaths.tunnel;
                     ipcpaths.monitorEvents = null;
                     ipcpaths.monitor = null;
                 }

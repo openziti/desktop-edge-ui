@@ -76,17 +76,13 @@ var ui = {
         if ($("#UpdateOn").hasClass("on")) {
             if (installDate.diff(now, 'seconds') < 60) {
                 message = locale.get("UpdateAlert");
-                console.log("MESSAGE 1 ", message);
             } else {
                 message = locale.getReplace("UpdateDate", props);
-                console.log("MESSAGE 2 ", message);
             }
         } else {
             message = locale.getReplace("UpdateVersion", props);
-            console.log("MESSAGE 3 ", message);
         }
         $("#UpdateAvailable").show();
-        console.log("MESSAGE", message, locale.get("UpdateAlert"));
         var notify = new Notification("Update", { appID: "Ziti Desktop Edge", body: message, tag: "update", icon: path.join(__dirname, '/assets/images/ziti-white.png') });
     },
     forceUpdate: function(e) {

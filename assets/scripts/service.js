@@ -16,8 +16,8 @@ var ZitiService = {
     },
     setHow: function(how) {
         this.sortHow = how;
-        if (how=="ASC") $("#SortHow").html(app.keys["Ascending"]);
-        else $("#SortHow").html(app.keys["Descending"]);
+        if (how=="ASC") $("#SortHow").html(locale.get("Ascending"));
+        else $("#SortHow").html(locale.get("Descending"));
         this.refresh();
     },
     urlClicked: function(e) {
@@ -132,15 +132,23 @@ var ZitiService = {
         if (this.sortHow=="ASC") {
             ZitiService.data = ZitiService.data.sort((a, b) => {
                 var prop = ZitiIdentity.sort.split(' ').join('');
-                if (a[prop] < b[prop]) return -1;
-                if (a[prop] > b[prop]) return 1;
+                var propA = a[prop];
+                var propB = b[prop];
+                if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
+                if (propB && propB!='' && isNaN(propB)) propB = propB.toLowerCase();
+                if (propA < propB) return -1;
+                if (propA > propB) return 1;
                 return 0;
             });
         } else {
             ZitiService.data = ZitiService.data.sort((a, b) => {
                 var prop = ZitiIdentity.sort.split(' ').join('');
-                if (a[prop] > b[prop]) return -1;
-                if (a[prop] < b[prop]) return 1;
+                var propA = a[prop];
+                var propB = b[prop];
+                if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
+                if (propB && propB!='' && isNaN(propB)) propB = propB.toLowerCase();
+                if (propA > propB) return -1;
+                if (propA < propB) return 1;
                 return 0;
             });
         }
@@ -326,10 +334,6 @@ var ZitiService = {
 
             $("#ServiceUrl").removeClass("openable");
             $("#ServiceUrl").html(url);
-            $("#ServiceUrl").data("protocol", firstProtocol);
-            $("#ServiceUrl").data("host", firstHost);
-            $("#ServiceUrl").data("port", firstPort);
-            if (firstPort==80 || firstPort==443) $("#ServiceUrl").addClass("openable");
         }
     },
     getValue: function (item) {

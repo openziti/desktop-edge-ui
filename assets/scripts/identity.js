@@ -5,6 +5,7 @@ var ZitiIdentity = {
     timerNotified: [],
     notifiable: [],
     sort: "Name",
+    sortHow: "ASC",
     mfaInterval: null,
     init: function() {
         ZitiIdentity.data = [];
@@ -12,8 +13,14 @@ var ZitiIdentity = {
     },
     setSort: function(sort) {
         ZitiIdentity.sort = sort;
-        $("#IdServiceSort").html(sort); 
+        $("#IdSort").html(sort); 
         ZitiIdentity.refresh();
+    },
+    setHow: function(how) {
+        this.sortHow = how;
+        if (how=="ASC") $("#IdSortHowMain").html(locale.get("ASC"));
+        else $("#IdSortHowMain").html(locale.get("DESC"));
+        this.refresh();
     },
     events: function() {
         $("#ForgetButton").click(ZitiIdentity.forget);
@@ -122,12 +129,30 @@ var ZitiIdentity = {
         $("#NavIdentityCount").html(ZitiIdentity.data.length);
         $("#IdentityList").html("");
 
-        ZitiIdentity.data = ZitiIdentity.data.sort((a, b) => {
-            var prop = ZitiIdentity.sort.split(' ').join('');
-            if (a[prop] < b[prop]) return -1;
-            if (a[prop] > b[prop]) return 1;
-            return 0;
-        });
+
+        if (this.sortHow=="ASC") {
+            ZitiIdentity.data = ZitiIdentity.data.sort((a, b) => {
+                var prop = ZitiIdentity.sort.split(' ').join('');
+                var propA = a[prop];
+                var propB = b[prop];
+                if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
+                if (propB && propB!='' && isNaN(propB)) propB = propB.toLowerCase();
+                if (propA < propB) return -1;
+                if (propA > propB) return 1;
+                return 0;
+            });
+        } else {
+            ZitiIdentity.data = ZitiIdentity.data.sort((a, b) => {
+                var prop = ZitiIdentity.sort.split(' ').join('');
+                var propA = a[prop];
+                var propB = b[prop];
+                if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
+                if (propB && propB!='' && isNaN(propB)) propB = propB.toLowerCase();
+                if (propA > propB) return -1;
+                if (propA < propB) return 1;
+                return 0;
+            });
+        }
 
         $(".missions").hide();
         if (ZitiIdentity.data.length==0) {

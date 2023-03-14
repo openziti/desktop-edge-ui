@@ -45,15 +45,14 @@ var locale = {
 	},
     getReplace(key, props) {
         let value = "";
-        console.log("Replacing: "+key, props);
+        if (locale.keys.length==0) {
+            locale.init(locale.key);
+        }
         if (locale.keys[key]) {
             value = locale.keys[key];
-            console.log("Replacing: "+locale.keys[key], props);
             for (let prop in props) {
                 if (!props[prop]) props[prop] = "";
-                console.log("Replacie: "+prop, props[prop]);
                 value = value.split("{{"+prop+"}}").join(props[prop]);
-                console.log("Replace Value: ", value);
             }
         }
         return value;

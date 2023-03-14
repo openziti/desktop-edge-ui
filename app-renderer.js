@@ -86,8 +86,12 @@ var app = {
                     ZitiService.setSort(sort);
                 }
             }
-            if (how) {
-                ZitiService.setHow(how);
+            if (how) { 
+                if (sortWhat=="identity") {
+                    ZitiIdentity.setHow(how);
+                } else if (sortWhat=="service") {
+                    ZitiService.setSort(sort);
+                }
             }
         });
         $("#ClearSearch").click((e) => {

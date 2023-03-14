@@ -138,6 +138,8 @@
     "DeleteMessage": "Are you sure you want to continue?<br/><br/>Once this is deleted it will be gone forever.",
     "Yes": "Yes",
     "No": "No",
+    "ASC": "ASC",
+    "DESC": "DESC",
     "UpdateAlert": "Ziti Desktop Edge will initiate auto installation in the next minute!",
     "UpdateDate": "Update {{version}} is available for Ziti Desktop Edge and will be automatically installed by {{date}}",
     "UpdateVersion": "Version {{version}} is available for Ziti Desktop Edge",
