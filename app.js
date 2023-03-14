@@ -35,18 +35,23 @@ var Application = {
         app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
+        var minWidth = 1200;
+        var minHeight = 640;
+
         AppSettings.init();
+
         var width = dimensions.width-380;
         var height = dimensions.height-234;
-        width = 1200;
-        height = 640;
         if (AppSettings.IsSet(AppSettings.data.width) && AppSettings.IsSet(AppSettings.data.height)) {
             if (Number(AppSettings.data.width)<width) width = Number(AppSettings.data.width);
             if (Number(AppSettings.data.height)<height) height = Number(AppSettings.data.height);
+        } else {
+            width = minWidth;
+            height = minHeight;
         }
         mainWindow = new BrowserWindow({
-            minWidth: 1200,
-            minHeight: 640,
+            minWidth: minWidth,
+            minHeight: minHeight,
             width: width,
             height: height,
             title: "Ziti Desktop Edge",
@@ -123,8 +128,8 @@ var Application = {
                 mainWindow.webContents.send("version", app.getVersion());
 
                 if (os.platform() === "linux" || os.platform() === "darwin") {
-                    ipcpaths.events = "/tmp/.ziti/"+ipcpaths.events;
-                    ipcpaths.tunnel = "/tmp/.ziti/"+ipcpaths.tunnel;
+                    ipcpaths.events = "/tmp/"+ipcpaths.events;
+                    ipcpaths.tunnel = "/tmp/"+ipcpaths.tunnel;
                     ipcpaths.monitorEvents = null;
                     ipcpaths.monitor = null;
                 }
