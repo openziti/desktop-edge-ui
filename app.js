@@ -122,13 +122,11 @@ var Application = {
                 mainWindow.webContents.send("locale", app.getLocale());
                 mainWindow.webContents.send("version", app.getVersion());
 
-                if (os.platform() === "linux") {
+                if (os.platform() === "linux" || os.platform() === "darwin") {
                     ipcpaths.events = "/tmp/"+ipcpaths.events;
                     ipcpaths.tunnel = "/tmp/"+ipcpaths.tunnel;
                     ipcpaths.monitorEvents = null;
                     ipcpaths.monitor = null;
-                } else if (os.platform() === "darwin") {
-                    
                 }
 
                 ipc.connectTo(

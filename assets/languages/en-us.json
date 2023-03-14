@@ -140,5 +140,13 @@
     "No": "No",
     "UpdateAlert": "Ziti Desktop Edge will initiate auto installation in the next minute!",
     "UpdateDate": "Update {{version}} is available for Ziti Desktop Edge and will be automatically installed by {{date}}",
-    "UpdateVersion": "Version {{version}} is available for Ziti Desktop Edge"
+    "UpdateVersion": "Version {{version}} is available for Ziti Desktop Edge",
+    "ErrorTitle": "An Error Occurred", 
+    "Information": "Information", 
+    "Debugger": "Debugger", 
+    "WarningMessage": "Warning Message", 
+    "SystemBug": "System Bug", 
+    "Success": "Success", 
+    "InvalidForm": "Invalid form", 
+    "CorrectFields": "Please correct the highlighted fields and try again."
 }

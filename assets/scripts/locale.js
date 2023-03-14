@@ -33,14 +33,11 @@ var locale = {
 		$("[data-i18n]").each((i, e) => {
 			var key = $(e).data("i18n");
             var tag = $(e).prop("tagName").toLowerCase();
-            console.log("Key: "+key+" Id:"+$(e).attr("id"));
 			if (key && key.trim().length>0) {
-                console.log("Setting: "+key+" on tag "+tag+" value "+locale.keys[key]);
                 if (tag=="input"||tag=="textarea") $(e).prop("placeholder", locale.keys[key]);
                 else $(e).html(locale.keys[key]);
 			} else {
 				var id = $(e).attr("id");
-                console.log("Setting: #"+id+" on tag "+tag+" value "+locale.keys[id]);
                 if (tag=="input"||tag=="textarea") $("#"+id).prop("placeholder", locale.keys[id]);
                 else $("#"+id).html(locale.keys[id]);
 			}
@@ -48,10 +45,15 @@ var locale = {
 	},
     getReplace(key, props) {
         let value = "";
+        console.log("Replacing: "+key, props);
         if (locale.keys[key]) {
-            let value = locale.keys[key];
+            value = locale.keys[key];
+            console.log("Replacing: "+locale.keys[key], props);
             for (let prop in props) {
+                if (!props[prop]) props[prop] = "";
+                console.log("Replacie: "+prop, props[prop]);
                 value = value.split("{{"+prop+"}}").join(props[prop]);
+                console.log("Replace Value: ", value);
             }
         }
         return value;

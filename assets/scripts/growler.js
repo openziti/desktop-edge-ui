@@ -70,24 +70,24 @@ var growler = {
     }
 	},
 	error: function(subtitle, message) {
-		growler.show("error","An Error Occurred", subtitle, message);
+		growler.show("error",locale.get("ErrorTitle"), subtitle, message);
   },
   info: function(subtitle, message) {
-		growler.show("info","Information", subtitle, message);
+		growler.show("info",locale.get("Information"), subtitle, message);
   },
   debug: function(subtitle, message) {
-		growler.show("debug","Debugger", subtitle, message);
+		growler.show("debug",locale.get("Debugger"), subtitle, message);
   },
   warning: function(subtitle, message) {
-		growler.show("warning","Warning Message", subtitle, message);
+		growler.show("warning",locale.get("WarningMessage"), subtitle, message);
   },
   bug: function(subtitle, message) {
-		growler.show("bug","System Bug", subtitle, message);
+		growler.show("bug",locale.get("SystemBug"), subtitle, message);
   },
   success: function(subtitle, message) {
-		growler.show("success","Success", subtitle, message);
+		growler.show("success",locale.get("Success"), subtitle, message);
   },
   form: function() {
-    growler.error("Invalid form", "Please correct the highlighted fields and try again.")
+    growler.error(locale.get("InvalidForm"), locale.get("CorrectFields"))
   }
 }
