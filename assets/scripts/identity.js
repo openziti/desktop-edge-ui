@@ -265,10 +265,10 @@ var ZitiIdentity = {
         var item = ZitiIdentity.getById(id);
         $(".identities").removeClass("selected");
         elem.addClass("selected");
-        $("#IdName").html(item.Name);
+        $("#IdName").val(item.Name);
         if (item.Config) {
-            $("#IdNetwork").html(item.Config.ztAPI);
-            $("#IdControllerVersion").html(item.ControllerVersion);
+            $("#IdNetwork").val(item.Config.ztAPI);
+            $("#IdControllerVersion").val(item.ControllerVersion);
         }
         $("#MfaStatus").removeClass("open");
         $("#MfaStatus").find(".icon").removeClass("connected");

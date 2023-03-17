@@ -160,15 +160,15 @@
                         <div class="nameValues mb16">
                             <div class="nameValue">
                                 <label data-i18n="Name"></label>
-                                <div id="IdName" class="value"></div>
+                                <input id="IdName" class="invisible details" readonly/>
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Network"></label>
-                                <div id="IdNetwork" class="value"></div>
+                                <input id="IdNetwork" class="invisible details" readonly/>
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Controller"></label>
-                                <div id="IdControllerVersion" class="value"></div>
+                                <input id="IdControllerVersion" class="invisible details" readonly/>
                             </div>
                         </div>
                         <div id="IdServiceFilterArea" class="filtering">
@@ -177,7 +177,7 @@
                             </div>
                             <div class="right">
                                 <div class="sort">
-                                    <div id="SortHow" class="sortHow" data-i18n="Descending"></div>
+                                    <div id="SortHow" class="sortHow" data-i18n="Ascending"></div>
     
                                     <span class="options">
                                         <div class="option" data-how="ASC" data-what="service" data-i18n="Ascending"></div>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="sort" style="margin-right: 20px;">
                                     <span data-i18n="SortBy" data-i18n></span> 
-                                    <span id="IdServiceSort"data-i18n></span>
+                                    <span id="IdServiceSort" data-i18n="Name"></span>
     
                                     <span class="options">
                                         <div class="option" data-sort="Name" data-what="service" data-i18n="Name"></div>
@@ -258,15 +258,15 @@
                         <div class="nameValues mb16">
                             <div class="nameValue">
                                 <label data-i18n="Name"></label>
-                                <div id="ServiceName" class="value"></div>
+                                <input id="ServiceName" class="invisible details" readonly/>
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Url"></label>
-                                <div id="ServiceUrl" class="value"></div>
+                                <input id="ServiceUrl" class="invisible details click" readonly/>
                             </div>
                             <div class="nameValue">
                                 <label data-i18n="Identity"></label>
-                                <div id="ServiceIdentity" class="value"></div>
+                                <input id="ServiceIdentity" class="invisible details" readonly/>
                             </div>
                         </div>
                         <div class="gridrow pr10">
@@ -694,7 +694,7 @@
         <div id="IdentityItem" class="identities template">
             <div class="status {{status}}"></div>
             <div class="name">
-                <input class="invisible" value="{{Name}}"/>
+                <input class="invisible" value="{{Name}}" readonly/>
             </div>
             <div><div class="servicecount">{{count}}</div><div class="servicetag">Services</div></div>
             <div>
@@ -708,15 +708,24 @@
 
         <div id="ServiceItem" class="services template">
             <div class="icon"></div>
-            <div class="nooverflow">{{address}}</div>
-            <div class="right">{{ports}}</div>
-            <div class="right">{{protocols}}</div>
+            <div class="nooverflow">
+                <input type="text" class="invisible details" value="{{Name}}"/>
+            </div>
+            <div class="nooverflow">
+                <input type="text" class="invisible details" value="{{address}}"/>
+            </div>
+            <div class="right">
+                <input type="text" class="invisible details" value="{{ports}}"/>
+            </div>
+            <div class="right">
+                <input type="text" class="invisible details" value="{{protocols}}"/>
+            </div>
         </div>
 
         <div id="FullServiceItem" class="fullservices template">
             <div class="icon {{postureStyle}}" title="{{postureStatus}}"></div>
             <div>
-                <input class="invisible" value="{{Name}}"/>
+                <input class="invisible" value="{{Name}}" readonly/>
             </div>
         </div>
 

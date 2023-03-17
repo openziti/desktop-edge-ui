@@ -4,6 +4,7 @@ var ui = {
     seconds: 0,
     isOn: false,
     isFirst: true,
+    outTimeout: null,
     init: function() {
         ui.events();
         ui.animate();
@@ -15,6 +16,23 @@ var ui = {
         $(".sliderLeft").mouseover(ui.slideOpen);
         $("main").mouseover(ui.slideClosed);
         $("nav").mouseover(ui.slideClosed);
+        window.onblur = function(){
+            ui.slideClosed();
+        }
+        /*
+        $(window).mousemove((e) => {
+            console.log(e.clientX+"x"+e.clientY);
+            if ((e.clientX>60 || e.clientX<0) && (e.clientY<0 || e.clientY>window.innerHeight)) {
+                if (ui.outTimeout) {
+                    clearTimeout(ui.outTimeout);
+                    ui.outTimeout = null;
+                }
+                ui.outTimeout = setTimeout(() => {
+                    ui.slideClosed();
+                }, 2000);
+            }
+        });
+        */
     },
     updates: function(data) {
         $(".releaseStream").removeClass("selected");
@@ -29,6 +47,10 @@ var ui = {
         }
     },
     slideClosed: function(e) {
+        if (ui.outTimeout) {
+            clearTimeout(ui.outTimeout);
+            ui.outTimeout = null;
+        }
         $("main").removeClass("slid");
     },
     state: function(data) {

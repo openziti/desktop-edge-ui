@@ -870,8 +870,8 @@ nav .title {
     background-image: url(../images/z.svg);
 }
 
-.verticalscroll {
-    height: 100%;
+.verticalscroll {    
+    height: calc(100% - 44px);
     overflow-y: scroll;
     padding-bottom: 0px;
 }
@@ -1508,6 +1508,15 @@ body.max #HeaderArea .dragger {
     font-size: 15px;
 }
 
+.invisible.details {
+    height: 16px;
+    margin-top: 0px;
+}
+
+.invisible.click {
+    cursor: pointer !important;
+}
+
 .controls {
     color: #fff;
     font-weight: 600;
@@ -1898,7 +1907,6 @@ input, select {
 }
 
 .verticalscroll {
-    font: 2em/1.6em Arial;
     -webkit-mask: var(--mask);
     mask: var(--mask);
 }
@@ -1910,7 +1918,7 @@ input, select {
     line-height: 24px;
     column-gap: 10px;
     padding: 0px;
-    grid-template-columns: 23px auto 15% 15%;
+    grid-template-columns: 23px 20% auto 15% 15%;
     font-size: 15px;
     color: #FFF;
     text-align: left;

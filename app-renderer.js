@@ -1,5 +1,6 @@
 const remote = require('electron').remote;
 const shell = require('electron').shell;
+const screen = require('electron').screen;
 const child = require("child_process");
 const fs = require('fs');
 const ipcRenderer = require('electron').ipcRenderer;
@@ -90,7 +91,7 @@ var app = {
                 if (sortWhat=="identity") {
                     ZitiIdentity.setHow(how);
                 } else if (sortWhat=="service") {
-                    ZitiService.setSort(sort);
+                    ZitiService.setHow(how);
                 }
             }
         });

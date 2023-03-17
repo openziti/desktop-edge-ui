@@ -9,13 +9,13 @@ var ZitiService = {
         $("#ServiceUrl").click(ZitiService.urlClicked);
     },
     setSort: function(sort) {
-        this.sort = sort;
+        ZitiService.sort = sort;
         $("#ServiceSort").html(sort);
         $("#IdServiceSort").html(sort); 
         this.refresh();
     },
     setHow: function(how) {
-        this.sortHow = how;
+        ZitiService.sortHow = how;
         if (how=="ASC") $("#SortHow").html(locale.get("Ascending"));
         else $("#SortHow").html(locale.get("Descending"));
         this.refresh();
@@ -129,9 +129,16 @@ var ZitiService = {
         $("#ServiceList").html("");
         $("#FullServiceList").html("");
 
-        if (this.sortHow=="ASC") {
+        if (!ZitiService.sort) ZitiService.sort = $("#IdServiceSort").html();
+        if (!ZitiService.sort || ZitiService.sort=='') {
+            ZitiService.sort = "Name";
+            $("#IdServiceSort").html("Name");
+        }
+
+        if (ZitiService.sortHow=="ASC") {
             ZitiService.data = ZitiService.data.sort((a, b) => {
-                var prop = ZitiIdentity.sort.split(' ').join('');
+                console.log(ZitiService.sort);
+                var prop = ZitiService.sort.split(' ').join('');
                 var propA = a[prop];
                 var propB = b[prop];
                 if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
@@ -142,7 +149,8 @@ var ZitiService = {
             });
         } else {
             ZitiService.data = ZitiService.data.sort((a, b) => {
-                var prop = ZitiIdentity.sort.split(' ').join('');
+                console.log(ZitiService.sort);
+                var prop = ZitiService.sort.split(' ').join('');
                 var propA = a[prop];
                 var propB = b[prop];
                 if (propA && propA!='' && isNaN(propA)) propA = propA.toLowerCase();
@@ -302,7 +310,7 @@ var ZitiService = {
                 $("#ServicePorts").html(ports);
             }
             var identity = ZitiIdentity.getById(item.FingerPrint);
-            $("#ServiceIdentity").html(identity.Name);
+            $("#ServiceIdentity").val(identity.Name);
             $("#PostureChecks").html("");
             if (item.PostureChecks!=null && Array.isArray(item.PostureChecks) && item.PostureChecks.length>0) {
                 postureStatus = "pass";
@@ -328,12 +336,12 @@ var ZitiService = {
                 $("#PassFail").hide();
             }
     
-            $("#ServiceName").html(item.Name);
+            $("#ServiceName").val(item.Name);
             var url = "";
             url += firstProtocol+"://"+firstHost+":"+firstPort;
 
             $("#ServiceUrl").removeClass("openable");
-            $("#ServiceUrl").html(url);
+            $("#ServiceUrl").val(url);
         }
     },
     getValue: function (item) {
