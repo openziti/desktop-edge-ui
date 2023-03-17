@@ -12,12 +12,12 @@ var sudo = require('sudo-prompt');
 
 var mainWindow;
 var logging = true;
-var connectedIcon = path.join(__dirname, 'assets/images/ziti-green.png');
-var warnIcon = path.join(__dirname, 'assets/images/ziti-yellow.png');
-var connectedIcon = path.join(__dirname, 'assets/images/ziti-green.png');
-var disconnectedIcon = path.join(__dirname, 'assets/images/ziti-red.png');
-var trayIcon = path.join(__dirname, 'assets/images/ziti-white.png');
-var iconPath = path.join(__dirname, 'assets/images/ziti.png');
+var connectedIcon = path.join(__dirname, 'assets','images','ziti-green.png');
+var warnIcon = path.join(__dirname, 'assets','images','ziti-yellow.png');
+var connectedIcon = path.join(__dirname, 'assets','images','ziti-green.png');
+var disconnectedIcon = path.join(__dirname, 'assets','images','ziti-red.png');
+var trayIcon = path.join(__dirname, 'assets','images','ziti-white.png');
+var iconPath = path.join(__dirname, 'assets','image', 'ziti.png');
 var appPath = app.getPath('appData');
 appPath = path.join(appPath, "openziti");
 var logDirectory = path.join(appPath, "logs");

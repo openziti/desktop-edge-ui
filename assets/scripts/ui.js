@@ -14,7 +14,10 @@ var ui = {
         $(".releaseStream").click(ui.updateRelease);
         $("#UpdateAvailable").click(ui.forceUpdate);
         $(".sliderLeft").mouseover(ui.slideOpen);
-        $("main").mouseover(ui.slideClosed);
+        $(".area").mouseover(() => {
+            console.log("Main");
+            ui.slideClosed();
+        });
         $("nav").mouseover(ui.slideClosed);
         window.onblur = function(){
             ui.slideClosed();
