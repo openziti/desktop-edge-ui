@@ -1,0 +1,33 @@
+{
+  "name": "zitidesktopedge",
+  "productName": "Ziti Desktop Edge (Preview)",
+  "version": "3.1.3",
+  "description": "Ziti Desktop Edge Client",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Ziti",
+    "NetFoundry",
+    "Edge",
+    "Zero",
+    "Trust"
+  ],
+  "author": "Jeremy Tellier",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^21.4.3",
+    "electron-packager": "^16.0.0"
+  },
+  "dependencies": {
+    "electron-context-menu": "^3.6.1",
+    "electron-root-path": "^1.0.16",
+    "fs": "0.0.1-security",
+    "highcharts": "^10.2.1",
+    "moment": "^2.29.4",
+    "node-ipc": "^10.1.0",
+    "path": "^0.12.7",
+    "sudo-prompt": "^9.2.1"
+  }
+}

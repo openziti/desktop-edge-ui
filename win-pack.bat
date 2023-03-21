@@ -1,0 +1,1 @@
+electron-packager ./src Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=release-builds --icon=./src/app.ico
