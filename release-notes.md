@@ -6,6 +6,7 @@
 * Localize Messages
 * Optimize Build
 * Remove Squirrel
+* List fade for more data
 
 # All versions prior to 3.1.3
 
