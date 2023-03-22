@@ -342,19 +342,19 @@ var app = {
                             modal.hide();
                             mfa.recoveryCodes();
                         } else {
-                            growler.error(app.keys.InvalidMFACode)
+                            growler.error(locale.get("InvalidMFACode"))
                         }
                     } else if (message.Action=="enrollment_remove") {
 
                         // The Enrollment verification event
                         if (message.Successful) {
-                            growler.success(app.keys.MFARemoved);
+                            growler.success(locale.get("MFARemoved"));
                             ZitiIdentity.mfaRemoved();
                             $("#MfaStatus").removeClass("open");
                             modal.hide();
                             ui.hideLoad();
                         } else {
-                            growler.error(app.keys.InvalidMFACode)
+                            growler.error(locale.get("InvalidMFACode"))
                         }
                     }
                 }
@@ -445,8 +445,8 @@ var app = {
     metrics: function(identities) {
         var totalUp = 0;
         var totalDown = 0;
-        var upscale = app.keys.kbps;
-        var downscale = app.keys.kbps;
+        var upscale = locale.get("kbps");
+        var downscale = locale.get("kbps");
         for (var i=0; i<identities.length; i++) {
             totalUp += identities[i].Metrics.Up;
             totalDown += identities[i].Metrics.Down;
@@ -462,30 +462,30 @@ var app = {
 
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = app.keys.mbps;
+            upscale = locale.get("mbps");
         }
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = app.keys.gbps;
+            upscale = locale.get("gbps");
         }
         if (totalUp>1024) {
             totalUp = totalUp/1024;
-            upscale = app.keys.tbps;
+            upscale = locale.get("tbps");
         }
         $("#UploadSpeed").html(totalUp.toFixed(1));
         $("#UploadMeasure").html(upscale);
         
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = app.keys.mbps;
+            downscale = locale.get("mbps");
         }
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = app.keys.gbps;
+            downscale = locale.get("gbps");
         }
         if (totalDown>1024) {
             totalDown = totalDown/1024;
-            downscale = app.keys.tbps;
+            downscale = locale.get("tbps");
         }
         $("#DownloadSpeed").html(totalDown.toFixed(1));
         $("#DownloadMeasure").html(downscale);

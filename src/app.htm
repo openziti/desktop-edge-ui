@@ -61,7 +61,7 @@
                     <div id="ClearSearch" class="clear"></div>
                 </div>
             </div>
-            <div id="HeadDrag" class="dragger"></div>
+            <div id="HeadDrag" class="draggHead"></div>
         </div>
         <!-- End Header Area -->
 
@@ -725,16 +725,19 @@
 
     <div id="ServiceItem" class="services template">
         <div class="icon"></div>
-        <div class="nooverflow">
+        <div>
             <input type="text" class="invisible details" value="{{Name}}" />
         </div>
-        <div class="nooverflow">
+        <div>
+            <div class="dragger"></div>
             <input type="text" class="invisible details" value="{{address}}" />
         </div>
         <div class="right">
+            <div class="dragger"></div>
             <input type="text" class="invisible details" value="{{ports}}" />
         </div>
         <div class="right">
+            <div class="dragger"></div>
             <input type="text" class="invisible details" value="{{protocols}}" />
         </div>
     </div>

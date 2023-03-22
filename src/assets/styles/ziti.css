@@ -883,7 +883,7 @@ nav .title {
 
 #MissionControl.area.open {
     height: calc(100% - 60px);
-    top: 95px;
+    top: 105px;
 }
 
 #IdentityScreen {
@@ -894,7 +894,7 @@ nav .title {
 
 #IdentityScreen.area.open {
     height: calc(100% - 60px);
-    top: 95px;
+    top: 105px;
 }
 
 #ServiceScreen {
@@ -904,7 +904,7 @@ nav .title {
 
 #ServiceScreen.area.open {
     height: calc(100% - 60px);
-    top: 95px;
+    top: 105px;
 }
 
 #AdvancedScreen {
@@ -915,7 +915,7 @@ nav .title {
 
 #AdvancedScreen.area.open {
     height: calc(100% - 60px);
-    top: 95px;
+    top: 105px;
 }
 
 #SupportScreen {
@@ -926,7 +926,28 @@ nav .title {
 
 #SupportScreen.area.open {
     height: calc(100% - 60px);
-    top: 95px;
+    top: 105px;
+}
+
+.dragger {
+    border-left-color: #FFF;
+    border-right-color: #FFF;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-left-style: solid;
+    border-right-style: solid;
+    width: 3px;
+    height: 26px;
+    position: absolute !important;
+    left: -2px;
+    top: 0px;
+    cursor: col-resize;
+    opacity: 0.3;
+    padding-left: 0px !important;
+}
+
+#SearchArea {
+    z-index: 20;
 }
  
 #HeaderArea {
@@ -998,13 +1019,13 @@ main.slid #HeaderArea {
     text-shadow: var(--fontshadow);
 }
 
-body.max #HeaderArea .dragger {
+body.max #HeaderArea .draggHead {
     -webkit-app-region: unset;
 }
 
-#HeaderArea .dragger {
-    position: absolute;
-    left: 0px;
+#HeaderArea .draggHead {
+    position: absolute;    
+    left: 15px;
     top: 0px;
     right: 120px;
     height: 50px;
@@ -1506,6 +1527,7 @@ body.max #HeaderArea .dragger {
     margin-top: -20px;
     border-radius: 0;
     font-size: 15px;
+    cursor: default;
 }
 
 .invisible.details {
@@ -1914,21 +1936,26 @@ input, select {
 .services {
     width: 100%;
     position: relative;
-    height: 24px;
+    height: 43px;
     line-height: 24px;
     column-gap: 10px;
     padding: 0px;
-    grid-template-columns: 23px 20% auto 15% 15%;
+    grid-template-columns: 23px auto 150px 75px 75px;
     font-size: 15px;
     color: #FFF;
     text-align: left;
     transition: .3s;
     font-weight: 400;
-    margin-bottom: 19px;
     text-overflow: ellipsis;
     white-space: no-wrap;
     display: none;
-    top: 0px;
+    padding: 10px;
+}
+
+.services div {
+    position: relative;
+    transition: none !important;
+    padding-left: 5px;
 }
 
 .clicker {
@@ -1946,6 +1973,15 @@ input, select {
 
 .services .icon {
     opacity: 0.6;
+}
+
+.services input {
+    cursor: default;
+}
+
+.services:hover, .services.selected {
+    background-color: rgba(0,0,0,.35);
+    border-radius: 15px;
 }
 
 .icon.clickable {

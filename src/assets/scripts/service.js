@@ -137,7 +137,6 @@ var ZitiService = {
 
         if (ZitiService.sortHow=="ASC") {
             ZitiService.data = ZitiService.data.sort((a, b) => {
-                console.log(ZitiService.sort);
                 var prop = ZitiService.sort.split(' ').join('');
                 var propA = a[prop];
                 var propB = b[prop];
@@ -149,7 +148,6 @@ var ZitiService = {
             });
         } else {
             ZitiService.data = ZitiService.data.sort((a, b) => {
-                console.log(ZitiService.sort);
                 var prop = ZitiService.sort.split(' ').join('');
                 var propA = a[prop];
                 var propB = b[prop];
@@ -245,17 +243,21 @@ var ZitiService = {
             $(".fullservices[data-id='"+id+"']").addClass("selected");
             ZitiService.showDetails();
         });
-        $(".nooverflow").off("dblclick");
-        $(".nooverflow").dblclick(app.copy);
+        $(".services").click((e) => {
+            $(".services").removeClass("selected");
+            $(e.currentTarget).addClass("selected");
+        });
+        dragging.init();
     },
     launch: function(e) {
         var launcher = $(e.currentTarget).data("launch");
         var items = launcher.split('|');
         if (items.length==2) {
             if (items[0]=="URL") app.openUrl(items[1]);
-            else if (items[0]=="FILE") app.openPath("\\\\"+items[1]+"\\");
-            else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
-            ipcRenderer.invoke("window", "minimize");
+            else if (items[0]=="FILE") {
+                app.openPath("\\\\"+items[1]+"\\");
+                ipcRenderer.invoke("window", "minimize");
+            } else if (items[0]=="RDP") child.exec("mstsc /v:"+items[1]);
         }
     },
     showDetails: function() {
