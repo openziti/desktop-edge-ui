@@ -2,6 +2,7 @@
   "name": "zitidesktopedge",
   "productName": "Ziti Desktop Edge (Preview)",
   "version": "3.1.4",
+  "homepage": "openziti.io",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
   "scripts": {
@@ -15,7 +16,12 @@
     "Zero",
     "Trust"
   ],
-  "author": "Jeremy Tellier",
+  "author": {
+    "name": "Jeremy Tellier",
+    "email": "jeremy.tellier@netfoundry.io",
+    "url": "https://openziti.io"
+  },
+  "icon": "app.ico",
   "license": "ISC",
   "devDependencies": {
     "electron": "^21.4.3",
