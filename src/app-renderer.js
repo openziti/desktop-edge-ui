@@ -35,15 +35,8 @@ var app = {
         dragging.init();
         ZitiIdentity.init();
         ZitiService.init();
-        app.loadSettings();
 
         $(".loader").hide();
-    },
-    loadSettings: function() {
-        var filePath = 'assets/data/settings.json';
-        var settingsFile = path.join(__dirname, filePath);
-        app.settings = JSON.parse(fs.readFileSync(settingsFile));
-        if (app.settings.ShowReleaseStream) $("#ReleaseStream").show();
     },
     events: function() {
         ipcRenderer.on('service-logs', app.onServiceLogs);
@@ -118,6 +111,11 @@ var app = {
             ipcRenderer.invoke("window", "minimize");
         });
         $("#HeaderArea").dblclick(app.toggleScreen);
+        document.addEventListener ("keydown", function (zEvent) {
+            if (zEvent.ctrlKey  &&  zEvent.altKey  &&  zEvent.key === "d") {  // case sensitive
+                $("#ReleaseStream").show();
+            }
+        } );
     },
     toggleScreen: function() {
         if ($("body").hasClass("max")) {
