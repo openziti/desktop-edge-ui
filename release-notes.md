@@ -1,3 +1,11 @@
+# Release 3.1.4
+* Implement Layout Recomendations
+* Drag Columns
+* Resize animation trigger location
+* Color Selector on Table
+* ( Ctrl+Alt+D ) to show release stream
+* Linux IPC Stream
+
 # Release 3.1.3
 * UI Selection of lists
 * UI Corners Closing on resize at more usable times
