@@ -391,7 +391,8 @@ ipcMain.on('call', function(event, arg) {
 });
 
 ipcMain.on('close', () => {
-    app.quit();
+    mainWindow.hide();
+    // app.quit();
 });
 
 ipc.config.rawBuffer = true;
