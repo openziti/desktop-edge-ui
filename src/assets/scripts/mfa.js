@@ -44,7 +44,7 @@ var mfa = {
                     }
                 };
                 app.sendMessage(mfaData);
-            } else growler.error(app.keys.InvalidMFACode);
+            } else growler.error(locale.get("InvalidMFACode"));
         }
     },
     link: function(e) {

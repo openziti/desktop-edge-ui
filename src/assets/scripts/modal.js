@@ -15,6 +15,7 @@ var modal = {
 		$("main").addClass("disable");
 		$("nav").addClass("disable");
 		$("#"+id).addClass("open");
+		if ($("#"+id).find("input").length>0) $("#"+id).find("input").focus();
 	},
 	hide: function(e) {
 		$(".modal.open").removeClass("open");

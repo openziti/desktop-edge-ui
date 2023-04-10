@@ -51,6 +51,7 @@
     "Save": "Save",
     "Regenerate": "Regenerate",
     "MFARecoveryCodes": "MFA Recovery Codes",
+    "RecoveryCodes": "Recovery Codes",
     "Authenticate": "Authenticate",
     "EnterAuthenticate": "Enter Authorization Code",
     "Reauthenticate": "Reauthenticate",

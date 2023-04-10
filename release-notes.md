@@ -1,3 +1,8 @@
+# Release 3.1.5
+* Multiple MFA UI Enhancements
+* Posture Check Failing visual
+* Icons for State of MFA
+
 # Release 3.1.4
 * Implement Layout Recomendations
 * Drag Columns

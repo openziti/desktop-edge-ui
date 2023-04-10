@@ -726,7 +726,7 @@
     <div id="ServiceItem" class="services template">
         <div class="icon"></div>
         <div>
-            <input type="text" class="invisible details" value="{{Name}}" />
+            <input type="text" class="invisible details {{postureStyle}}" value="{{Name}}" />
         </div>
         <div>
             <div class="dragger"></div>
@@ -765,8 +765,7 @@
         <div data-i18n="EnterAuthenticate"></div>
         <div class="row">
             <div id="SetupAuthCode" class="code">
-                <input id="MfaSetupCode" type="text" maxlength="8" placeholder="######"
-                    data-enter="AuthenticateButton" />
+                <input id="MfaSetupCode" type="number" maxlength="8" placeholder="######" data-enter="AuthenticateButton" />
             </div>
         </div>
         <div id="AuthenticateButton" class="button" data-i18n="Authenticate"></div>
@@ -778,7 +777,7 @@
         <div data-i18n="EnterCode"></div>
         <div class="row">
             <div id="AuthCodeArea" class="code">
-                <input id="AuthCode" type="text" maxlength="8" placeholder="######" data-enter="ReAuthenticateButton" />
+                <input id="AuthCode" type="number" maxlength="8" placeholder="######" data-enter="ReAuthenticateButton" />
             </div>
         </div>
         <div id="ReAuthenticateButton" class="button" data-i18n="Authenticate"></div>
@@ -790,7 +789,7 @@
         <div data-i18n="EnterCode"></div>
         <div class="row">
             <div id="RemoveCodeArea" class="code">
-                <input id="RemoveCode" type="text" maxlength="8" placeholder="######" data-enter="RemoveMfaButton" />
+                <input id="RemoveCode" type="number" maxlength="8" placeholder="######" data-enter="RemoveMfaButton" />
             </div>
         </div>
         <div id="RemoveMfaButton" class="button" data-i18n="Remove"></div>
@@ -802,8 +801,7 @@
         <div data-i18n="EnterAuthenticate"></div>
         <div class="row">
             <div id="RecoveryCodeArea" class="code">
-                <input id="RecoveryCode" type="text" maxlength="8" placeholder="######"
-                    data-enter="RecoveryMfaButton" />
+                <input id="RecoveryCode" type="number" maxlength="8" placeholder="######" data-enter="RecoveryMfaButton" />
             </div>
         </div>
         <div id="RecoveryMfaButton" class="button" data-i18n="Authenticate"></div>

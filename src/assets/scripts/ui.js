@@ -15,27 +15,12 @@ var ui = {
         $("#UpdateAvailable").click(ui.forceUpdate);
         $(".sliderLeft").mouseover(ui.slideOpen);
         $(".area").mouseover(() => {
-            console.log("Main");
             ui.slideClosed();
         });
         $("nav").mouseover(ui.slideClosed);
         window.onblur = function(){
             ui.slideClosed();
         }
-        /*
-        $(window).mousemove((e) => {
-            console.log(e.clientX+"x"+e.clientY);
-            if ((e.clientX>60 || e.clientX<0) && (e.clientY<0 || e.clientY>window.innerHeight)) {
-                if (ui.outTimeout) {
-                    clearTimeout(ui.outTimeout);
-                    ui.outTimeout = null;
-                }
-                ui.outTimeout = setTimeout(() => {
-                    ui.slideClosed();
-                }, 2000);
-            }
-        });
-        */
     },
     updates: function(data) {
         $(".releaseStream").removeClass("selected");
@@ -90,7 +75,6 @@ var ui = {
         }
     },
     notification: function(data) {
-        console.log("What", data);
         var now = moment();
         var installDate = moment(data.InstallTime);
         var message = "";

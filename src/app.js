@@ -13,11 +13,18 @@ var sudo = require('sudo-prompt');
 var mainWindow;
 var logging = true;
 var connectedIcon = path.join(__dirname, 'assets','images','ziti-green.png');
-var warnIcon = path.join(__dirname, 'assets','images','ziti-yellow.png');
-var connectedIcon = path.join(__dirname, 'assets','images','ziti-green.png');
+// var warnIcon = path.join(__dirname, 'assets','images','ziti-yellow.png');
 var disconnectedIcon = path.join(__dirname, 'assets','images','ziti-red.png');
 var trayIcon = path.join(__dirname, 'assets','images','ziti-white.png');
-var iconPath = path.join(__dirname, 'assets','image', 'ziti.png');
+var iconPath = path.join(__dirname, 'assets','images', 'ziti.png');
+
+// var mfaConnectedIcon = path.join(__dirname, 'assets','images', 'mfa-online.ico');
+var mfaTimingIcon = path.join(__dirname, 'assets','images', 'mfa-timingout.ico');
+var mfaTimedIcon = path.join(__dirname, 'assets','images', 'mfa-timedout.ico');
+// var mfaWarningIcon = path.join(__dirname, 'assets','images', 'mfa-warning.ico');
+var mfaErrorIcon = path.join(__dirname, 'assets','images', 'mfa-required.ico');
+var isConnected = false;
+
 var appPath = app.getPath('appData');
 appPath = path.join(appPath, "openziti");
 var logDirectory = path.join(appPath, "logs");
@@ -78,7 +85,7 @@ var Application = {
         tray = new Tray(trayIcon);
         var contextMenu = Menu.buildFromTemplate([
             { 
-                label: 'Show App', click: () => {
+                label: 'Restore', click: () => {
                     mainWindow.show();
                 } 
             },
@@ -93,17 +100,6 @@ var Application = {
         tray.on("click", (e) => {
             mainWindow.show();
         });
-        
-        //mainWindow.on('closed', function () {
-          //mainWindow = null
-          //})
-          //mainWindow.on('close', function (event) {
-            //if (!app.isQuiting) {
-              //event.preventDefault();
-              //mainWindow.hide();
-            //}
-            //return false;
-        //}); 
         mainWindow.on("resize", function () {
             var size = mainWindow.getSize();
             var width = size[0];
@@ -142,7 +138,8 @@ var Application = {
                             'data',
                             function(data) {
                                 mainWindow.setOverlayIcon(connectedIcon, "Connected");
-                                tray.setImage(connectedIcon);
+                                // tray.setImage(connectedIcon);
+                                isConnected = true;
                                 
                                 Application.onData("ziti-edge-tunnel-event", data);
                             }
@@ -152,6 +149,7 @@ var Application = {
                             function(data) {
                                 mainWindow.setOverlayIcon(disconnectedIcon, "Disconnected");
                                 tray.setImage(disconnectedIcon);
+                                isConnected = false;
                                 mainWindow.webContents.send('service-down', {});
                             }
                         );
@@ -248,7 +246,6 @@ var Application = {
     },
     SendMonitorMessage: function(data) {
         ipc.config.rawBuffer = true;
-        console.log("Sending "+JSON.stringify(data));
         Log.debug("Application.SendMonitorMessage", JSON.stringify(data));
         ipc.of.MonitorSend.emit(JSON.stringify(data));
         ipc.of.MonitorSend.emit("\n");
@@ -439,7 +436,6 @@ ipcMain.handle("monitor-message", (event, data) => {
                     mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
                 }
             }
-            console.log('stdout: ' + stdout);
             return "";
           }
         );
@@ -456,13 +452,14 @@ ipcMain.handle("level", (event, data) => {
     Log.setLevel(data);
     return "";
 });
-ipcMain.handle("icon-green", (event, data) => {
-    console.log("Settings Green");
-    tray.setImage(connectedIcon);
-});
-ipcMain.handle("icon-yellow", (event, data) => {
-    console.log("Settings Yelloe");
-    tray.setImage(warnIcon);
+ipcMain.handle("icon", (event, data) => {
+    if (data=="timing") tray.setImage(mfaTimingIcon);
+    else if (data=="timed") tray.setImage(mfaTimedIcon);
+    else if (data=="mfa") tray.setImage(mfaErrorIcon);
+    else {
+        if (isConnected) tray.setImage(connectedIcon);
+        else tray.setImage(disconnectedIcon);
+    }
 });
 ipcMain.handle("mfa-enable", (event, data) => {
     var enableMfa = {

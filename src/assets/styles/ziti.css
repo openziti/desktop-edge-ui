@@ -63,6 +63,17 @@
     background:transparent;
 }
 
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.services input.error {
+    font-weight: bold;
+    text-decoration: line-through;
+    color: #FFC400;
+}
+
 ::placeholder {
 	color: rgba(255,255,255,.5);
 }
@@ -2269,6 +2280,10 @@ element.style {
     height: 31px;
     background-size: contain;
     background-position: center center;
+    background-image: url(../images/identities.svg);
+}
+
+.identities .status.online {
     background-image: url(../images/id-online.svg);
 }
 
@@ -2373,6 +2388,12 @@ element.style {
     margin-top: 20px;
     color: #000;
     margin-bottom: 10px;
+}
+
+.underLabel {
+    position: relative;
+    width: 100%;
+    font-size: 10px;
 }
 
 .code input {

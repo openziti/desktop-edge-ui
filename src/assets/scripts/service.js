@@ -207,6 +207,7 @@ var ZitiService = {
             element.html(element.html().split("{{address}}").join(item.Address));
             element.html(element.html().split("{{ports}}").join(item.Port));
             element.html(element.html().split("{{protocols}}").join(item.Protocol));
+            element.html(element.html().split("{{postureStyle}}").join(postureStyle));
 
             fullElement.html(fullElement.html().split("{{address}}").join(item.Address));
             fullElement.html(fullElement.html().split("{{ports}}").join(item.Port));

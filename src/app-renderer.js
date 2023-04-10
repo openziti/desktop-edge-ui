@@ -356,6 +356,9 @@ var app = {
                         } else {
                             growler.error(locale.get("InvalidMFACode"))
                         }
+                    } else if (message.Action=="auth_challenge") {
+                        ZitiIdentity.SetMfaState(message.Fingerprint, message.Successful);
+                        ZitiIdentity.refresh();
                     }
                 }
             } else {
