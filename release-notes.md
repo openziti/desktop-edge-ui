@@ -1,3 +1,7 @@
+# Release 3.1.6
+* Roll Logs
+* Fix Logs not sending the data
+
 # Release 3.1.5
 * Multiple MFA UI Enhancements
 * Posture Check Failing visual

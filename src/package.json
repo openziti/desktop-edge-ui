@@ -1,7 +1,7 @@
 {
   "name": "zitidesktopedge",
   "productName": "Ziti Desktop Edge (Preview)",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "homepage": "openziti.io",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
@@ -31,6 +31,7 @@
   "dependencies": {
     "electron-context-menu": "^3.6.1",
     "electron-root-path": "^1.0.16",
+    "find-remove": "^4.1.0",
     "fs": "0.0.1-security",
     "highcharts": "^10.2.1",
     "moment": "^2.29.4",

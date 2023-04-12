@@ -9,6 +9,7 @@ const fs = require('fs');
 const ipc = require("node-ipc").default;
 const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
+const findRemove = require('find-remove');
 
 var mainWindow;
 var logging = true;
@@ -214,7 +215,6 @@ var Application = {
                     if (json.length>0) {
                         try {
                             message = JSON.parse(json);
-                            Log.trace("Application.onData", i+" "+JSON.stringify(message));
                             if (message.Op!=null) {
                                 if (message.Op=="status" && message.Status.LogLevel!=null) Log.initLevel(message.Status.LogLevel);
                             }
@@ -347,11 +347,14 @@ var Log = {
         Log.write(Log.levels[5], from, message);
     },
     write: function(level, from, message) {
+        let seconds = this.daysToMaintain * 24 * 60 * 60;
+        findRemove(logDirectory, {age: {seconds: seconds}, dir: '*', extensions: ['.json', '.log']});
         if (level!=null && from!=null && message!=null) {
            if (Log.levels.indexOf(Log.level) >= Log.levels.indexOf(level)) {
 
                 var messageValue = "";
                 if (typeof messageValue != 'string') messageValue = JSON.stringify(message);
+                else messageValue = message;
                 messageValue = messageValue.split('\n').join('');
                 
                 var logString = "["+moment().format("yyyy-MM-DDTHH\:mm\:ss.fffZ")+"]\t"+level.toUpperCase()+"\t"+from+"\t"+messageValue+"\n";
