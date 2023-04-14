@@ -351,31 +351,34 @@ var Log = {
         findRemove(logDirectory, {age: {seconds: seconds}, dir: '*', extensions: ['.json', '.log']});
         if (level!=null && from!=null && message!=null) {
            if (Log.levels.indexOf(Log.level) >= Log.levels.indexOf(level)) {
-
-                var messageValue = "";
-                if (typeof messageValue != 'string') messageValue = JSON.stringify(message);
-                else messageValue = message;
-                messageValue = messageValue.split('\n').join('');
-                
-                var logString = "["+moment().format("yyyy-MM-DDTHH\:mm\:ss.fffZ")+"]\t"+level.toUpperCase()+"\t"+from+"\t"+messageValue+"\n";
-                if (this.toConsole) console.log(logString);
-                if (this.toFile) {
-        
-                    let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
-                    if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
-        
-                    fs.appendFile(fileName, logString, (err) => {
-                        if (err) console.log("Log Write Error: "+err);
-                    });
-        
-                    fs.readdir(logDirectory, (err, files) => {
-                        if (files.length>Log.daysToMaintain) {
-                            var toDelete = Log.daysToMaintain-files.length;
-                            for (let i=0; i<toDelete; i++) {
-                                fs.unlink(files[i]);
+                try {
+                    var messageValue = "";
+                    if (typeof messageValue != 'string') messageValue = JSON.stringify(message);
+                    else messageValue = message;
+                    if (messageValue != null && messageValue.indexOf('\n')>0) messageValue = messageValue.split('\n').join('');
+                    
+                    var logString = "["+moment().format("yyyy-MM-DDTHH\:mm\:ss.fffZ")+"]\t"+level.toUpperCase()+"\t"+from+"\t"+messageValue+"\n";
+                    if (this.toConsole) console.log(logString);
+                    if (this.toFile) {
+            
+                        let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
+                        if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
+            
+                        fs.appendFile(fileName, logString, (err) => {
+                            if (err) console.log("Log Write Error: "+err);
+                        });
+            
+                        fs.readdir(logDirectory, (err, files) => {
+                            if (files.length>Log.daysToMaintain) {
+                                var toDelete = Log.daysToMaintain-files.length;
+                                for (let i=0; i<toDelete; i++) {
+                                    fs.unlink(files[i]);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                } catch (e) {
+                    console.log("Logging Error", e);
                 }
             }
         }

@@ -1,3 +1,6 @@
+# Release 3.1.8
+* Handle inconsistant stop message to show stopped state in UI
+
 # Release 3.1.7
 * MFA & Posture check alerts on mission control
 * Remove confusing state colors in link roll over
