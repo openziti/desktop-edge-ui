@@ -174,6 +174,7 @@ var ZitiIdentity = {
         }
 
         for (var i=0; i<ZitiIdentity.data.length; i++) {
+            ZitiIdentity.data[i].PostureFailing = false;
             var item = ZitiIdentity.data[i];
             ZitiService.set(item.FingerPrint, item.Services);
 
@@ -228,6 +229,7 @@ var ZitiIdentity = {
                         for (let p=0; p<service.PostureChecks.length; p++) {
                             let pc = service.PostureChecks[p];
                             if (!pc.IsPassing) {
+                                ZitiIdentity.data[i].PostureFailing = true;
                                 status = "warning";
                                 break;
                             }

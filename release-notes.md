@@ -1,3 +1,8 @@
+# Release 3.1.9
+* Show the right selected identity fron the context menu
+* Auto pop MFA if needed
+* Color Icons in menu for state
+
 # Release 3.1.8
 * Handle inconsistent stop message to show stopped state in UI
 

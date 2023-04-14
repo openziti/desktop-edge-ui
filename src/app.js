@@ -10,14 +10,19 @@ const ipc = require("node-ipc").default;
 const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
 const findRemove = require('find-remove');
+const nativeImage = require('electron').nativeImage
 
 var mainWindow;
 var logging = true;
 var connectedIcon = path.join(__dirname, 'assets','images','ziti-green.png');
-// var warnIcon = path.join(__dirname, 'assets','images','ziti-yellow.png');
+var warnIcon = path.join(__dirname, 'assets','images','ziti-yellow.png');
 var disconnectedIcon = path.join(__dirname, 'assets','images','ziti-red.png');
 var trayIcon = path.join(__dirname, 'assets','images','ziti-white.png');
 var iconPath = path.join(__dirname, 'assets','images', 'ziti.png');
+var menuIcon = nativeImage.createFromPath(path.join(__dirname, 'assets','images','ziti-green.png')).resize({width:16});
+var menuWarn = nativeImage.createFromPath(path.join(__dirname, 'assets','images','ziti-yellow.png')).resize({width:16});
+var menuError = nativeImage.createFromPath(path.join(__dirname, 'assets','images','ziti-red.png')).resize({width:16});
+var menuClose = nativeImage.createFromPath(path.join(__dirname, 'assets','images','close.svg')).resize({width:16});
 
 // var mfaConnectedIcon = path.join(__dirname, 'assets','images', 'mfa-online.ico');
 var mfaTimingIcon = path.join(__dirname, 'assets','images', 'mfa-timingout.ico');
@@ -450,6 +455,38 @@ ipcMain.handle("monitor-message", (event, data) => {
         return "";
     }
 });
+function Toggle() {
+    mainWindow.webContents.send('loader', true);
+    if (os.platform() === "linux") {
+        var command = "systemctl stop ziti-edge-tunnel";
+        if (!isConnected) command = "systemctl start ziti-edge-tunnel";
+        var options = {
+          name: 'OpenZiti'
+        };
+        sudo.exec(command, options,
+          function(error, stdout, stderr) {
+            if (error) {
+                if (error.toString().indexOf("User did not grant permission.")>=0) {
+                    var command = {
+                        Type: "Status",
+                        Operation: "OnOff",
+                        Active: isConnected
+                    }
+                    mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
+                }
+            } else {
+                isConnected = !isConnected;
+            }
+            return "";
+          }
+        );
+    } else {            
+        var command = { Op:((isConnected)?"Stop":"Start"), Action:"Normal" };
+        isConnected = !isConnected;
+        Application.SendMonitorMessage(command);
+        return "";
+    }
+}
 ipcMain.handle("log", (event, data) => {
     Log.write(data.level, data.from, data.message);
     return "";
@@ -472,15 +509,34 @@ ipcMain.handle("identities", (event, data) => {
     links.push({label: 'Restore', click: () => { 
         mainWindow.show(); 
     }});
+    if (!isConnected) {
+        links.push({label: 'Turn Ziti On', click: () => { 
+            Toggle();
+        }});
+    } else {
+        links.push({label: 'Turn Ziti Off', click: () => { 
+            Toggle();
+        }});
+    }
     links.push({ type: 'separator' });
     if (data && data.length>0) {
         for (let i=0; i<data.length; i++) {
             var id = data[i];
             var label = id.Name;
-            if (id.MfaNeeded) label += " (Needs MFA)";
-            links.push({label: label, click: () => { 
+            var iconToUse = menuIcon;
+            if (id.PostureFailing) {
+                iconToUse = menuWarn;
+                label += " (Posture Check Failing)";
+            }
+            if (id.MfaNeeded) {
+                iconToUse = menuError;
+                label += " (Needs MFA)";
+            }
+            let opData = JSON.stringify({to: "Identity", "id": id.FingerPrint, mfa: id.MfaNeeded});
+
+            links.push({label: label, icon: iconToUse, click: () => { 
                 mainWindow.show(); 
-                mainWindow.webContents.send('goto', {to: "Identity", "id": id.FingerPrint});
+                mainWindow.webContents.send('goto', JSON.parse(opData));
             }});
         }
     }
@@ -520,7 +576,7 @@ ipcMain.handle("action-add", (event, data) => {
     var dialogData = {
         properties: ['openFile'],
         filters: [
-            { name: 'Ziti Identities', extensions: ['jwt','ziti'] }
+            { name: 'Ziti Identities', extensions: ['jwt','ziti','zed','zid'] }
         ]
     }
     dialog.showOpenDialog(dialogData).then((result) => {
