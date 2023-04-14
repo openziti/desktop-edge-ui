@@ -46,6 +46,7 @@ var app = {
         ipcRenderer.on('version', app.setVersion);
         ipcRenderer.on('app-status', app.onStatus);
         ipcRenderer.on('service-down', app.down);
+        ipcRenderer.on('goto', app.goto);
         $("[data-screen]").click(app.screen);
         $("[data-action]").click(app.action);
         $(".fullNav").click(app.sub);
@@ -116,6 +117,13 @@ var app = {
                 $("#ReleaseStream").show();
             }
         } );
+    },
+    goto: function(e, data) {
+        console.log(e, data);
+        if (data.to=="Identity") {
+            ZitiIdentity.select(data.id);
+            app.showScreen("IdentityScreen");
+        }
     },
     toggleScreen: function() {
         if ($("body").hasClass("max")) {

@@ -1838,6 +1838,59 @@ input, select {
     float: left;
 }
 
+.mainalert, .posturealert {
+    background: rgba(248, 251, 255, 0.15);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
+	min-height: 82px;
+	min-width: 334px;
+	font-size: 16px;
+	color: #ffffff;
+	text-align: left;
+	border-radius: 20px;
+    -webkit-box-shadow: 0px 12px 23px 0px rgba(0,0,0,.2);
+    -moz-box-shadow: 0px 12px 23px 0px rgba(0,0,0,.1);
+    box-shadow: 0px 12px 23px 0px rgba(0,0,0,.1);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    grid-column: span 2;
+    cursor: pointer;
+}
+
+.mainalert:hover, .posturealert:hover {
+    opacity: 0.7;
+}
+
+.mainalert .info, .posturealert .info {
+    position: relative;
+    display: inline-block;
+    line-height: 82px;
+    font-size: 17px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 70px;
+}
+
+.mainalert .icon, .posturealert .icon {
+    width: 55px;
+    height: 55px;
+    background-position: center center;
+    background-size: 80%;
+    position: absolute;
+    left: 10px;
+    top: 16px;
+    background-image: url(../images/id-error.svg);
+}
+
+.posturealert .icon {
+    background-image: url(../images/id-warn.svg);
+}
+
 .fullservices {
     width: 100%;
     position: relative;

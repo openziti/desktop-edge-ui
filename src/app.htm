@@ -110,6 +110,14 @@
                     <div id="ServiceCount" class="count">0</div>
                     <div class="button" data-screen="ServiceScreen" data-i18n="ViewAll"></div>
                 </div>
+                <div id="MfaAlert" class="mainalert" style="display: none;" data-screen="IdentityScreen">
+                    <div class="icon"></div>
+                    <div class="info" data-i18n="MfaAlert"></div>
+                </div>
+                <div id="PostureAlert" class="posturealert" style="display: none;" data-screen="IdentityScreen">
+                    <div class="icon"></div>
+                    <div class="info" data-i18n="PostureAlert"></div>
+                </div>
             </div>
 
             <div id="DisconnectedState" class="missions">
@@ -252,16 +260,11 @@
                             <span id="ServiceSort" data-i18n="Name"></span>
 
                             <span class="options">
-                                <div class="option" data-sort="Name" data-what="service" data-how="ASC"
-                                    data-i18n="Name"></div>
-                                <div class="option" data-sort="Address" data-what="service" data-how="ASC"
-                                    data-i18n="Address"></div>
-                                <div class="option" data-sort="Port" data-what="service" data-how="ASC"
-                                    data-i18n="Port"></div>
-                                <div class="option" data-sort="Protocol" data-what="service" data-how="ASC"
-                                    data-i18n="Protocol"></div>
-                                <div class="option" data-sort="Total Posture Checks" data-what="service" data-how="ASC"
-                                    data-i18n="PostureChecks"></div>
+                                <div class="option" data-sort="Name" data-what="service" data-how="ASC" data-i18n="Name"></div>
+                                <div class="option" data-sort="Address" data-what="service" data-how="ASC" data-i18n="Address"></div>
+                                <div class="option" data-sort="Port" data-what="service" data-how="ASC" data-i18n="Port"></div>
+                                <div class="option" data-sort="Protocol" data-what="service" data-how="ASC" data-i18n="Protocol"></div>
+                                <div class="option" data-sort="Total Posture Checks" data-what="service" data-how="ASC" data-i18n="PostureChecks"></div>
                             </span>
                         </div>
                     </div>

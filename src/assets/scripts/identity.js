@@ -275,8 +275,18 @@ var ZitiIdentity = {
             let identity = ZitiIdentity.selected();
             ZitiIdentity.select(identity.FingerPrint);
         }
-        if (iconStatus!="") ipcRenderer.invoke("icon", iconStatus);
-        else ipcRenderer.invoke("icon", "connected");
+        $(".posturealert").hide();
+        $(".mainalert").hide();
+        if (iconStatus!="") {
+            ipcRenderer.invoke("icon", iconStatus);
+            $(".mainalert").show();
+        } else {
+            ipcRenderer.invoke("icon", "connected");
+            if (status=="warning") {
+                $(".posturealert").show();
+            }
+        }
+        ipcRenderer.invoke("identities", this.data);
     },
     SetMfaState: function(fingerprint, isSuccess) {
         for (let i=0; i<ZitiIdentity.data.length; i++) {

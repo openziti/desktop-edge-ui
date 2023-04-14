@@ -1,70 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 22.6 22.6" style="enable-background:new 0 0 22.6 22.6;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:url(#Rectangle_165_00000175318637364598124800000008620466086119542162_);}
-	.st1{fill:#FFFFFF;}
-	.st2{fill:#FFC400;}
-</style>
-<g id="identities-color" transform="translate(-0.999 -1.005)">
-	
-		<linearGradient id="Rectangle_165_00000116217413040244864160000018180272651064652434_" gradientUnits="userSpaceOnUse" x1="-947.3464" y1="539.4289" x2="-947.3234" y2="538.5479" gradientTransform="matrix(14 0 0 -22 13271.165 11868.9434)">
-		<stop  offset="0" style="stop-color:#F4044D;stop-opacity:0.502"/>
-		<stop  offset="1" style="stop-color:#F4044D;stop-opacity:0"/>
-	</linearGradient>
-	<path id="Rectangle_165" style="fill:url(#Rectangle_165_00000116217413040244864160000018180272651064652434_);" d="M8.5,1.5
-		L8.5,1.5c3.9,0,7,3.1,7,7v8c0,3.9-3.1,7-7,7l0,0c-3.9,0-7-3.1-7-7v-8C1.5,4.6,4.6,1.5,8.5,1.5z"/>
-	<g id="Path_16784">
-		<path class="st1" d="M1.5,9.2C1.5,9.2,1.5,9.2,1.5,9.2C1.2,9.2,1,9,1,8.7C1,7.4,1.4,6,2,4.9c2.1-3.7,6.9-5,10.5-2.9
-			c0.2,0.1,0.3,0.4,0.2,0.7S12.3,3,12.1,2.9C10.5,2,8.7,1.8,7,2.2C5.2,2.7,3.8,3.8,2.9,5.4C2.3,6.4,2,7.6,2,8.7C2,9,1.8,9.2,1.5,9.2
-			z"/>
-	</g>
-	<g id="Path_16785">
-		<path class="st1" d="M15.9,9.2L15.9,9.2c-0.3,0-0.5-0.2-0.5-0.5c0-0.9-0.2-1.8-0.6-2.7c-0.1-0.3,0-0.5,0.3-0.7
-			c0.3-0.1,0.5,0,0.7,0.3c0.4,1,0.6,2,0.6,3.1C16.4,9,16.2,9.2,15.9,9.2z"/>
-	</g>
-	<g id="Path_16786">
-		<path class="st1" d="M8.7,23.7c-0.3,0-0.5-0.2-0.5-0.5c0-0.3,0.2-0.5,0.5-0.5c0,0,0,0,0,0c0.4,0,0.9,0,1.3-0.1
-			c0.3-0.1,0.5,0.1,0.6,0.4c0.1,0.3-0.1,0.5-0.4,0.6C9.8,23.6,9.2,23.7,8.7,23.7z"/>
-	</g>
-	<g id="Path_16787">
-		<path class="st1" d="M5.8,23.1c-0.1,0-0.1,0-0.2,0C2.8,21.8,1,19,1,15.9V13c0-0.3,0.2-0.5,0.5-0.5S2,12.8,2,13v2.9
-			c0,2.7,1.6,5.1,4,6.2c0.3,0.1,0.4,0.4,0.3,0.7C6.2,22.9,6,23.1,5.8,23.1z"/>
-	</g>
-	<g id="Path_16788">
-		<path class="st1" d="M13,12.6c-0.3,0-0.5-0.2-0.5-0.5V8.7c0-1-0.4-2-1.1-2.7c-0.7-0.7-1.7-1.1-2.7-1.1c0,0,0,0,0,0
-			C8,4.9,7.4,5.1,6.8,5.4C6.6,5.5,6.3,5.5,6.1,5.2C6,5,6.1,4.7,6.3,4.5C7,4.1,7.9,3.9,8.7,3.9c0,0,0,0,0,0c1.3,0,2.5,0.5,3.4,1.4
-			s1.4,2.1,1.4,3.4v3.4C13.5,12.4,13.3,12.6,13,12.6z"/>
-	</g>
-	<g id="Path_16789">
-		<path class="st1" d="M8.8,20.8C8.7,20.8,8.7,20.8,8.8,20.8c-1.3,0-2.6-0.5-3.5-1.4c-0.9-0.9-1.4-2.1-1.4-3.4V8.7
-			c0-0.3,0.2-0.5,0.5-0.5s0.5,0.2,0.5,0.5v7.2c0,1,0.4,2,1.1,2.7c0.7,0.7,1.7,1.1,2.7,1.1c0.4,0,0.9-0.1,1.3-0.2
-			c0.3-0.1,0.5,0,0.6,0.3c0.1,0.3,0,0.5-0.3,0.6C9.8,20.7,9.3,20.8,8.8,20.8z"/>
-	</g>
-	<g id="Path_16790">
-		<path class="st1" d="M8.7,17.9c-1.1,0-1.9-0.9-1.9-1.9c0-0.3,0.2-0.5,0.5-0.5s0.5,0.2,0.5,0.5c0,0.5,0.4,0.9,0.9,0.9
-			c0.5,0,0.9-0.4,0.9-0.9V8.7c0-0.5-0.4-0.9-0.9-0.9c-0.5,0-0.9,0.4-0.9,0.9v2.9c0,0.3-0.2,0.5-0.5,0.5s-0.5-0.2-0.5-0.5V8.7
-			c0-1.1,0.9-1.9,1.9-1.9s1.9,0.9,1.9,1.9v7.2C10.7,17,9.8,17.9,8.7,17.9z"/>
-	</g>
-	<g id="Group_222" transform="translate(14.49 11.606)">
-		<g id="Path_16791">
-			<path class="st2" d="M7.2,4.3H1.4C0.6,4.3,0,5,0,5.8l0,0v4.3c0,0.8,0.6,1.4,1.4,1.4h0h5.8c0.8,0,1.4-0.6,1.4-1.4l0,0V5.8
-				C8.7,5,8,4.3,7.2,4.3L7.2,4.3z"/>
-			<path class="st1" d="M7.2,12H1.4c-1.1,0-1.9-0.9-1.9-1.9V5.8c0-1.1,0.9-1.9,1.9-1.9h5.8c1.1,0,1.9,0.9,1.9,1.9v4.3
-				C9.2,11.2,8.3,12,7.2,12z M1.4,4.8c-0.5,0-0.9,0.4-0.9,0.9v4.3c0,0.5,0.4,0.9,0.9,0.9h5.8c0.5,0,0.9-0.4,0.9-0.9V5.8
-				c0-0.5-0.4-0.9-0.9-0.9H1.4z"/>
-		</g>
-		<g id="Path_16792">
-			<path class="st1" d="M7.2,4.8H1.4c-0.3,0-0.5-0.2-0.5-0.5V2.9c0-1.9,1.5-3.4,3.4-3.4l0,0c1.9,0,3.4,1.5,3.4,3.4v1.4
-				C7.7,4.6,7.5,4.8,7.2,4.8z M1.9,3.8h4.8V2.9c0-1.3-1.1-2.4-2.4-2.4C3,0.5,1.9,1.6,1.9,2.9V3.8z"/>
-		</g>
-		<g id="Path_16793">
-			<path class="st1" d="M4.3,8.8C3.9,8.8,3.5,8.4,3.5,8s0.4-0.9,0.9-0.9V8.8z"/>
-		</g>
-		<g id="Path_16794">
-			<path class="st1" d="M4.3,8.8V7.1c0.5,0,0.9,0.4,0.9,0.9S4.8,8.8,4.3,8.8z"/>
-		</g>
-	</g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22.65" height="22.647" viewBox="0 0 22.65 22.647">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.523" y2="0.881" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="identities-color" transform="translate(-0.999 -1.005)">
+    <path id="Path_16997" data-name="Path 16997" d="M7,0a7,7,0,0,1,7,7v8A7,7,0,0,1,0,15V7A7,7,0,0,1,7,0Z" transform="translate(1.5 1.505)" opacity="0.75" fill="url(#linear-gradient)"/>
+    <path id="Path_16784" data-name="Path 16784" d="M12.325,2.465A7.226,7.226,0,0,0,1.5,8.719" transform="translate(0 0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16785" data-name="Path 16785" d="M30.856,13.387a7.208,7.208,0,0,0-.6-2.887" transform="translate(-14.924 -4.668)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16786" data-name="Path 16786" d="M16.5,46.344a7.136,7.136,0,0,0,1.443-.144" transform="translate(-7.784 -23.192)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16787" data-name="Path 16787" d="M1.5,25.5v2.887a7.216,7.216,0,0,0,4.33,6.62" transform="translate(0 -12.451)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16788" data-name="Path 16788" d="M18.495,15.195V11.827A4.33,4.33,0,0,0,12,8.074" transform="translate(-5.448 -3.108)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16789" data-name="Path 16789" d="M7.5,16.5v7.216a4.32,4.32,0,0,0,4.33,4.33,4.213,4.213,0,0,0,1.443-.241" transform="translate(-3.113 -7.781)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_16790" data-name="Path 16790" d="M13.5,22.16a1.443,1.443,0,1,0,2.887,0V14.943a1.443,1.443,0,0,0-2.887,0V17.83" transform="translate(-6.227 -6.224)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <g id="Group_222" data-name="Group 222" transform="translate(14.49 11.606)">
+      <path id="Path_16791" data-name="Path 16791" d="M35.716,31.5H29.943A1.443,1.443,0,0,0,28.5,32.943v4.33a1.443,1.443,0,0,0,1.443,1.443h5.773a1.443,1.443,0,0,0,1.443-1.443v-4.33A1.443,1.443,0,0,0,35.716,31.5Z" transform="translate(-28.5 -27.17)" fill="#4091ff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_16792" data-name="Path 16792" d="M34.387,22.5A2.887,2.887,0,0,0,31.5,25.387V26.83h5.773V25.387A2.887,2.887,0,0,0,34.387,22.5Z" transform="translate(-30.057 -22.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_16793" data-name="Path 16793" d="M37.121,39.022a.361.361,0,0,1,0-.722" transform="translate(-32.786 -30.699)" fill="none" stroke="#fff" stroke-width="1"/>
+      <path id="Path_16794" data-name="Path 16794" d="M37.51,39.022a.361.361,0,1,0,0-.722" transform="translate(-33.175 -30.699)" fill="none" stroke="#fff" stroke-width="1"/>
+    </g>
+  </g>
 </svg>

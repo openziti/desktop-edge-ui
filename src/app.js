@@ -464,6 +464,30 @@ ipcMain.handle("icon", (event, data) => {
         else tray.setImage(disconnectedIcon);
     }
 });
+ipcMain.handle("identities", (event, data) => {
+    var links = [];
+    links.push({label: 'Restore', click: () => { 
+        mainWindow.show(); 
+    }});
+    links.push({ type: 'separator' });
+    if (data && data.length>0) {
+        for (let i=0; i<data.length; i++) {
+            var id = data[i];
+            var label = id.Name;
+            if (id.MfaNeeded) label += " (Needs MFA)";
+            links.push({label: label, click: () => { 
+                mainWindow.show(); 
+                mainWindow.webContents.send('goto', {to: "Identity", "id": id.FingerPrint});
+            }});
+        }
+    }
+    links.push({ type: 'separator' });
+    links.push({label: 'Quit', click: () => { 
+        app.isQuiting = true;
+        app.quit();
+    }});
+    tray.setContextMenu(Menu.buildFromTemplate(links));
+});
 ipcMain.handle("mfa-enable", (event, data) => {
     var enableMfa = {
         Command: "EnableMFA",

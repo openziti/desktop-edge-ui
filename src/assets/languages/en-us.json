@@ -151,5 +151,7 @@
     "SystemBug": "System Bug", 
     "Success": "Success", 
     "InvalidForm": "Invalid form", 
-    "CorrectFields": "Please correct the highlighted fields and try again."
+    "CorrectFields": "Please correct the highlighted fields and try again.",
+    "MfaAlert": "One or more identities requires MFA for access to the services.",
+    "PostureAlert": "One or more services are failing posture checks."
 }
