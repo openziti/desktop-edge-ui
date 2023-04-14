@@ -1,3 +1,9 @@
+# Release 3.1.7
+* MFA & Posture check alerts on mission control
+* Remove confusing state colors in link roll over
+* Add Identities and state to context menu
+* Fix Linux build
+
 # Release 3.1.6
 * Roll Logs
 * Fix Logs not sending the data

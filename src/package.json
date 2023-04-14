@@ -38,5 +38,11 @@
     "node-ipc": "^10.1.0",
     "path": "^0.12.7",
     "sudo-prompt": "^9.2.1"
+  },
+  "build": {
+    "linux": {
+      "artifactName": "ziti-desktop-edge-${version}.${ext}",
+      "category": "Utility"
+    }
   }
 }
