@@ -12,6 +12,7 @@ var mfa = {
         $("#AuthenticateButton").click(mfa.verify);
         $("#SaveCodesButton").click(mfa.save);
         $("#MfaStatus").click(mfa.showAuthenticate);
+        $("#MfaTimeout").click(mfa.showAuthenticate);
         $("#ReAuthenticateButton").click(mfa.authenticate);
         $("#RemoveMfaButton").click(mfa.remove);
         $("#RecoveryMfaButton").click(mfa.recoveryAuth);

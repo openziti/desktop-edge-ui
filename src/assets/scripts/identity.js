@@ -40,17 +40,24 @@ var ZitiIdentity = {
                             app.showScreen("IdentityScreen");
                         }
                         ZitiIdentity.notified.push(id.FingerPrint);
+                        ZitiIdentity.refresh();
                     }
                 } else {
                     if ((id.MfaMinTimeoutRem-passed) <= 1200) {
                         if (!ZitiIdentity.timerNotified.includes(id.FingerPrint) && ZitiIdentity.notifiable.includes(id.FingerPrint)) {
-                            var message = locale.get("MfaWillTimeout").split("{{id}}").join(id.Name)+moment().add(passed, 'seconds').fromNow();
+                            var message = locale.get("MfaWillTimeout").split("{{id}}").join(id.Name)+moment().add(id.MfaMinTimeoutRem-passed, 'seconds').fromNow();
                             var notify = new Notification(locale.get("TimingOut"), { appID: locale.get("AppTitle"), body: message, tag: id.FingerPrint, icon: path.join(__dirname, '/assets/images/ziti-white.png') });
                             notify.onclick = function(e) {
                                 ZitiIdentity.select(e.target.tag);
                                 app.showScreen("IdentityScreen");
                             }
                             ZitiIdentity.timerNotified.push(id.FingerPrint);
+                            ZitiIdentity.refresh();
+                        }
+                    } else {
+                        if ((id.MfaMinTimeoutRem-passed) <= 0) {
+                            ZitiIdentity.data[i].MfaNeeded = true;
+                            ZitiIdentity.refresh();
                         }
                     }
                 }
@@ -206,9 +213,10 @@ var ZitiIdentity = {
                 if (item.MfaEnabled) {
                     var passed = moment.utc().diff(moment.utc(item.MfaLastUpdatedTime), "seconds");
                     if (item.MfaMaxTimeoutRem>-1) {
-                        if ((item.MfaMaxTimeoutRem-passed) <= 0) {
+                        if ((item.MfaMinTimeoutRem-passed) <= 0) {
                             status = "error";
-                            if (iconStatus!="mfa") iconStatus = "timed";
+                            iconStatus = "mfa";
+                            ZitiIdentity.data[i].MfaNeeded = true;
                         } else if ((item.MfaMinTimeoutRem-passed) <= 1200) {
                             status = "warning";
                             if (iconStatus!="mfa" && iconStatus!="timed") iconStatus = "timing";
@@ -230,7 +238,7 @@ var ZitiIdentity = {
                             let pc = service.PostureChecks[p];
                             if (!pc.IsPassing) {
                                 ZitiIdentity.data[i].PostureFailing = true;
-                                status = "warning";
+                                if (status=="") status = "warning";
                                 break;
                             }
                         }
@@ -295,6 +303,34 @@ var ZitiIdentity = {
             if (ZitiIdentity.data[i].FingerPrint==fingerprint) {
                 ZitiIdentity.data[i].MfaEnabled = true;
                 ZitiIdentity.data[i].MfaNeeded = !isSuccess;
+                if (isSuccess) {
+                    ZitiIdentity.data[i].MfaMinTimeoutRem = ZitiIdentity.data[i].MfaMinTimeout;
+                    ZitiIdentity.data[i].MfaMaxTimeoutRem = ZitiIdentity.data[i].MfaMaxTimeout;
+                    for (let j=0; j<ZitiService.data.length; j++) {
+                        if (ZitiIdentity.data[i].FingerPrint==fingerprint) {
+                            if (ZitiService.data[j].PostureChecks && ZitiService.data[j].PostureChecks.length>0) {
+                                for (let k=0; k<ZitiService.data[j].PostureChecks.length; k++) {
+                                    if (ZitiService.data[j].PostureChecks[k].Timeout>-1) {
+                                        ZitiService.data[j].PostureChecks[k].TimeoutRemaining = ZitiService.data[j].PostureChecks[k].Timeout;
+                                    }
+                                }
+                            }
+                            ZitiService.data[j].TimeoutRemaining = ZitiService.data[j].Timeout;
+                        }
+                    }
+                    if (ZitiIdentity.data[i].Services && ZitiIdentity.data[i].Services.length>0) {
+                        for (let j=0; j<ZitiIdentity.data[i].Services.length; j++) {
+                            if (ZitiIdentity.data[i].Services[j].PostureChecks && ZitiIdentity.data[i].Services[j].PostureChecks.length>0) {
+                                for (let k=0; k<ZitiIdentity.data[i].Services[j].PostureChecks.length; k++) {
+                                    if (ZitiIdentity.data[i].Services[j].PostureChecks[k].Timeout>-1) {
+                                        ZitiIdentity.data[i].Services[j].PostureChecks[k].TimeoutRemaining = ZitiService.data[j].PostureChecks[k].Timeout;
+                                    }
+                                }
+                            }
+                            ZitiIdentity.data[i].Services[j].TimeoutRemaining = ZitiIdentity.data[i].Services[j].Timeout;
+                        }
+                    }
+                }
                 break;
             }
         }
@@ -332,8 +368,26 @@ var ZitiIdentity = {
                 $("#MfaStatus").find(".label").html(locale.get("Authorize"));
                 $("#MfaToggle").addClass("disabled");
             } else {
-                $("#MfaStatus").find(".icon").addClass("connected");
-                $("#MfaStatus").find(".label").html(locale.get("RecoveryCodes"));
+
+
+                var passed = moment.utc().diff(moment.utc(item.MfaLastUpdatedTime), "seconds");
+                if ((item.MfaMinTimeoutRem-passed) <= 0) {
+                    for (var i=0; i<ZitiIdentity.data.length; i++) {
+                        if (ZitiIdentity.data[i].FingerPrint==id) {
+                            ZitiIdentity.data[i].MfaNeeded = true;
+                            break;
+                        }
+                    }
+                    $("#MfaStatus").find(".icon").addClass("authorize");
+                    $("#MfaStatus").find(".label").html(locale.get("Authorize"));
+                    $("#MfaToggle").addClass("disabled");
+                } else {
+
+                    $("#MfaStatus").find(".icon").addClass("connected");
+                    $("#MfaStatus").find(".label").html(locale.get("RecoveryCodes"));
+                }
+
+
             }
             $("#MfaStatus").addClass("open");
             // Calc Time since

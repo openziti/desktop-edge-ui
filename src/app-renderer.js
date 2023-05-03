@@ -373,6 +373,11 @@ var app = {
                     } else if (message.Action=="auth_challenge") {
                         ZitiIdentity.SetMfaState(message.Fingerprint, message.Successful);
                         ZitiIdentity.refresh();
+                        ZitiService.refresh();
+                    } else if (message.Action=="mfa_auth_status") {
+                        ZitiIdentity.SetMfaState(message.Fingerprint, message.Successful);
+                        ZitiIdentity.refresh();
+                        ZitiService.refresh();
                     }
                 }
             } else {

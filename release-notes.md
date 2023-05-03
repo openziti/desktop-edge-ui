@@ -1,3 +1,6 @@
+# Release 3.2.0
+* Fix the state of MFA as it changes through undeclared states
+
 # Release 3.1.9
 * Show the right selected identity fron the context menu
 * Auto pop MFA if needed
