@@ -36,6 +36,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
+      - run: VERSION=$(cat ../version)
       - run: npm install
       - run: npm i -g electron-builder
       - run: electron-builder --linux deb rpm
+      - name: Upload Linux Deb installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: ZitiDesktopEdge-Deb-$VERSION
+          path: "dist/ziti-desktop-edge-$VERSION.deb"
+      - name: Upload Linux Rpm installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: ZitiDesktopEdge-Rpm-$VERSION
+          path: "dist/ziti-desktop-edge-$VERSION.rpm"
