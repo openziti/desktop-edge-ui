@@ -22,12 +22,7 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
-      - run: npm run make
-      - name: Upload Window installer
-        uses: actions/upload-artifact@v2
-        with:
-          name: ZitiDesktopEdge-Win-3.0.1
-          path: "out/make/squirrel.windows/x64/ZitiDesktopEdge-*.exe"
+      - run: electron-packager ./src Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=release-builds --icon=./src/app.ico
   linux-build: 
     runs-on: ubuntu-latest
     steps: 
@@ -37,14 +32,4 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
-      - run: npm run make
-      - name: Upload Linux Deb installer
-        uses: actions/upload-artifact@v2
-        with:
-          name: ZitiDesktopEdge-Deb-3.0.1
-          path: "out/make/deb/x64/zitidesktopedge*.deb"
-      - name: Upload Linux Rpm installer
-        uses: actions/upload-artifact@v2
-        with:
-          name: ZitiDesktopEdge-Rpm-3.0.1
-          path: "out/make/rpm/x64/ZitiDesktopEdge*.rpm"
+      - run: electron-builder --linux deb rpm
