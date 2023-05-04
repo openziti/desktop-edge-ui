@@ -4,8 +4,6 @@ on:
   push:
     branches: 
       - main
-      - 'release-*'
-      - 'beta-release-*'
 
 env:
   BUILD_CONFIG: "Release"
@@ -21,7 +19,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-      - run: npm install
+      - run: ./src/npm install
       - run: electron-packager ./src Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=release-builds --icon=./src/app.ico
   linux-build: 
     runs-on: ubuntu-latest
@@ -31,5 +29,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-      - run: npm install
-      - run: electron-builder --linux deb rpm
+      - run: ./src/npm install
+      - run: ./src/electron-builder --linux deb rpm
