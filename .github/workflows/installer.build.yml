@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
+      - run: npm install electron-packager
       - run: electron-packager ./ Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=release-builds --icon=./app.ico
   linux-build: 
     runs-on: ubuntu-latest
@@ -36,4 +37,5 @@ jobs:
         with:
           node-version: '16.15.0'
       - run: npm install
+      - run: npm install electron-builder
       - run: electron-builder --linux deb rpm
