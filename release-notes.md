@@ -1,3 +1,6 @@
+# Release 3.2.1
+* Hide timeout status when not needed
+
 # Release 3.2.0
 * Fix the state of MFA as it changes through undeclared states
 

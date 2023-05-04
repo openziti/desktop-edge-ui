@@ -1867,10 +1867,14 @@ input, select {
 #MfaTimeout {
     cursor: pointer;
     transition: var(--transition);
+    opacity: 0.0;
+}
+
+#MfaTimeout.open {
     opacity: 1.0;
 }
 
-#MfaTimeout:hover {
+#MfaTimeout.open:hover {
     opacity: 0.8;
 }
 
