@@ -1,7 +1,7 @@
 {
   "name": "zitidesktopedge",
   "productName": "Ziti Desktop Edge (Preview)",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "homepage": "openziti.io",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",
@@ -18,7 +18,7 @@
     "Trust"
   ],
   "author": {
-    "name": "Ziggy (The Zigs) OpenZiti",
+    "name": "NetFoudnry",
     "email": "ziggy@openziti.io",
     "url": "https://openziti.io"
   },

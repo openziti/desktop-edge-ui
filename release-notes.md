@@ -1,3 +1,11 @@
+# Release 3.2.2
+* Roll over description for Mfa Status
+* Fix State of Context Menu for Mfa
+* Add roll over padding to Menu for resize animation
+* Fix state of inline identity status when posture checks failing
+* Add timing out state to context menu
+* Fix Service Items to be Read Only
+
 # Release 3.2.1
 * Hide timeout status when not needed
 

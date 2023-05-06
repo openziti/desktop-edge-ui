@@ -528,6 +528,10 @@ ipcMain.handle("identities", (event, data) => {
                 iconToUse = menuWarn;
                 label += " (Posture Check Failing)";
             }
+            if (id.TimingOut) {
+                iconToUse = menuWarn;
+                label += " (Timing Out)";
+            }
             if (id.MfaNeeded) {
                 iconToUse = menuError;
                 label += " (Needs MFA)";

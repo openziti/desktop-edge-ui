@@ -220,7 +220,7 @@
                             <div class="icon connected"></div>
                             <div class="label authsmall" data-i18n="Authorize"></div>
                         </div>
-                        <div id="MfaTimeout" class="blurArea reversed">
+                        <div id="MfaTimeout" class="blurArea reversed" title="Click to Renew Authentication">
                             <div class="icon timer"></div>
                             <div class="label">-/-</div>
                         </div>
@@ -729,19 +729,19 @@
     <div id="ServiceItem" class="services template">
         <div class="icon"></div>
         <div>
-            <input type="text" class="invisible details {{postureStyle}}" value="{{Name}}" />
+            <input type="text" class="invisible details {{postureStyle}}" value="{{Name}}" readonly />
         </div>
         <div>
             <div class="dragger"></div>
-            <input type="text" class="invisible details" value="{{address}}" />
+            <input type="text" class="invisible details" value="{{address}}" readonly />
         </div>
         <div class="right">
             <div class="dragger"></div>
-            <input type="text" class="invisible details" value="{{ports}}" />
+            <input type="text" class="invisible details" value="{{ports}}" readonly />
         </div>
         <div class="right">
             <div class="dragger"></div>
-            <input type="text" class="invisible details" value="{{protocols}}" />
+            <input type="text" class="invisible details" value="{{protocols}}" readonly />
         </div>
     </div>
 
@@ -841,6 +841,7 @@
     </div>
 
     <div class="sliderLeft"></div>
+    <div class="sliderLeft" style="z-index: 5010; width: 40px"></div>
 
 </body>
 

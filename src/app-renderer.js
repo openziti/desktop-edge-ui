@@ -315,6 +315,7 @@ var app = {
                         }
                     }
                     ZitiSettings.init(message.Status);
+                    console.log(ZitiIdentity.data);
                     ZitiService.refresh();
                     message.Status.from = "Status";
                     ui.state(message.Status);
