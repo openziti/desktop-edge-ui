@@ -25,9 +25,8 @@
   "icon": "app.ico",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^21.4.3",
-    "electron-packager": "^16.0.0",
-    "electron-builder": "^23.6.0"
+    "electron": "^24.2.0",
+    "electron-packager": "^16.0.0"
   },
   "dependencies": {
     "electron-context-menu": "^3.6.1",
@@ -44,6 +43,9 @@
     "linux": {
       "artifactName": "ziti-desktop-edge-${version}.${ext}",
       "category": "Utility"
+    },
+    "win": {
+      "artifactName": "ziti-desktop-edge-${version}.${ext}"
     }
   }
 }
