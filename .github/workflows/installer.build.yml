@@ -36,25 +36,25 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-      - name: Show Version 0
-        run: echo $(cat ../version)
-      - name: Get Variables
-        run: echo ::set-output name=APPVERSION::$(cat ../version)
+      - uses: pCYSl5EDgo/cat@master
+        id: vars
+        with:
+          path: ../version
+      - run: echo $APPVER
+        env:
+          APPVER: ${{ steps.vars.outputs.version }}
       - name: Show Version
-        run: echo $APPVERSION
-      - name: Show Version
-        id: abc
-        run: echo ${{steps.abc.outputs.APPVERSION}}
+        run: echo $APPVER
       - run: npm install
       - run: npm i -g electron-builder
       - run: electron-builder --linux deb rpm
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
         with:
-          name: ZitiDesktopEdge-Deb-$APPVERSION
-          path: "dist/ziti-desktop-edge-$APPVERSION.deb"
+          name: ZitiDesktopEdge-Deb-${{steps.vars.outputs.APPVER}}
+          path: "dist/ziti-desktop-edge-${{steps.vars.outputs.APPVER}}.deb"
       - name: Upload Linux Rpm installer
         uses: actions/upload-artifact@v2
         with:
-          name: ZitiDesktopEdge-Rpm-$APPVERSION
-          path: "dist/ziti-desktop-edge-{{$APPVERSION}}.rpm"
+          name: ZitiDesktopEdge-Rpm-${{steps.vars.outputs.APPVER}}
+          path: "dist/ziti-desktop-edge-${{steps.vars.outputs.APPVER}}.rpm"
