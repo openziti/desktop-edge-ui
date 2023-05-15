@@ -1560,11 +1560,6 @@ body.max #HeaderArea .draggHead {
     grid-template-columns: 37% 20% 15% auto;
 }
 
-#MfaStatus {
-    display: grid;
-    grid-template-columns: 75px auto;
-}
-
 #Updates .iconNameValue {
     grid-template-columns: 40px auto 61px;
     height: 60px;
@@ -1864,14 +1859,35 @@ input, select {
     opacity: 0.7;
 }
 
-#MfaTimeout {
+#MfaStatus {
+    display: grid;
+    grid-template-columns: 75px auto;
+    cursor: default;
+    pointer-events: none;
+}
+
+#MfaStatus.open {
     cursor: pointer;
+    opacity: 1.0;
+    transition: 0.5s;
+    pointer-events: all;
+}
+
+#MfaStatus.open:hover {
+    opacity: 0.8;
+}
+
+#MfaTimeout {
     transition: var(--transition);
     opacity: 0.0;
+    cursor: default;
+    pointer-events: none;
 }
 
 #MfaTimeout.open {
+    cursor: pointer;
     opacity: 1.0;
+    pointer-events: all;
 }
 
 #MfaTimeout.open:hover {
@@ -2332,16 +2348,6 @@ element.style {
     width: 25px;
 }
 
-#MfaStatus.open {
-    cursor: pointer;
-    opacity: 1.0;
-    transition: 0.5s;
-}
-
-#MfaStatus.open:hover {
-    opacity: 0.8;
-}
-
 .identities .status {
     width: 22px;
     height: 31px;
@@ -2629,6 +2635,7 @@ element.style {
 
 #ServiceList {
     height: calc(100vh - 345px);
+    padding-bottom: 70px;
 }
 
 .left {
