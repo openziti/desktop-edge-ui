@@ -36,9 +36,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.15.0'
-      - run: APPVERSION=$(cat ../version)
       - name: Get Variables
-        run: echo ::set-output name=version::$(cat VERSION) >> $APPVERSION
+        run: echo ::set-output name=version::$(cat ../version) >> $APPVERSION
       - name: Show Version
         run: echo $APPVERSION
       - run: npm install
@@ -53,4 +52,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ZitiDesktopEdge-Rpm-$APPVERSION
-          path: "dist/ziti-desktop-edge-$APPVERSION.rpm"
+          path: "dist/ziti-desktop-edge-{{$APPVERSION}}.rpm"
