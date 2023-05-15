@@ -39,7 +39,7 @@ jobs:
       - uses: pCYSl5EDgo/cat@master
         id: vars
         with:
-          path: ../version
+          path: ./version
       - run: echo $APPVER
         env:
           APPVER: ${{ steps.vars.outputs.version }}
