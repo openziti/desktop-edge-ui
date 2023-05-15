@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: '16.15.0'
       - name: Get Variables
-        run: echo ::set-output name=version::$(cat ../version) >> $APPVERSION
+        run: echo ::set-output name=APPVERSION::$(cat ../version)
       - name: Show Version
         run: echo $APPVERSION
       - run: npm install
