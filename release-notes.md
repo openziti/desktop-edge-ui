@@ -1,3 +1,7 @@
+# Release 3.2.3
+* Fix MFA Button active when it is hidden
+* Fix large service list displaying last few values
+
 # Release 3.2.2
 * Roll over description for Mfa Status
 * Fix State of Context Menu for Mfa
