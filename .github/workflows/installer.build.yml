@@ -40,7 +40,7 @@ jobs:
           $encodedBytes = [System.Convert]::FromBase64String($env:PFX_CONTENT);
           Set-Content $pfxPath -Value $encodedBytes -AsByteStream;
           Write-Output "::set-output name=PFX_PATH::$pfxPath";
-      - run: echo $SIGNING_CERT
+      - run: echo ${{ env.PFX_PATH }}
       - run: echo ${{ steps.vars.outputs.text }}
         env:
           APPVER: ${{ steps.vars.outputs.text }}
