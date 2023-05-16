@@ -38,7 +38,6 @@ jobs:
         run: |
           echo "${env:SIGNING_CERT}" > WinSign.b64
           C:\Windows\System32\certutil.exe -decode WinSign.b64 WinSign.p12
-      - run: echo ${{ env.PFX_PATH }}
       - run: echo ${{ steps.vars.outputs.text }}
         env:
           APPVER: ${{ steps.vars.outputs.text }}
