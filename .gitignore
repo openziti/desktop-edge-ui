@@ -288,3 +288,6 @@ logs/
 assets/data/*
 release-builds/
 dist/
+releases/
+release/
+Desktop-Edge-UI-cache/

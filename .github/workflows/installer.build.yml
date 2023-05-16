@@ -13,11 +13,36 @@ jobs:
   windows-build:
     name: Build the Ziti Desktop Edge for Windows Installer Package
     runs-on: windows-latest
+    env:
+      SIGNING_CERT: ${{ secrets.SIGNING_CERT_2022_b64 }}
+      ADV_INST_KEY: ${{ secrets.ADV_INST_KEY }}
+      JFROG_ACCESS_TOKEN: ${{ secrets.JFROG_ACCESS_TOKEN }}
+      gh_ci_key: ${{ secrets.GH_CI_KEY }}
+      ZITI_DEBUG: "yes_please"
+      OPENZITI_P12_PASS: ${{ secrets.OPENZITI_P12_PASS }}
+      OPENZITI_P12: ${{ secrets.OPENZITI_P12 }}
     defaults:
       run:
         working-directory: ./src
     steps: 
       - uses: actions/checkout@main
+      - uses: pCYSl5EDgo/cat@master
+        id: vars
+        with:
+          path: ./version
+      - name: Create PFX certificate
+        id: create-pfx
+        shell: pwsh
+        env:
+          PFX_CONTENT: ${{ secrets.SIGNING_CERT_2022_b64 }}
+        run: |
+          $pfxPath = Join-Path -Path $env:RUNNER_TEMP -ChildPath "cert.pfx";
+          $encodedBytes = [System.Convert]::FromBase64String($env:PFX_CONTENT);
+          Set-Content $pfxPath -Value $encodedBytes -AsByteStream;
+          Write-Output "::set-output name=PFX_PATH::$pfxPath";
+      - run: echo ${{ steps.vars.outputs.text }}
+        env:
+          APPVER: ${{ steps.vars.outputs.text }}
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
@@ -25,7 +50,33 @@ jobs:
       - run: npm install
       - run: npm i -g electron-packager
       - run: electron-packager ./ Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=release-builds --icon=./app.ico
+      - name: Build AIP
+        uses: caphyon/advinst-github-action@v1.0
+        with:
+          advinst-version: '20.6'
+          advinst-license: ${{ secrets.ADVINST_LICENSE_KEY }}
+          advinst-enable-automation: 'true'
+          aip-path: ${{ github.workspace }}\Ziti-Desktop-Edge.aip
+          aip-build-name: DefaultBuild
+          aip-package-name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          aip-output-dir:  ${{ github.workspace }}\release
+          aip-commands: |
+            SetVersion ${{ steps.vars.outputs.text }}
+            SetSig
+            SetDigitalCertificateFile -file "${{ env.PFX_PATH }}"
+      - name: Delete PFX certificate
+        shell: pwsh
+        env:
+          PFX_PATH: ${{ steps.create-pfx.outputs.PFX_PATH }}
+        run: |
+          Remove-Item -Path $env:PFX_PATH;
+      - name: Publish setup artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          path: ${{ github.workspace }}\release\Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
   linux-build: 
+    name: Build the Ziti Desktop Edge for Linux Deb & Rpm Installer Package
     runs-on: ubuntu-latest
     defaults:
       run:
