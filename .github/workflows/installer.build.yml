@@ -40,7 +40,7 @@ jobs:
         id: vars
         with:
           path: ./version
-      - run: echo $APPVER
+      - run: echo ${{ steps.vars.outputs.text }}
         env:
           APPVER: ${{ steps.vars.outputs.text }}
       - name: Show Version
