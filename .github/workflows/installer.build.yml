@@ -56,7 +56,7 @@ jobs:
           advinst-version: '20.6'
           advinst-license: ${{ secrets.ADVINST_LICENSE_KEY }}
           advinst-enable-automation: 'true'
-          aip-path: ${{ github.workspace }}\Ziti-Desktop-Edge.aip
+          aip-path: ${{ github.workspace }}\Desktop-Edge-UI.aip
           aip-build-name: DefaultBuild
           aip-package-name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
           aip-output-dir:  ${{ github.workspace }}\release
