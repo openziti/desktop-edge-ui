@@ -36,10 +36,8 @@ jobs:
         env:
           PFX_CONTENT: ${{ secrets.SIGNING_CERT_2022_b64 }}
         run: |
-          $pfxPath = Join-Path -Path $env:RUNNER_TEMP -ChildPath "cert.pfx";
-          $encodedBytes = [System.Convert]::FromBase64String($env:PFX_CONTENT);
-          Set-Content $pfxPath -Value $encodedBytes -AsByteStream;
-          Write-Output "::set-output name=PFX_PATH::$pfxPath";
+          echo "${env:SIGNING_CERT}" > WinSign.b64
+          C:\Windows\System32\certutil.exe -decode WinSign.b64 WinSign.p12
       - run: echo ${{ env.PFX_PATH }}
       - run: echo ${{ steps.vars.outputs.text }}
         env:
@@ -64,7 +62,7 @@ jobs:
           aip-commands: |
             SetVersion ${{ steps.vars.outputs.text }}
             SetSig
-            SetDigitalCertificateFile -file "${{ env.PFX_PATH }}"
+            SetDigitalCertificateFile -file WinSign.p12
       - name: Delete PFX certificate
         shell: pwsh
         env:
