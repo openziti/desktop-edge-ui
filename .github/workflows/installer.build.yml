@@ -52,9 +52,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ZitiDesktopEdge-Deb-${{ steps.vars.outputs.text }}
-          path: "dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb"
+          path: "./dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb"
       - name: Upload Linux Rpm installer
         uses: actions/upload-artifact@v2
         with:
           name: ZitiDesktopEdge-Rpm-${{ steps.vars.outputs.text }}
-          path: "dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm"
+          path: "./dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm"
