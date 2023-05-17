@@ -61,7 +61,7 @@ jobs:
           aip-commands: |
             SetVersion ${{ steps.vars.outputs.text }}
             SetSig
-            SetDigitalCertificateFile -file WinSign.p12
+            SetDigitalCertificateFile -file ./src/WinSign.p12
       - name: Delete PFX certificate
         shell: pwsh
         env:

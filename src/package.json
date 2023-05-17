@@ -42,7 +42,8 @@
   "build": {
     "linux": {
       "artifactName": "ziti-desktop-edge-${version}.${ext}",
-      "category": "Utility"
+      "category": "Utility",
+      "depends": ["ziti-edge-tunnel"]
     },
     "win": {
       "artifactName": "ziti-desktop-edge-${version}.${ext}"
