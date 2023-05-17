@@ -42,16 +42,16 @@
   "build": {
     "linux": {
       "artifactName": "ziti-desktop-edge-${version}.${ext}",
-      "category": "Utility",
-      "deb": {
-        "depends": ["ziti-edge-tunnel"]
-      },
-      "rpm": {
-        "depends": ["ziti-edge-tunnel"]
-      }
+      "category": "Utility"
     },
     "win": {
       "artifactName": "ziti-desktop-edge-${version}.${ext}"
+    },
+    "deb": {
+      "depends": ["ziti-edge-tunnel"]
+    },
+    "rpm": {
+      "depends": ["ziti-edge-tunnel"]
     }
   }
 }
