@@ -67,7 +67,7 @@ jobs:
         env:
           PFX_PATH: ${{ steps.create-pfx.outputs.PFX_PATH }}
         run: |
-          Remove-Item -Path ./src/WinSign.p12;
+          Remove-Item -Path ./WinSign.p12;
       - name: Publish setup artifact
         uses: actions/upload-artifact@v2
         with:
