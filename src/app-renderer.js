@@ -121,7 +121,7 @@ var app = {
         } );
     },
     growl: function(e, data) {
-        growler.error(data.title, data.message);
+        growler.error("Authentication", data);
     },
     loader: function(e, data) {
         if (data) ui.showLoad();

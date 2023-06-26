@@ -438,13 +438,20 @@ ipcMain.handle("monitor-message", (event, data) => {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
-                if (error.toString().indexOf("User did not grant permission.")>=0) {
-                    var command = {
-                        Type: "Status",
-                        Operation: "OnOff",
-                        Active: !data.Op=="Start"
+                console.log(error);
+                try {
+                    Log.error("Sudo", error.toString());
+                    mainWindow.webContents.send('growl', error.toString());
+                    if (error.toString().indexOf("User did not grant permission.")>=0) {
+                        var command = {
+                            Type: "Status",
+                            Operation: "OnOff",
+                            Active: !data.Op=="Start"
+                        }
+                        mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
                     }
-                    mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
+                } catch (e) {
+                    mainWindow.webContents.send('growl', e.toString());
                 }
             }
             return "";
@@ -468,7 +475,7 @@ function Toggle() {
             if (error) {
                 console.log(error);
                 try {
-                    Log.write("Error", "Sudo", error.toString());
+                    Log.error("Sudo", error.toString());
                     mainWindow.webContents.send('growl', error.toString());
                     if (error.toString().indexOf("User did not grant permission.")>=0) {
                         var command = {
