@@ -466,16 +466,21 @@ function Toggle() {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
-                Log.write("Error", "Sudo", error);
-                mainWindow.webContents.send('growl', error.toString());
-                if (error.toString().indexOf("User did not grant permission.")>=0) {
-                    var command = {
-                        Type: "Status",
-                        Operation: "OnOff",
-                        Active: isConnected
-                    }
-                    mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
-                } 
+                console.log(error);
+                try {
+                    Log.write("Error", "Sudo", error.toString());
+                    mainWindow.webContents.send('growl', error.toString());
+                    if (error.toString().indexOf("User did not grant permission.")>=0) {
+                        var command = {
+                            Type: "Status",
+                            Operation: "OnOff",
+                            Active: isConnected
+                        }
+                        mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
+                    } 
+                } catch (e) {
+                    mainWindow.webContents.send('growl', e.toString());
+                }
             } else {
                 isConnected = !isConnected;
             }
