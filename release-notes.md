@@ -1,3 +1,7 @@
+# Release 3.2.4
+* Issue 118 - Dashboard Scroll
+* Issue 119 - Expose the sudo prompt error to the UI
+
 # Release 3.2.3
 * Fix MFA Button active when it is hidden
 * Fix large service list displaying last few values

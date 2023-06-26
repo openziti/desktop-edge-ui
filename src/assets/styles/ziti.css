@@ -895,6 +895,8 @@ nav .title {
 #MissionControl.area.open {
     height: calc(100% - 60px);
     top: 105px;
+    overflow-y: auto;
+    padding-bottom: 200px;
 }
 
 #IdentityScreen {

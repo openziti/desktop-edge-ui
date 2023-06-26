@@ -48,6 +48,7 @@ var app = {
         ipcRenderer.on('service-down', app.down);
         ipcRenderer.on('goto', app.goto);
         ipcRenderer.on('loader', app.loader);
+        ipcRenderer.on('growl', app.growl);
         $("[data-screen]").click(app.screen);
         $("[data-action]").click(app.action);
         $(".fullNav").click(app.sub);
@@ -118,6 +119,9 @@ var app = {
                 $("#ReleaseStream").show();
             }
         } );
+    },
+    growl: function(e, data) {
+        growler.error(data.title, data.message);
     },
     loader: function(e, data) {
         if (data) ui.showLoad();

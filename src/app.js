@@ -466,6 +466,8 @@ function Toggle() {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
+                Log.write("Error", "Sudo", error);
+                mainWindow.webContents.send('growl', error.toString());
                 if (error.toString().indexOf("User did not grant permission.")>=0) {
                     var command = {
                         Type: "Status",
@@ -473,7 +475,7 @@ function Toggle() {
                         Active: isConnected
                     }
                     mainWindow.webContents.send('message-to-ui', JSON.stringify(command));
-                }
+                } 
             } else {
                 isConnected = !isConnected;
             }
