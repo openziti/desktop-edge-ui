@@ -1861,7 +1861,7 @@ input, select {
     opacity: 0.7;
 }
 
-#MfaStatus {
+#MfaStatus {  
     display: grid;
     grid-template-columns: 75px auto;
     cursor: default;
@@ -1873,6 +1873,9 @@ input, select {
     opacity: 1.0;
     transition: 0.5s;
     pointer-events: all;
+    text-overflow: ellipsis;
+    height: 45px;
+    overflow: hidden;
 }
 
 #MfaStatus.open:hover {

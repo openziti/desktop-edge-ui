@@ -80,7 +80,6 @@ var Application = {
             }
         });
         mainWindow.setMenu(null);
-        
         mainWindow.loadFile(path.join(__dirname, 'app.htm'));
         
         mainWindow.on("system-context-menu", (event, _point) => {
@@ -89,11 +88,17 @@ var Application = {
         if (!app.isPackaged) mainWindow.webContents.openDevTools();
 
         tray = new Tray(trayIcon);
+        Log.debug("Application.CreateWindow", "Set Icon: "+trayIcon);
         var contextMenu = Menu.buildFromTemplate([
             { 
                 label: 'Restore', click: () => {
                     mainWindow.show();
                 } 
+            },
+            {
+                label: 'Add Identity', click: () => {
+                    AddIdentity();
+                }
             },
             { 
                 label: 'Quit', click: () => {
@@ -117,6 +122,7 @@ var Application = {
         mainWindow.webContents.on('did-finish-load', function() {
             setTimeout(() => {
                 mainWindow.show();
+                Log.debug("Application.CreateWindow", "Configuring Client For: "+os.platform()+" Language: "+app.getLocale());
 
                 var ipcpaths = {
                     events: "ziti-edge-tunnel-event.sock",
@@ -146,7 +152,6 @@ var Application = {
                                 mainWindow.setOverlayIcon(connectedIcon, "Connected");
                                 // tray.setImage(connectedIcon);
                                 isConnected = true;
-                                
                                 Application.onData("ziti-edge-tunnel-event", data);
                             }
                         );
@@ -155,6 +160,7 @@ var Application = {
                             function(data) {
                                 mainWindow.setOverlayIcon(disconnectedIcon, "Disconnected");
                                 tray.setImage(disconnectedIcon);
+                                Log.debug("IPC Error", "Set Icon: "+trayIcon);
                                 isConnected = false;
                                 mainWindow.webContents.send('service-down', {});
                             }
@@ -208,20 +214,24 @@ var Application = {
         });  
     },
     onData: function(from, data) {
-        Log.debug("Application.onData", "Data Received from "+from);
+        Log.trace("Application.onData", "Data Received from "+from);
         var message = {};
         try {
             if (data != null && data.length>0) {
                 var jsonStr = Buffer.from(data.toString(), 'utf-8').toString();
-                Log.debug("Application.onData", jsonStr);
                 var jsons = jsonStr.split('\n');
                 for (var i=0; i<jsons.length; i++) {
                     var json = jsons[i].replace(/[\u0000-\u0019]+/g,"").trim();
                     if (json.length>0) {
                         try {
                             message = JSON.parse(json);
+                            if (message.Op)
                             if (message.Op!=null) {
                                 if (message.Op=="status" && message.Status.LogLevel!=null) Log.initLevel(message.Status.LogLevel);
+                                if (message.Op=="metrics") Log.trace("Application.onData", JSON.stringify(message));
+                                else Log.debug("Application.onData", "Unknown IPC: "+JSON.stringify(message));
+                            } else {
+                                Log.debug("Application.onData", JSON.stringify(message));
                             }
                             Application.onDataFromService(message);
                         } catch (e) { 
@@ -256,9 +266,11 @@ var Application = {
         ipc.of.MonitorSend.emit("\n");
     },
     Quit: function() {
+        Log.debug("Application.Quit", "Quit Called");
         if (process.platform !== 'darwin') app.quit()
     },
     Activation: function() {
+        Log.trace("Application.Activation", "Activate UI");
         if (mainWindow === null) Application.CreateWindow();
     }
 }
@@ -290,6 +302,7 @@ var AppSettings = {
             AppSettings.Save();
         } else {
             AppSettings.data = JSON.parse(fs.readFileSync(file));
+            Log.debug("AppSettings.init", "Settings Loaded: "+JSON.stringify(AppSettings.data));
         }
     },
     IsSet: function(prop) {
@@ -298,6 +311,7 @@ var AppSettings = {
     },
     Save: function() {
         var file = path.join(appPath, 'settings.json');
+        Log.debug("AppSettings.Save", "Settings Saved: "+JSON.stringify(AppSettings.data));
         fs.writeFile(file, JSON.stringify(AppSettings.data), function (err) {
             if (err)  console.log(err);
         });
@@ -360,6 +374,7 @@ var Log = {
                     var messageValue = "";
                     if (typeof messageValue != 'string') messageValue = JSON.stringify(message);
                     else messageValue = message;
+                    console.log(messageValue);
                     if (messageValue != null && messageValue.indexOf('\n')>0) messageValue = messageValue.split('\n').join('');
                     
                     var logString = "["+moment().format("yyyy-MM-DDTHH\:mm\:ss.fffZ")+"]\t"+level.toUpperCase()+"\t"+from+"\t"+messageValue+"\n";
@@ -399,6 +414,7 @@ ipcMain.on('call', function(event, arg) {
 });
 
 ipcMain.on('close', () => {
+    Log.debug("Close", "Hide Window");
     mainWindow.hide();
     // app.quit();
 });
@@ -412,7 +428,7 @@ ipcMain.handle("message", (event, data) => {
 });
 ipcMain.handle("open-logs", (event, data) => {
     var logFile = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
-    console.log("Opening "+logFile);
+    Log.debug("Open Logs", "Opening Log File:"+logFile);
     shell.showItemInFolder(logFile);
 });
 ipcMain.handle("logger-message", (event, data) => {
@@ -438,7 +454,6 @@ ipcMain.handle("monitor-message", (event, data) => {
         sudo.exec(command, options,
           function(error, stdout, stderr) {
             if (error) {
-                console.log(error);
                 try {
                     Log.error("Sudo", error.toString());
                     mainWindow.webContents.send('growl', error.toString());
@@ -510,10 +525,12 @@ ipcMain.handle("level", (event, data) => {
     return "";
 });
 ipcMain.handle("icon", (event, data) => {
+    Log.debug("Set Icon", "Type: "+data);
     if (data=="timing") tray.setImage(mfaTimingIcon);
     else if (data=="timed") tray.setImage(mfaTimedIcon);
     else if (data=="mfa") tray.setImage(mfaErrorIcon);
     else {
+        Log.debug("Set Icon", "Unknown Type Use Connection: "+((isConnected)?connectedIcon:disconnectedIcon));
         if (isConnected) tray.setImage(connectedIcon);
         else tray.setImage(disconnectedIcon);
     }
@@ -522,6 +539,9 @@ ipcMain.handle("identities", (event, data) => {
     var links = [];
     links.push({label: 'Restore', click: () => { 
         mainWindow.show(); 
+    }});
+    links.push({label: 'Add Identity', click: () => { 
+        AddIdentity();
     }});
     if (!isConnected) {
         links.push({label: 'Turn Ziti On', click: () => { 
@@ -591,17 +611,22 @@ ipcMain.handle("window", (event, data) => {
     return "";
 });
 ipcMain.handle("action-add", (event, data) => {
+    AddIdentity();
+});
+function AddIdentity() {
     var dialogData = {
         properties: ['openFile'],
         filters: [
             { name: 'Ziti Identities', extensions: ['jwt','ziti','zed','zid'] }
         ]
     }
+    Log.debug("IPC Add", JSON.stringify(dialogData));
     dialog.showOpenDialog(dialogData).then((result) => {
         if (result.canceled) return {status: "Cancelled"};
         else {
             if (result.filePaths.length>0) {
                 var fullPath = result.filePaths[0];
+                Log.debug("IPC Adding", fullPath);
                 var name = path.basename(fullPath);
                 var fileName = name;
                 if (name.indexOf(".")>0) name = name.split('.')[0];
@@ -628,10 +653,11 @@ ipcMain.handle("action-add", (event, data) => {
     }).catch((error) => {   
         return {error: error};
     });
-});
+}
 ipcMain.handle("action-save", (event, data) => {
     var id = data.id;
     var codes = data.codes;
+    Log.debug("Saving Codes", codes.join(','));
     dialog.showSaveDialog({
         title: 'Select the File Path to save',
         defaultPath: path.join(electron.app.getPath('documents'), id+'.txt'),

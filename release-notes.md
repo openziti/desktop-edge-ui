@@ -1,3 +1,8 @@
+# Release 3.2.5
+* Issue 121 - Add logging to check when the state changes
+* Issue 120 - Add Identity to context menu
+* Issue 113 - Fix button on small screen
+
 # Release 3.2.4
 * Issue 118 - Dashboard Scroll
 * Issue 119 - Expose the sudo prompt error to the UI
