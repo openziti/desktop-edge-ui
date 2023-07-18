@@ -311,7 +311,7 @@ var AppSettings = {
     },
     Save: function() {
         var file = path.join(appPath, 'settings.json');
-        Log.debug("AppSettings.Save", "Settings Saved: "+JSON.stringify(AppSettings.data));
+        Log.trace("AppSettings.Save", "Settings Saved: "+JSON.stringify(AppSettings.data));
         fs.writeFile(file, JSON.stringify(AppSettings.data), function (err) {
             if (err)  console.log(err);
         });
