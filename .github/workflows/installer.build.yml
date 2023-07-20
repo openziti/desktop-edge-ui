@@ -1,9 +1,7 @@
 name: Build Installer
 
 on:
-  push:
-    branches: 
-      - mains
+  workflow_dispatch:
 
 env:
   BUILD_CONFIG: "Release"
