@@ -3,7 +3,7 @@ name: Build Installer
 on:
   push:
     branches: 
-      - main
+      - release
 
 env:
   BUILD_CONFIG: "Release"
@@ -78,6 +78,7 @@ jobs:
           release_name: ${{ steps.vars.outputs.text }}
           draft: false
           prerelease: false
+      - run: echo ${{ steps.create_release.outputs.upload_url }}
       - name: Publish Executable
         uses: actions/upload-release-asset@v1
         env: 
