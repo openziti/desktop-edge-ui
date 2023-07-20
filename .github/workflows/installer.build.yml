@@ -68,10 +68,11 @@ jobs:
           PFX_PATH: ${{ steps.create-pfx.outputs.PFX_PATH }}
         run: |
           Remove-Item -Path ./WinSign.p12;
-          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.vars.outputs.text }}
           release_name: ${{ steps.vars.outputs.text }}
@@ -79,6 +80,8 @@ jobs:
           prerelease: false
       - name: Publish Executable
         uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
