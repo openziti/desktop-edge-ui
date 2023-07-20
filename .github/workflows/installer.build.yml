@@ -3,7 +3,7 @@ name: Build Installer
 on:
   push:
     branches: 
-      - release
+      - mains
 
 env:
   BUILD_CONFIG: "Release"
