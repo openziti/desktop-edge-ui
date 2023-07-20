@@ -68,11 +68,22 @@ jobs:
           PFX_PATH: ${{ steps.create-pfx.outputs.PFX_PATH }}
         run: |
           Remove-Item -Path ./WinSign.p12;
-      - name: Publish setup artifact
-        uses: actions/upload-artifact@v2
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         with:
-          name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
-          path: ${{ github.workspace }}\release\Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          tag_name: ${{ steps.vars.outputs.text }}
+          release_name: ${{ steps.vars.outputs.text }}
+          draft: false
+          prerelease: false
+      - name: Publish Executable
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          asset_path: ${{ github.workspace }}\release\Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          asset_content_type: application/exe
   linux-build: 
     name: Build the Ziti Desktop Edge for Linux Deb & Rpm Installer Package
     runs-on: ubuntu-latest
