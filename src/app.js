@@ -11,6 +11,7 @@ const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
 const findRemove = require('find-remove');
 const nativeImage = require('electron').nativeImage
+const AutoLaunch = require('auto-launch');
 
 var mainWindow;
 var logging = true;
@@ -276,6 +277,17 @@ var Application = {
 }
 
 const appLock = app.requestSingleInstanceLock();
+
+var autoLauncher = new AutoLaunch({
+    name: "Ziti Desktop Edge"
+});
+
+autoLauncher.isEnabled().then(function(isEnabled) {
+  if (isEnabled) return;
+    autoLauncher.enable();
+}).catch(function (err) {
+  throw err;
+});
     
 if (!appLock) {
   app.quit()
