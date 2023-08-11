@@ -23,8 +23,8 @@ jobs:
       run:
         working-directory: ./src
     steps: 
-      - uses: actions/checkout@main
-      - uses: pCYSl5EDgo/cat@master
+      - uses: actions/checkout@v3
+      - uses: pCYSl5EDgo/cat@1.0.1
         id: vars
         with:
           path: ./version
@@ -40,12 +40,16 @@ jobs:
         env:
           APPVER: ${{ steps.vars.outputs.text }}
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '16.15.0'
       - run: npm install
       - run: npm i -g electron-packager
-      - run: electron-packager ./ Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=../release-builds --icon=./app.ico
+      - run: >
+          electron-packager ./ Ziti-Desktop-Edge
+            --overwrite --asar --electron-version=21.4.3 
+            --platform=win32 --arch=x64 --prune=true 
+            --out=../release-builds --icon=./app.ico
       - name: Build AIP
         uses: caphyon/advinst-github-action@v1.0
         with:
@@ -93,12 +97,12 @@ jobs:
       run:
         working-directory: ./src
     steps: 
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v3
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '16.15.0'
-      - uses: pCYSl5EDgo/cat@master
+      - uses: pCYSl5EDgo/cat@1.0.1
         id: vars
         with:
           path: ./version
