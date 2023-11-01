@@ -1,3 +1,8 @@
+# Release 3.2.8
+* Issue 116 - Handle Error State and set mission control to -
+* Issue 1114 - Fixed race condition with fast add/remove on controller
+* Issue 96 - Add zet file type to identity selector
+
 # Release 3.2.5
 * Issue 121 - Add logging to check when the state changes
 * Issue 120 - Add Identity to context menu

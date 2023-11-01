@@ -11,7 +11,6 @@ const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
 const findRemove = require('find-remove');
 const nativeImage = require('electron').nativeImage
-const AutoLaunch = require('auto-launch');
 
 var mainWindow;
 var logging = true;
@@ -87,6 +86,14 @@ var Application = {
             event.preventDefault();
         });
         if (!app.isPackaged) mainWindow.webContents.openDevTools();
+        mainWindow.on('unresponsive', function() {
+            Log.error("Window", "Window Crashed");
+            console.log('window crashed');
+        });
+        mainWindow.webContents.on('did-fail-load', function() {
+            Log.error("Window", "Window Failed To Load");
+            console.log('window Failed To Load');
+        });
 
         tray = new Tray(trayIcon);
         Log.debug("Application.CreateWindow", "Set Icon: "+trayIcon);
@@ -278,15 +285,9 @@ var Application = {
 
 const appLock = app.requestSingleInstanceLock();
 
-var autoLauncher = new AutoLaunch({
-    name: "Ziti Desktop Edge"
-});
-
-autoLauncher.isEnabled().then(function(isEnabled) {
-  if (isEnabled) return;
-    autoLauncher.enable();
-}).catch(function (err) {
-  throw err;
+electron.app.setLoginItemSettings({
+    openAtLogin: true,
+    path: electron.app.getPath("exe")
 });
     
 if (!appLock) {
@@ -528,6 +529,10 @@ function Toggle() {
         return "";
     }
 }
+ipcMain.handle('errorInWindow', function(event, data) {
+    Log.error("Window", data);
+    console.log(data);
+});
 ipcMain.handle("log", (event, data) => {
     Log.write(data.level, data.from, data.message);
     return "";
@@ -629,7 +634,7 @@ function AddIdentity() {
     var dialogData = {
         properties: ['openFile'],
         filters: [
-            { name: 'Ziti Identities', extensions: ['jwt','ziti','zed','zid'] }
+            { name: 'Ziti Identities', extensions: ['jwt','ziti','zed','zid','zet'] }
         ]
     }
     Log.debug("IPC Add", JSON.stringify(dialogData));

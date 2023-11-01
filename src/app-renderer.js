@@ -324,10 +324,20 @@ var app = {
                     message.Status.from = "Status";
                     ui.state(message.Status);
                 } else if (message.Op=="bulkservice") {
+                    console.log("Here", message.RemovedServices, message.AddedServices);
                     if (message.RemovedServices) {
                         for (var i=0; i<message.RemovedServices.length; i++) {
                             var removed = message.RemovedServices[i];
+                            console.log("Removing "+removed.Id);
                             ZitiService.remove(removed.Id);
+                        }
+                        ZitiService.refresh();
+                    }
+                    if (message.AddedServices) {
+                        for (var i=0; i<message.AddedServices.length; i++) {
+                            var added = message.AddedServices[i];
+                            console.log("Adding "+added.Id);
+                            ZitiService.add(added.Id);
                         }
                         ZitiService.refresh();
                     }
@@ -383,6 +393,12 @@ var app = {
                         ZitiIdentity.SetMfaState(message.Fingerprint, message.Successful);
                         ZitiIdentity.refresh();
                         ZitiService.refresh();
+                    }
+                } else if (message.Op=="controller") {
+                    if (message.Action=="disconnected") {
+                        ZitiIdentity.SetControllerState(message.Fingerprint, false);
+                    } else if (message.Action=="connected") {
+                        ZitiIdentity.SetControllerState(message.Fingerprint, true);
                     }
                 }
             } else {
@@ -683,6 +699,11 @@ var app = {
         };
         app.sendMessage(command);
     }
+}
+
+window.onerror = function(error, url, line) {
+    console.log(error, url, line);
+    ipcRenderer.send('errorInWindow', error);
 }
 
 $(document).ready(app.init);

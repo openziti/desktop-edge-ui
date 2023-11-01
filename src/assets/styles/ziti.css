@@ -1798,6 +1798,11 @@ input, select {
     filter: blur(1px);
 }
 
+.toggle.disabled {
+    pointer-events: all;
+    opacity: 0.4; 
+}
+
 .mt20 {
     margin-top: 20px;
 }

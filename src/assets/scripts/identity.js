@@ -182,6 +182,7 @@ var ZitiIdentity = {
         }
 
         for (var i=0; i<ZitiIdentity.data.length; i++) {
+            if (ZitiIdentity.data[i].ControllerConnected==null) ZitiIdentity.data[i].ControllerConnected = true;
             ZitiIdentity.data[i].PostureFailing = false;
             ZitiIdentity.data[i].TimingOut = false;
             var item = ZitiIdentity.data[i];
@@ -255,7 +256,7 @@ var ZitiIdentity = {
             console.log(item.FingerPrint+" "+status);
 
             element.html(element.html().split("{{count}}").join(item.Services.length));
-            element.html(element.html().split("{{toggled}}").join(item.Active?"on":""));
+            element.html(element.html().split("{{toggled}}").join(item.Active && item.ControllerConnected?"on":((!item.ControllerConnected)?" disabled":"")));
             element.html(element.html().split("{{status}}").join(status));
 
             for (var prop in item) {
@@ -266,21 +267,25 @@ var ZitiIdentity = {
         ZitiService.refresh();
         $(".identities").find(".toggle").off("click");
         $(".identities").find(".toggle").on("click", (e) => {
-            if ($(e.currentTarget).hasClass("on")) $(e.currentTarget).removeClass("on");
-            else $(e.currentTarget).addClass("on");
-
-            var isOn = $(e.currentTarget).hasClass("on");
-            var command = {
-                Command: "IdentityOnOff", 
-                Data: {
-                    Identifier: $(e.currentTarget).data("id"),
-                    OnOff: isOn
-                }
-            };
-            app.sendMessage(command);
-
-            e.stopPropagation();
-            // Toggle State
+            if (!$(e.currentTarget).hasClass("disabled")) {
+                if ($(e.currentTarget).hasClass("on")) $(e.currentTarget).removeClass("on");
+                else $(e.currentTarget).addClass("on");
+    
+                var isOn = $(e.currentTarget).hasClass("on");
+                var command = {
+                    Command: "IdentityOnOff", 
+                    Data: {
+                        Identifier: $(e.currentTarget).data("id"),
+                        OnOff: isOn
+                    }
+                };
+                app.sendMessage(command);
+    
+                e.stopPropagation();
+            } else {
+                console.log("Unreachable");
+                growler.error("Controller Unreachable");
+            }
         });
         $(".identities").click((e) => {
             $(".identities").removeClass("selected");
@@ -305,12 +310,30 @@ var ZitiIdentity = {
         }
         ipcRenderer.invoke("identities", this.data);
     },
+    SetControllerState: function(fingerpint, isConnected) {
+        for (let i=0; i<ZitiIdentity.data.length; i++) {
+            if (ZitiIdentity.data[i].FingerPrint==fingerpint) {
+                ZitiIdentity.data[i].ControllerConnected = isConnected;
+                var toggler = $(".toggle[data-fingerpint='"+fingerpint+"']");
+                console.log(isConnected, fingerpint, toggler.hasClass("disabled"));
+                if (!isConnected && !toggler.hasClass("disabled")) {
+                    console.log("Setting Disabled")
+                    toggler.addClass("disabled");
+                    toggler.removeClass("on");
+                } else {
+                    console.log("Setting Enabled")
+                    if (ZitiIdentity.data[i].Active) toggler.addClass("on");
+                    toggler.removeClass("disabled");
+                }
+                break;
+            }
+        }
+    },
     SetMfaState: function(fingerprint, isSuccess) {
         for (let i=0; i<ZitiIdentity.data.length; i++) {
             if (ZitiIdentity.data[i].FingerPrint==fingerprint) {
                 ZitiIdentity.data[i].MfaEnabled = true;
                 ZitiIdentity.data[i].MfaNeeded = !isSuccess;
-                console.log("Set State: "+fingerprint+" "+isSuccess+" "+ZitiIdentity.data[i].MfaNeeded);
                 if (isSuccess) {
                     ZitiIdentity.data[i].MfaMinTimeoutRem = ZitiIdentity.data[i].MfaMinTimeout;
                     ZitiIdentity.data[i].MfaMaxTimeoutRem = ZitiIdentity.data[i].MfaMaxTimeout;

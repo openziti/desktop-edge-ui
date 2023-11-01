@@ -43,6 +43,9 @@ var ZitiService = {
         }
         return host;
     },
+    add: function(id) {
+        // Do nothing next event will add now
+    },
     remove: function(id) {
         var list = [];
         for (var i=0; i<ZitiService.data.length; i++) {
