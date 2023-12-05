@@ -283,6 +283,10 @@ var Application = {
     }
 }
 
+process.on('uncaughtException', function (error) {
+    Log.error("Uncaught Exception", JSON.stringify(error));
+});
+
 const appLock = app.requestSingleInstanceLock();
 
 electron.app.setLoginItemSettings({
@@ -426,6 +430,11 @@ ipcMain.on('call', function(event, arg) {
     var params = arg.params;
 });
 
+ipcMain.on('shutdown', () => {
+    Log.debug("Close", "Hide Window");
+    app.quit();
+});
+
 ipcMain.on('close', () => {
     Log.debug("Close", "Hide Window");
     mainWindow.hide();
@@ -438,6 +447,11 @@ ipc.config.sync = false;
 ipcMain.handle("message", (event, data) => {
     Application.SendMessage(data);
     return "";
+});
+ipcMain.handle("open-service-logs", (event, data) => {
+    var logFile = path.join(process.cwd(), "logs", "service", "ziti-tunneler.log");
+    Log.debug("Open Logs", "Opening Service Log File:"+logFile);
+    shell.showItemInFolder(logFile);
 });
 ipcMain.handle("open-logs", (event, data) => {
     var logFile = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");

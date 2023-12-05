@@ -510,10 +510,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="ReleaseStream" class="iconNameValue switched" style="display: none;">
-                        <div class="icon release noback"></div>
-                        <div class="name" data-i18n="ReleaseStream"></div>
-                        <div>
+                    <div id="ReleaseStream" style="display: none;">
+                        <div class="icon release noback" style="display: none;"></div>
+                        <div class="name" data-i18n="ReleaseStream" style="display: none;"></div>
+                        <div style="display: none;">
                             <label class="left" data-i18n="Normal"></label>
                             <div data-id="Normal" class="radio selected left releaseStream">
                                 <div class="dot"></div>
@@ -523,7 +523,21 @@
                                 <div class="dot"></div>
                             </div>
                         </div>
+                        <div class="dualButtons">
+                            <div id="EditUrlButton" class="button edit serviceon" data-i18n></div>
+                            <div id="CheckUpdates" class="button edit serviceon" data-i18n></div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div id="EditUrlForm" class="form popover">
+                <div class="title" data-i18n="EditUrlConfiguration"></div>
+                <div id="CloseUrlForm" class="close" data-i18n="Close"></div>
+                <label for="EditReleaseUrl" data-i18n="EditReleaseUrl"></label>
+                <input id="EditReleaseUrl" type="text" placeholder="e.g. https://domain.com/path" />
+                <div class="buttonArea two">
+                    <div id="ResetButton" class="link" data-i18n></div>
+                    <div id="SaveUrlButton" class="button" data-i18n></div>
                 </div>
             </div>
             <div id="EditForm" class="form popover">
