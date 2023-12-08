@@ -284,6 +284,10 @@ OPENZITI_P12.b64
 Jeremy-win32-x64/
 release/
 out/
+ziti-edge-installer/Generated Images/
+ziti-edge-installer/build/
+ziti-edge-installer/release/
+ziti-edge-installer/Desktop-Edge-UI-cache/
 logs/
 assets/data/*
 release-builds/
@@ -291,3 +295,8 @@ dist/
 releases/
 release/
 Desktop-Edge-UI-cache/
+package-lock.json
+ziti-edge-installer/desktop-edge-win/
+ziti-edge-installer/Desktop-Edge-UI.back(20.6).aip
+ziti-edge-installer/zet.zip
+ziti-edge-installer/wintun.zip
