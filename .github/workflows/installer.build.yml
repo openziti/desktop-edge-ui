@@ -21,7 +21,7 @@ jobs:
       OPENZITI_P12: ${{ secrets.OPENZITI_P12 }}
     defaults:
       run:
-        working-directory: ./src
+        working-directory: ./ziti-edge-ui
     steps: 
       - uses: actions/checkout@v3
       - uses: pCYSl5EDgo/cat@1.0.1
@@ -80,7 +80,7 @@ jobs:
           aip-commands: |
             SetVersion ${{ steps.vars.outputs.text }}
             SetSig
-            SetDigitalCertificateFile -file ./src/WinSign.p12
+            SetDigitalCertificateFile -file ./ziti-edge-ui/WinSign.p12
       - name: Delete PFX certificate
         shell: pwsh
         env:
@@ -122,7 +122,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src
+        working-directory: ./ziti-edge-ui
     steps: 
       - uses: actions/checkout@v3
       - name: Set up Node.js version
