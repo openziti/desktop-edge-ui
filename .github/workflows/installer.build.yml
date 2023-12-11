@@ -107,6 +107,16 @@ jobs:
           asset_name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
           asset_path: ${{ github.workspace }}\release\Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
           asset_content_type: application/exe
+      - run: echo ./release-build/ZitiUI.zip
+      - name: Publish Executable
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_name: ZitiUI.zip
+          asset_path: ${{ github.workspace }}\release\ZitiUI.zip
+          asset_content_type: application/zip
   linux-build: 
     name: Build the Ziti Desktop Edge for Linux Deb & Rpm Installer Package
     runs-on: ubuntu-latest
