@@ -138,7 +138,7 @@ jobs:
         run: echo $APPVER
       - run: npm install
       - run: npm i -g electron-builder
-      - run: electron-builder --linux deb rpm
+      - run: electron-builder --linux deb rpm --icon=./app.ico
       - name: Upload Linux Deb installer
         uses: actions/upload-artifact@v2
         with:
