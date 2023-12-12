@@ -26,7 +26,7 @@ jobs:
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
       - name: Setting up version env var
-        run: echo "VERSION=$(cat ..\version)" >> $env:GITHUB_ENV
+        run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
