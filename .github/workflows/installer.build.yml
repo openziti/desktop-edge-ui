@@ -57,9 +57,9 @@ jobs:
           echo "${{fromJson(steps.set_vars.outputs.text).version}}"
       - run: |
           echo "::set-output name=version::${{fromJson(steps.set_vars.outputs.text).version}}"
-      - run: echo ${{ steps.set_vars.outputs.text }}
+      - run: echo ${{ steps.set_vars.version.text }}
         env:
-          APPVER: ${{ steps.vars.outputs.text }}
+          APPVER: ${{ steps.vars.version.text }}
       - name: Show Version
         run: echo $APPVER
       - run: npm install
