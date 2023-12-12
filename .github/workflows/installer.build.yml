@@ -17,10 +17,6 @@ jobs:
         working-directory: ./ziti-edge-ui
     steps: 
       - uses: actions/checkout@v3
-      - name: Trying to run choco install.
-        run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-      - name: "Install Choco needs: advanced-installer nodejs"
-        run: choco install advanced-installer nodejs --yes --force 
       - name: Get Package Version
         id: get-version
         uses: beaconbrigade/package-json-version@v0.3
@@ -28,6 +24,10 @@ jobs:
           path: ./ziti-edge-ui
       - name: Print the version
         run: echo "The version was ${{ steps.get-version.outputs.version }}"
+      - name: Trying to run choco install.
+        run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+      - name: "Install Choco needs: advanced-installer nodejs"
+        run: choco install advanced-installer nodejs --yes --force 
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
@@ -47,15 +47,17 @@ jobs:
         working-directory: ./ziti-edge-ui
     steps: 
       - uses: actions/checkout@v3
+      - name: Get Package Version
+        id: get-version
+        uses: beaconbrigade/package-json-version@v0.3
+        with:
+          path: ./ziti-edge-ui
+      - name: Print the version
+        run: echo "The version was ${{ steps.get-version.outputs.version }}"
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '16.15.0'
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-      - name: Show Version
-        run: echo ${{ steps.package-version.outputs.current-version}}
       - run: npm install
       - run: npm i -g electron-builder
       - run: electron-builder --linux deb rpm
@@ -64,17 +66,17 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.deb
-          asset_name: ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.deb
-          tag: ${{ steps.package-version.outputs.current-version}}
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.get-version.outputs.version }}.deb
+          asset_name: ziti-desktop-edge-${{ steps.get-version.outputs.version }}.deb
+          tag: ${{ steps.get-version.outputs.version }}
           overwrite: true
           body: ""
       - name: Upload rpm to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.rpm
-          asset_name: ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.rpm
-          tag: ${{ steps.package-version.outputs.current-version}}
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.get-version.outputs.version }}.rpm
+          asset_name: ziti-desktop-edge-${{ steps.get-version.outputs.version }}.rpm
+          tag: ${{ steps.get-version.outputs.version }}
           overwrite: true
           body: ""
