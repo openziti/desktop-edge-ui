@@ -21,6 +21,22 @@ jobs:
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
+      - id: set_vars
+        run: |
+          content=`cat ./package.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=packageJson::$content"
+      - run: |
+          echo "${{fromJson(steps.set_vars.outputs.text).version}}"
+      - run: |
+          echo "::set-output name=version::${{fromJson(steps.set_vars.outputs.text).version}}"
+      - run: echo ${{ steps.set_vars.version.text }}
+        env:
+          APPVER: ${{ steps.vars.version.text }}
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
