@@ -21,11 +21,13 @@ jobs:
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-      - name: Show Version
-        run: echo ${{ steps.package-version.outputs.current-version}}
+      - name: Get Package VErsion
+        id: get-version
+        uses: beaconbrigade/package-json-version@v0.3
+        with:
+          path: .
+      - name: Print the version
+        run: echo "The version was ${{ steps.get-version.outputs.version }}"
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
@@ -34,7 +36,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./release-builds/ZitiUI.zip
           asset_name: ZitiUI.zip
-          tag: ${{ steps.package-version.outputs.current-version}}
+          tag: ${{ steps.get-version.outputs.version }}
           overwrite: true
           body: ""
   linux-build: 
