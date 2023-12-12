@@ -21,7 +21,7 @@ jobs:
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
-      - name: Get Package VErsion
+      - name: Get Package Version
         id: get-version
         uses: beaconbrigade/package-json-version@v0.3
         with:
