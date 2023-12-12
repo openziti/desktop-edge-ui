@@ -29,27 +29,15 @@ jobs:
         run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload rpm to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: ${{ steps.vars.outputs.text }}
-          release_name: ${{ steps.vars.outputs.text }}
-          draft: false
-          prerelease: false
-      - run: echo ${{ steps.create_release.outputs.upload_url }}
-      - name: Publish Executable
-        uses: actions/upload-release-asset@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_name: ZitiUI.zip
-          asset_path: ${{ github.workspace }}\release-builds/ZitiUI.zip
-          asset_content_type: application/exe
-      - run: echo ./release-build/ZitiUI.zip
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./release-builds/ZitiUI.zip
+          asset_name: mything
+          tag: ${{ steps.vars.outputs.text }}
+          overwrite: true
+          body: ""
   linux-build: 
     name: Build the Ziti Desktop Edge for Linux Deb & Rpm Installer Package
     runs-on: ubuntu-latest
@@ -73,14 +61,22 @@ jobs:
         run: echo $APPVER
       - run: npm install
       - run: npm i -g electron-builder
-      - run: electron-builder --linux deb rpm
-      - name: Upload Linux Deb installer
-        uses: actions/upload-artifact@v2
+      - run: electron-builder --linux deb 
+      - name: Upload Deb to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: ZitiDesktopEdge-Deb-${{ steps.vars.outputs.text }}
-          path: "dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb"
-      - name: Upload Linux Rpm installer
-        uses: actions/upload-artifact@v2
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
+          asset_name: mything
+          tag: ${{ steps.vars.outputs.text }}
+          overwrite: true
+          body: ""
+      - name: Upload rpm to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: ZitiDesktopEdge-Rpm-${{ steps.vars.outputs.text }}
-          path: "dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
+          asset_name: mything
+          tag: ${{ steps.vars.outputs.text }}
+          overwrite: true
+          body: ""
