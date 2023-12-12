@@ -1,3 +1,7 @@
+# Release 3.3.0
+* Automate builds into new UI/VS DE structure
+* Add Update Release Stream Settings on Update page Ctrl+Alt+D to view
+
 # Release 3.2.8
 * Issue 116 - Handle Error State and set mission control to -
 * Issue 1114 - Fixed race condition with fast add/remove on controller
