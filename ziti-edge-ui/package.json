@@ -42,7 +42,7 @@
   },
   "build": {
     "linux": {
-      "icon": "./app.ico",
+      "icon": "./app.png",
       "artifactName": "ziti-desktop-edge-${version}.${ext}",
       "category": "Utility"
     },
@@ -50,13 +50,13 @@
       "artifactName": "ziti-desktop-edge-${version}.${ext}"
     },
     "deb": {
-      "icon": "./app.ico",
+      "icon": "./app.png",
       "depends": [
         "ziti-edge-tunnel"
       ]
     },
     "rpm": {
-      "icon": "./app.ico",
+      "icon": "./app.png",
       "depends": [
         "ziti-edge-tunnel"
       ]
