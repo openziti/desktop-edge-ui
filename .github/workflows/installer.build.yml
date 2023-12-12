@@ -6,19 +6,12 @@ on:
 env:
   BUILD_CONFIG: "Release"
   BUILDNUMBER: ${{github.run_number}}
-
 jobs:
   windows-build:
     name: Build the Ziti Desktop Edge for Windows Installer Package
     runs-on: windows-latest
     env:
-      SIGNING_CERT: ${{ secrets.SIGNING_CERT_2022_b64 }}
-      ADV_INST_KEY: ${{ secrets.ADV_INST_KEY }}
-      JFROG_ACCESS_TOKEN: ${{ secrets.JFROG_ACCESS_TOKEN }}
       gh_ci_key: ${{ secrets.GH_CI_KEY }}
-      ZITI_DEBUG: "yes_please"
-      OPENZITI_P12_PASS: ${{ secrets.OPENZITI_P12_PASS }}
-      OPENZITI_P12: ${{ secrets.OPENZITI_P12 }}
     defaults:
       run:
         working-directory: ./ziti-edge-ui
@@ -28,59 +21,14 @@ jobs:
         id: vars
         with:
           path: ./version      
-      - name: Setup secrets
-        run: |
-          echo "${env:SIGNING_CERT}" > ../WinSign.b64
-          echo "${env:ADV_INST_KEY}" > ../ADV_INST_KEY.key
-          echo "${env:OPENZITI_P12}" > ../OPENZITI_P12.b64
-          C:\Windows\System32\certutil.exe -decode ../WinSign.b64 ../WinSign.p12
-          C:\Windows\System32\certutil.exe -decode ../OPENZITI_P12.b64 ../openziti.p12
       - name: Trying to run choco install.
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-      - name: "Install Choco needs: advanced-installer wixtoolset ninja"
-        run: choco install advanced-installer wixtoolset ninja --yes
-      - name: "Install Choco needs: Node JS"
-        run: choco install -y --force nodejs
+      - name: "Install Choco needs: advanced-installer wixtoolset ninja nodejs"
+        run: choco install advanced-installer wixtoolset ninja nodejs --yes --force 
       - name: Setting up version env var
         run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
-      - name: Create PFX certificate
-        id: create-pfx
-        shell: pwsh
-        env:
-          PFX_CONTENT: ${{ secrets.SIGNING_CERT_2022_b64 }}
-        run: |
-          echo "${env:SIGNING_CERT}" > WinSign.b64
-          C:\Windows\System32\certutil.exe -decode WinSign.b64 WinSign.p12
-      - run: echo ${{ steps.vars.outputs.text }}
-        env:
-          APPVER: ${{ steps.vars.outputs.text }}
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.15.0'
-      - run: npm install
-      - run: npm i -g electron-packager
-      - run: electron-packager ./ Ziti-Desktop-Edge --overwrite --asar --electron-version=21.4.3 --platform=win32 --arch=x64 --prune=true --out=../release-builds --icon=./app.ico
-      - name: Build AIP
-        uses: caphyon/advinst-github-action@v1.0
-        with:
-          advinst-version: '20.6'
-          advinst-license: ${{ secrets.ADV_INST_KEY }}
-          advinst-enable-automation: 'true'
-          aip-path: ${{ github.workspace }}\Desktop-Edge-UI.aip
-          aip-build-name: DefaultBuild
-          aip-package-name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
-          aip-output-dir:  ${{ github.workspace }}\release
-          aip-commands: |
-            SetVersion ${{ steps.vars.outputs.text }}
-            SetSig
-            SetDigitalCertificateFile -file ./ziti-edge-ui/WinSign.p12
-      - name: Delete PFX certificate
-        shell: pwsh
-        env:
-          PFX_PATH: ${{ steps.create-pfx.outputs.PFX_PATH }}
-        run: |
-          Remove-Item -Path ./WinSign.p12;
+      - name: Build Electron UI
+        run: powershell -File .\Installer\build.ps1
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -98,19 +46,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_name: Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
-          asset_path: ${{ github.workspace }}\release\Ziti-Desktop-Edge-${{ steps.vars.outputs.text }}.exe
+          asset_name: ZitiUI.zip
+          asset_path: ${{ github.workspace }}\release-builds/ZitiUI.zip
           asset_content_type: application/exe
       - run: echo ./release-build/ZitiUI.zip
-      - name: Publish Executable
-        uses: actions/upload-release-asset@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_name: ZitiUI.zip
-          asset_path: ${{ github.workspace }}\release\ZitiUI.zip
-          asset_content_type: application/zip
   linux-build: 
     name: Build the Ziti Desktop Edge for Linux Deb & Rpm Installer Package
     runs-on: ubuntu-latest
