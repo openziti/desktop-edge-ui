@@ -62,11 +62,12 @@ jobs:
       - run: npm install
       - run: npm i -g electron-builder
       - run: electron-builder --linux deb rpm
+      - run: ls -l dist
       - name: Upload Deb to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
           asset_name: ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
           tag: ${{ steps.vars.outputs.text }}
           overwrite: true
@@ -75,7 +76,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
           asset_name: ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
           tag: ${{ steps.vars.outputs.text }}
           overwrite: true
