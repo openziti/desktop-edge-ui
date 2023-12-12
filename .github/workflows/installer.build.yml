@@ -21,22 +21,11 @@ jobs:
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
-      - id: set_vars
-        run: |
-          content=`cat ./package.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - run: |
-          echo "${{fromJson(steps.set_vars.outputs.text).version}}"
-      - run: |
-          echo "::set-output name=version::${{fromJson(steps.set_vars.outputs.text).version}}"
-      - run: echo ${{ steps.set_vars.version.text }}
-        env:
-          APPVER: ${{ steps.vars.version.text }}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Show Version
+        run: echo ${{ steps.package-version.outputs.current-version}}
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
@@ -45,7 +34,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./release-builds/ZitiUI.zip
           asset_name: ZitiUI.zip
-          tag: ${{ steps.vars.outputs.text }}
+          tag: ${{ steps.package-version.outputs.current-version}}
           overwrite: true
           body: ""
   linux-build: 
@@ -60,24 +49,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.15.0'
-      - id: set_vars
-        run: |
-          content=`cat ./package.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - run: |
-          echo "${{fromJson(steps.set_vars.outputs.text).version}}"
-      - run: |
-          echo "::set-output name=version::${{fromJson(steps.set_vars.outputs.text).version}}"
-      - run: echo ${{ steps.set_vars.version.text }}
-        env:
-          APPVER: ${{ steps.vars.version.text }}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Show Version
-        run: echo $APPVER
+        run: echo ${{ steps.package-version.outputs.current-version}}
       - run: npm install
       - run: npm i -g electron-builder
       - run: electron-builder --linux deb rpm
@@ -86,17 +62,17 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
-          asset_name: ziti-desktop-edge-${{ steps.vars.outputs.text }}.deb
-          tag: ${{ steps.vars.outputs.text }}
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.deb
+          asset_name: ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.deb
+          tag: ${{ steps.package-version.outputs.current-version}}
           overwrite: true
           body: ""
       - name: Upload rpm to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
-          asset_name: ziti-desktop-edge-${{ steps.vars.outputs.text }}.rpm
-          tag: ${{ steps.vars.outputs.text }}
+          file: ./ziti-edge-ui/dist/ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.rpm
+          asset_name: ziti-desktop-edge-${{ steps.package-version.outputs.current-version}}.rpm
+          tag: ${{ steps.package-version.outputs.current-version}}
           overwrite: true
           body: ""
