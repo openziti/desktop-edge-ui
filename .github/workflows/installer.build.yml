@@ -53,7 +53,7 @@ jobs:
       - uses: pCYSl5EDgo/cat@1.0.1
         id: vars
         with:
-          path: ./version
+          path: ./ziti-edge-ui/version
       - run: echo ${{ steps.vars.outputs.text }}
         env:
           APPVER: ${{ steps.vars.outputs.text }}
