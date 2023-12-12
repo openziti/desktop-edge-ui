@@ -17,16 +17,10 @@ jobs:
         working-directory: ./ziti-edge-ui
     steps: 
       - uses: actions/checkout@v3
-      - uses: pCYSl5EDgo/cat@1.0.1
-        id: vars
-        with:
-          path: ./ziti-edge-ui/version      
       - name: Trying to run choco install.
         run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
       - name: "Install Choco needs: advanced-installer nodejs"
         run: choco install advanced-installer nodejs --yes --force 
-      - name: Setting up version env var
-        run: echo "VERSION=$(cat .\version)" >> $env:GITHUB_ENV
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
       - name: Upload rpm to release
@@ -50,11 +44,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.15.0'
-      - uses: pCYSl5EDgo/cat@1.0.1
-        id: vars
-        with:
-          path: ./ziti-edge-ui/version
-      - run: echo ${{ steps.vars.outputs.text }}
+      - id: set_vars
+        run: |
+          content=`cat ./ziti-edge-ui/package.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=packageJson::$content"
+      - run: |
+          echo "${{fromJson(steps.set_vars.outputs.text).version}}"
+      - run: |
+          echo "::set-output name=version::${{fromJson(steps.set_vars.outputs.text).version}}"
+      - run: echo ${{ steps.set_vars.outputs.text }}
         env:
           APPVER: ${{ steps.vars.outputs.text }}
       - name: Show Version
