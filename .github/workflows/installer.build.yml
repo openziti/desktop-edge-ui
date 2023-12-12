@@ -30,7 +30,7 @@ jobs:
         run: choco install advanced-installer nodejs --yes --force 
       - name: Build Electron UI
         run: powershell -File ..\build.ps1
-      - name: Upload rpm to release
+      - name: Upload Zip to release for WDE Project
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
