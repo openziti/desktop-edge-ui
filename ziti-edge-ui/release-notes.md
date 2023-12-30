@@ -1,3 +1,9 @@
+# Release 3.3.1
+* Fix state of messages for on/off vs no identities/services defined
+* Update Url when updated via monitor service
+* Unhide release update form
+* Launch Classic Mode in menu
+
 # Release 3.3.0
 * Automate builds into new UI/VS DE structure
 * Add Update Release Stream Settings on Update page Ctrl+Alt+D to view

@@ -1,7 +1,7 @@
 {
   "name": "zitidesktopedge",
   "productName": "Ziti Desktop Edge (Preview)",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "homepage": "openziti.io",
   "description": "Ziti Desktop Edge Client",
   "main": "app.js",

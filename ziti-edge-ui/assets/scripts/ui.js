@@ -28,6 +28,7 @@ var ui = {
         else $(".releaseStream[data-id='Beta']").addClass("selected");
         if (data.AutomaticUpgradeDisabled.toLowerCase()=='false') $("#UpdateOn").addClass("on");
         else $("#UpdateOn").removeClass("on");
+        $("#EditReleaseUrl").val(data.AutomaticUpgradeURL);
     },
     slideOpen: function(e) {
         if (!$("body").hasClass("max")) {
@@ -57,6 +58,7 @@ var ui = {
                     $("#WelcomeBadge").hide();
                     $(".serviceon").show();
                     $(".serviceoff").hide();
+                    $("#AddButton").show();
                 }
             } else {
                 ui.seconds = 0;
@@ -71,6 +73,7 @@ var ui = {
                 $("#ServiceScreenArea").addClass("forceHide");
                 $("#NoDataIdentityScreen").removeClass("forceHide");
                 $("#NoDataServiceScreen").removeClass("forceHide");
+                $("#AddButton").hide();
             }
         }
     },
@@ -145,6 +148,9 @@ var ui = {
             $("#NavIdentityCount").html("0");
             $("#CircleArea").hide();
             $("#WelcomeBadge").show();
+            $("#AddButton").show();
+            $(".serviceon").hide();
+            $(".serviceoff").show();
             if (app.os=="linux") {
                 // Do this here because there is no state coming once off on Linux
                 $(".missions").hide();
@@ -171,6 +177,9 @@ var ui = {
             $("#OnOffButton").addClass("on");
             $("#CircleArea").show();
             $("#WelcomeBadge").hide();
+            $("#AddButton").hide();
+            $(".serviceon").show();
+            $(".serviceoff").hide();
         }
     },
     tick: function() {

@@ -10,7 +10,7 @@ const rootPath = require('electron-root-path').rootPath;
 window.$ = window.jQuery = require("./assets/scripts/jquery.js"); 
 var Highcharts = require('highcharts');   
 require('highcharts/modules/exporting')(Highcharts);  
-const githubUrl = "https://get.openziti.io/zdew/latest.json";
+const githubUrl = "https://get.openziti.io/zdew/stable.json";
 
 var app = {
     settings: {},
@@ -72,6 +72,7 @@ var app = {
         $("#EditUrlButton").click(app.showUrlForm);
         $("#ResetButton").click(app.resetUrl);
         $("#UpdateAvailable").click(app.triggerUpdate);
+        $("#LaunchClassic").click(app.launchClassic);
         $(".sort").click((e) => {
             var options = $(e.currentTarget).find(".options");
             if (options) {
@@ -352,7 +353,7 @@ var app = {
     onData: function(event, data) {
         try {
             var message = JSON.parse(data);
-            console.log(message);
+            console.log("data", message);
 
             
             if (message.Op) {
@@ -372,7 +373,6 @@ var app = {
                         }
                     }
                     ZitiSettings.init(message.Status);
-                    console.log(ZitiIdentity.data);
                     ZitiService.refresh();
                     message.Status.from = "Status";
                     ui.state(message.Status);
@@ -484,7 +484,7 @@ var app = {
                         } else {
                             if (message.Type=="Status") {
                                 ui.updates(message);
-                                if (message.Status&&message.Status=="Stopped") {
+                                if (message.Status && message.Status=="Stopped") {
                                     ui.hideLoad();
                                     ui.state({Active: false, from: "Message"});
                                     ZitiIdentity.data = [];
@@ -498,11 +498,11 @@ var app = {
                                         ui.state(message);
                                     }
                                 }
-                                if (message.Message&&message.Message=="Running") {
+                                if (message.Message && (message.Message=="Running" || message.Status=="Running")) {
                                     ui.hideLoad();
                                     ui.state({Active: true, from: "Message"});
-                                    ZitiIdentity.data = [];
-                                    ZitiService.data = [];
+                                    // ZitiIdentity.data = [];
+                                    // ZitiService.data = [];
                                     $("#NavServiceCount").html("0");
                                     $("#NavIdentityCount").html("0");
                                     ZitiIdentity.refresh();
@@ -738,6 +738,9 @@ var app = {
         }
 
 
+    },
+    launchClassic: function(e) {
+        ipcRenderer.send('classic');
     },
     action: function(e) {
         var id = $(e.currentTarget).data("action");

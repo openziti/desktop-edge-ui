@@ -70,7 +70,7 @@
             <div id="MainTitle" class="globetitle unselectable" data-i18n></div>
 
             <div id="NoIdentityState" class="missions" style="display: none;">
-                <div id="WelcomeBadge" class="staticmodal inline" style="display: none;">
+                <div class="staticmodal inline">
                     <div class="icon close"></div>
                     <div id="WelcomeTitle" class="title unselectable" data-i18n></div>
                     <div class="grid split">
@@ -120,7 +120,7 @@
                 </div>
             </div>
 
-            <div id="DisconnectedState" class="missions">
+            <div id="DisconnectedState" class="missions" style="display: none;">
                 <div id="WelcomeBadge" class="staticmodal inline">
                     <div id="NotConnected" class="title unselectable" data-i18n></div>
                     <div class="grid split">
@@ -140,7 +140,8 @@
                     <div class="image atvImg">
                         <div class="atvImg-layer" data-img="assets/images/Identities-Color-3D.svg"></div>
                     </div>
-                    <div id="NoIdentitiesMessage" class="nomessage" data-i18n></div>
+                    <div id="NoIdentitiesMessage" class="nomessage serviceon" data-i18n></div>
+                    <div id="IDServiceOffMessage" class="nomessage serviceoff" style="display: none;" data-i18n></div>
                 </div>
             </div>
             <div id="IdentityScreenArea" class="gridrow scrollParent ids forceHide">
@@ -246,7 +247,8 @@
                     <div class="image atvImg">
                         <div class="atvImg-layer" data-img="assets/images/Services-Color-3D.svg"></div>
                     </div>
-                    <div id="NoServicesMessage" class="nomessage" data-i18n></div>
+                    <div id="NoServicesMessage" class="nomessage serviceon" data-i18n></div>
+                    <div id="ServiceOffMessage" class="nomessage serviceoff" style="display: none;" data-i18n></div>
                 </div>
             </div>
             <div id="ServiceScreenArea" class="gridrow scrollParent forceHide">
@@ -510,7 +512,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="ReleaseStream" style="display: none;">
+                    <div id="ReleaseStream">
                         <div class="icon release noback" style="display: none;"></div>
                         <div class="name" data-i18n="ReleaseStream" style="display: none;"></div>
                         <div style="display: none;">
@@ -707,6 +709,10 @@
         <div class="navItem" data-screen="SupportScreen">
             <div class="icon support"></div>
             <div class="label unselectable" data-i18n="Support"></div>
+        </div>
+        <div id="LaunchClassic" class="navItem">
+            <div class="icon software"></div>
+            <div class="label unselectable" data-i18n="ClassicMode"></div>
         </div>
         <div class="nav-z"></div>
         <div id="UpdateAvailable" class="updateavailable" style="display: none;">

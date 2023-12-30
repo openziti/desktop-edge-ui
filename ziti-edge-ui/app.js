@@ -11,6 +11,7 @@ const contextMenu = require('electron-context-menu');
 var sudo = require('sudo-prompt');
 const findRemove = require('find-remove');
 const nativeImage = require('electron').nativeImage
+const { execFile } = require('node:child_process');
 
 var mainWindow;
 var logging = true;
@@ -439,6 +440,12 @@ ipcMain.on('close', () => {
     Log.debug("Close", "Hide Window");
     mainWindow.hide();
     // app.quit();
+});
+
+ipcMain.on('classic', () => {
+    const child = execFile('ZitiDesktopEdge.exe', [], (error, stdout, stderr) => {
+        if (error) console.log(error)
+    }); 
 });
 
 ipc.config.rawBuffer = true;

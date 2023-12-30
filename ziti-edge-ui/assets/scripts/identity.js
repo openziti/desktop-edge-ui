@@ -164,7 +164,9 @@ var ZitiIdentity = {
         }
 
         $(".missions").hide();
+        console.log("Length", ZitiIdentity.data.length);
         if (ZitiIdentity.data.length==0) {
+            console.log("Test", ui.isOn);
             if (ui.isOn) $("#NoIdentityState").show();
             else $("#DisconnectedState").show();
             $("#ConnectedState").hide();
