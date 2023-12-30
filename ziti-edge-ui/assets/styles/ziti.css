@@ -815,6 +815,10 @@ body.max .updateavailable {
     transition: .3s;
 }
 
+.navItem:hover .icon.software {
+    background-image: url(../images/software-color.svg);
+}
+
 .navItem:active {
     filter: brightness(75%);
     transform: translateY(1px);
@@ -876,6 +880,10 @@ nav .title {
 
 .navItem .icon.support {
     background-image: url(../images/support.svg);
+}
+
+.navItem .icon.software {
+    background-image: url(../images/software.svg);
 }
 
 .navItem.selected {
