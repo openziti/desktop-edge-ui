@@ -1,25 +1,28 @@
 var locale = {
     key: 'en-us',
-    keys: [],
+    keys: {},
     init: function(language) {
         locale.key = language;
-        var filePath = 'assets/languages/'+locale.key+'.json';
-        var languageFile = path.join(__dirname, filePath);
-        let obj = JSON.parse(fs.readFileSync(languageFile));
+        var defaultFile = path.join(__dirname, '../languages/en-us.json');
+        let obj = JSON.parse(fs.readFileSync(defaultFile));
 
 		for (var item in obj) {
 			locale.keys[item] = obj[item];
 		}
         
-        if (fs.existsSync(path.join(__dirname, 'assets/languages/'+language+'.json'))) {
-            filePath = 'assets/languages/'+language+'.json';
-            obj = JSON.parse(fs.readFileSync(languageFile));
+        var userFile = path.join(__dirname, '../languages/'+language+'.json');
+        if (fs.existsSync(userFile)) {
+            let userObj = JSON.parse(fs.readFileSync(userFile));
     
-            for (var item in obj) {
-                locale.keys[item] = obj[item];
+            for (var item in userObj) {
+                locale.keys[item] = userObj[item];
             }
         }
         locale.loaded();
+    },
+    switch: function(language) {
+        locale.keys = {};
+        locale.init(language);
     },
     get: function(key) {
         if (!locale.keys[key]) return "";
@@ -45,7 +48,7 @@ var locale = {
 	},
     getReplace(key, props) {
         let value = "";
-        if (locale.keys.length==0) {
+        if (Object.keys(locale.keys).length==0) {
             locale.init(locale.key);
         }
         if (locale.keys[key]) {
