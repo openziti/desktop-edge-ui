@@ -300,7 +300,7 @@ process.on('uncaughtException', function (error) {
 const appLock = app.requestSingleInstanceLock();
 
 electron.app.setLoginItemSettings({
-    openAtLogin: true,
+    openAtLogin: false,
     path: electron.app.getPath("exe")
 });
     
