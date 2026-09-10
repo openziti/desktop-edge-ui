@@ -285,7 +285,7 @@ var Application = {
 }
 
 process.on('uncaughtException', function (error) {
-    Log.error("Uncaught Exception", JSON.stringify(error));
+    Log.error("Uncaught Exception", error && error.stack ? error.stack : String(error));
 });
 
 const appLock = app.requestSingleInstanceLock();
@@ -319,8 +319,18 @@ var AppSettings = {
             };
             AppSettings.Save();
         } else {
-            AppSettings.data = JSON.parse(fs.readFileSync(file));
-            Log.debug("AppSettings.init", "Settings Loaded: "+JSON.stringify(AppSettings.data));
+            try {
+                AppSettings.data = JSON.parse(fs.readFileSync(file));
+                Log.debug("AppSettings.init", "Settings Loaded: "+JSON.stringify(AppSettings.data));
+            } catch (e) {
+                Log.error("AppSettings.init", "Failed to load settings: " + (e && e.stack ? e.stack : String(e)));
+                AppSettings.data = {
+                    "width": null,
+                    "height": null,
+                    "logDays": 7
+                };
+                AppSettings.Save();
+            }
         }
     },
     IsSet: function(prop) {
