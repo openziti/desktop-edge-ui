@@ -81,9 +81,14 @@ var app = {
             }
         });
         $(".option").click((e) => {
+            e.stopPropagation();
             var sortWhat = $(e.currentTarget).data("what");
             var sort = $(e.currentTarget).data("sort");
             var how = $(e.currentTarget).data("how");
+            var lang = $(e.currentTarget).data("lang");
+            if (lang) {
+                app.onLanguageChange(lang);
+            }
             if (sort) {
                 if (sortWhat=="identity") {
                     ZitiIdentity.setSort(sort);
@@ -212,8 +217,22 @@ var app = {
         else if (app.os=="linux") $(".linux").show();
         else if (app.os=="darwin") $(".mac").show();
     },
+    getLangName: function(lang) {
+        if (lang.toLowerCase() == "en-us") return "English";
+        if (lang.toLowerCase() == "en-au") return "English (Australia)";
+        if (lang.toLowerCase() == "zh-cn") return "中文";
+        return lang;
+    },
     setLocale: function(e, data) {
         locale.init(data.toLowerCase());
+        var langName = app.getLangName(data);
+        if (langName) $("#CurrentLanguage").html(langName);
+    },
+    onLanguageChange: function(language) {
+        locale.switch(language);
+        var langName = app.getLangName(language);
+        if (langName) $("#CurrentLanguage").html(langName);
+        $("#LanguageSelector .options").removeClass("open");
     },
     setVersion: function(e, data) {
         $("#AppVersion").html(data);

@@ -2352,16 +2352,81 @@ element.style {
 
 .blurArea {
     width: auto;
+}
+
+.icon.globe {
+    background-image: url(../images/global.svg);
+}
+
+.languageSort {
+    background-image: url(../images/down.svg);
+    background-size: 5px auto;
+    background-position: right center;
+    padding-right: 15px;
+    text-align: right;
+    color: rgba(255,255,255,.75);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 41px;
+    cursor: pointer;
+    position: relative;
+    width: 180px;
+}
+
+.languageSort:hover {
+    color: rgba(255,255,255,1);
+}
+
+.languageSort .options {
+    position: absolute;
+    width: 180px;
+    top: 45px;
+    right: 0px;
+    height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    transition: var(--transition);
+    background-color: rgba(0,0,0,.85);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    border-radius: 7px;
+    box-shadow: var(--shadow);
+    mask: none !important;
+}
+
+.languageSort .options.open {
+    height: unset;
+    opacity: 1;
+    z-index: 500;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.languageSort .option {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #FFF;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.languageSort .option:hover {
+    background-color: rgba(255,255,255,.1);
+}
+
+.blurArea {
     height: 45px;
     line-height: 45px;
     background-color: rgba(255,255,255,.15);
     border-radius: 10px;
     display: grid;
-    grid-template-columns: 65px auto;
+    grid-template-columns: 50px auto;
     opacity: 0;
     padding-right: 5px;
     transition: var(--transition);
-    grid-template-columns: 50px auto;
 }
 
 .blurArea.reversed {

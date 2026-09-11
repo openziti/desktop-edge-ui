@@ -32,8 +32,12 @@ var mfaTimedIcon = path.join(__dirname, 'assets','images', 'mfa-timedout.ico');
 var mfaErrorIcon = path.join(__dirname, 'assets','images', 'mfa-required.ico');
 var isConnected = false;
 
-var appPath = app.getPath('appData');
-appPath = path.join(appPath, "openziti");
+var appPath = path.join(app.getPath('appData'), 'openziti');
+try {
+    if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
+} catch (e) {
+    appPath = path.join(__dirname, ".openziti");
+}
 var logDirectory = path.join(appPath, "logs");
 logDirectory = path.join(logDirectory, "ui");
 var tray;
@@ -45,7 +49,12 @@ contextMenu({
 
 var Application = {
     CreateWindow: function() {
-        if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
+        try {
+            if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
+            if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
+        } catch (e) {
+            console.log('Warning: Cannot create log directory:', e.message);
+        }
         app.setAppUserModelId("Ziti Desktop Edge");
         var mainScreen = electron.screen.getPrimaryDisplay();
         var dimensions = mainScreen.size;
@@ -291,7 +300,7 @@ process.on('uncaughtException', function (error) {
 const appLock = app.requestSingleInstanceLock();
 
 electron.app.setLoginItemSettings({
-    openAtLogin: true,
+    openAtLogin: false,
     path: electron.app.getPath("exe")
 });
     
@@ -385,7 +394,9 @@ var Log = {
     },
     write: function(level, from, message) {
         let seconds = this.daysToMaintain * 24 * 60 * 60;
-        findRemove(logDirectory, {age: {seconds: seconds}, dir: '*', extensions: ['.json', '.log']});
+        try {
+            findRemove(logDirectory, {age: {seconds: seconds}, dir: '*', extensions: ['.json', '.log']});
+        } catch(e) {}
         if (level!=null && from!=null && message!=null) {
            if (Log.levels.indexOf(Log.level) >= Log.levels.indexOf(level)) {
                 try {
@@ -398,22 +409,27 @@ var Log = {
                     var logString = "["+moment().format("yyyy-MM-DDTHH\:mm\:ss.fffZ")+"]\t"+level.toUpperCase()+"\t"+from+"\t"+messageValue+"\n";
                     if (this.toConsole) console.log(logString);
                     if (this.toFile) {
+                        try {
+                            let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
+                            if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
             
-                        let fileName = path.join(logDirectory, Log.file+moment().format("YYYYMMDD")+".log");
-                        if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory, { recursive: true });
+                            fs.appendFile(fileName, logString, (err) => {
+                                if (err) console.log("Log Write Error: "+err);
+                            });
             
-                        fs.appendFile(fileName, logString, (err) => {
-                            if (err) console.log("Log Write Error: "+err);
-                        });
-            
-                        fs.readdir(logDirectory, (err, files) => {
-                            if (files.length>Log.daysToMaintain) {
-                                var toDelete = Log.daysToMaintain-files.length;
-                                for (let i=0; i<toDelete; i++) {
-                                    fs.unlink(files[i]);
+                            fs.readdir(logDirectory, (err, files) => {
+                                if (err) return console.log('Log clean up error: ' + err);
+                                if (files && files.length>Log.daysToMaintain) {
+                                    files.sort();
+                                    var toDelete = files.length-Log.daysToMaintain;
+                                    for (let i=0; i<toDelete; i++) {
+                                        fs.unlink(path.join(logDirectory, files[i]));
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } catch (e) {
+                            console.log("Log Write Error: "+e.message);
+                        }
                     }
                 } catch (e) {
                     console.log("Logging Error", e);
@@ -443,9 +459,37 @@ ipcMain.on('close', () => {
 });
 
 ipcMain.on('classic', () => {
-    const child = execFile('ZitiDesktopEdge.exe', [], (error, stdout, stderr) => {
-        if (error) console.log(error)
-    }); 
+    var exePath = path.join(path.dirname(process.execPath), 'ZitiDesktopEdge.exe');
+    if (!fs.existsSync(exePath)) {
+        exePath = 'ZitiDesktopEdge.exe';
+    }
+    fs.access(exePath, fs.constants.X_OK, (err) => {
+        if (err) {
+            mainWindow.webContents.send('growl', {
+                type: 'error',
+                title: 'Classic Mode Error',
+                subtitle: 'Cannot launch classic mode',
+                message: 'ZitiDesktopEdge.exe not found or not executable.'
+            });
+            return;
+        }
+        const child = execFile(exePath, [], (error, stdout, stderr) => {
+            if (error) {
+                mainWindow.webContents.send('growl', {
+                    type: 'error',
+                    title: 'Classic Mode Error',
+                    subtitle: 'Failed to launch',
+                    message: error.message
+                });
+            }
+        });
+        mainWindow.webContents.send('growl', {
+            type: 'info',
+            title: 'Classic Mode',
+            subtitle: 'Launching',
+            message: 'Classic mode is being launched.'
+        });
+    });
 });
 
 ipc.config.rawBuffer = true;
